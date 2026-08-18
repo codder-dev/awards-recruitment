@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data-Driven Insights – Awards Recruitment Ltd</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Data-driven insights for employers from Awards Recruitment Ltd. Get analytics on job postings, candidate applications, and hiring metrics to optimize your strategy." />
+    <meta name="keywords" content="data-driven insights, hiring analytics, recruitment metrics, Kenya recruitment, talent analytics" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Data-Driven Insights – Awards Recruitment Ltd" />
+    <meta property="og:description" content="Get analytics on your job postings, candidate applications, and hiring metrics to optimize your strategy." />
+    <meta property="og:url" content="https://www.awardsrecruitment.com/data-driven-insights.html" />
+    <meta property="og:type" content="website" />
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- HEADER -->
+    <!-- ============================================================ -->
+    <header class="glass-nav" id="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+                    <div class="logo-icon"><i class="fas fa-award"></i></div>
+                    <span>Awards <span>Recruitment</span></span>
+                </a>
+            </div>
+
+             <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="job-seekers.html">Job Seekers</a></li>
+                    <li><a href="careers.html">Job Posts</a></li>
+                    <li><a href="employers.html">Employers</a></li>
+                    <li><a href="partners.html">Partners</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="create-account.html" class="btn btn-outline">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </a>
+                <a href="register.html" class="btn btn-primary">
+                    <i class="fas fa-user-check"></i> Register
+                </a>
+            </div>
+
+            <div class="hamburger unique-hamburger" onclick="toggleMenu()">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- PAGE HERO -->
+    <!-- ============================================================ -->
+    <section class="page-hero insights-hero">
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-bg">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80" alt="Data-Driven Insights" />
+        </div>
+        <div class="container">
+            <div class="page-hero-content">
+                <div class="page-hero-text">
+                    <span class="page-hero-badge">
+                        <i class="fas fa-chart-bar"></i> Employer Solutions
+                    </span>
+                    <h1>Data-Driven <span>Insights</span></h1>
+                    <p>Get analytics on your job postings, candidate applications, and hiring metrics to optimize your recruitment strategy.</p>
+                    <div class="page-hero-buttons">
+                        <a href="#insights-features" class="btn btn-primary btn-lg">
+                            <i class="fas fa-arrow-down"></i> Explore Insights
+                        </a>
+                        <a href="register.html" class="btn btn-secondary btn-lg">
+                            <i class="fas fa-user-plus"></i> Get Started
+                        </a>
+                    </div>
+                </div>
+                <div class="page-hero-image">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80" alt="Data Insights" />
+                    <div class="hero-floating-badge">
+                        <i class="fas fa-chart-line"></i>
+                        <span>100% Data Visibility</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- STATS -->
+    <!-- ============================================================ -->
+    <section class="insights-stats">
+        <div class="container">
+            <div class="insights-stats-grid">
+                <div class="insights-stat-item">
+                    <div class="insights-stat-number" data-target="50">0</div>
+                    <p><i class="fas fa-file-alt"></i> Reports Generated</p>
+                </div>
+                <div class="insights-stat-item">
+                    <div class="insights-stat-number" data-target="30">0</div>
+                    <p><i class="fas fa-percent"></i> Improved Efficiency (%)</p>
+                </div>
+                <div class="insights-stat-item">
+                    <div class="insights-stat-number" data-target="95">0</div>
+                    <p><i class="fas fa-check-circle"></i> Data Accuracy (%)</p>
+                </div>
+                <div class="insights-stat-item">
+                    <div class="insights-stat-number" data-target="24">0</div>
+                    <p><i class="fas fa-clock"></i> Real-Time Updates</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- INSIGHTS FEATURES -->
+    <!-- ============================================================ -->
+    <section class="insights-features" id="insights-features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Features</span>
+                <h2>Insights That <span>Drive Decisions</span></h2>
+                <p>Powerful analytics to help you make smarter hiring decisions</p>
+            </div>
+
+            <div class="insights-grid">
+                <div class="insights-card">
+                    <div class="insights-icon"><i class="fas fa-user-clock"></i></div>
+                    <h3>Time-to-Hire Analytics</h3>
+                    <p>Track how long it takes to fill positions and identify bottlenecks in your hiring process.</p>
+                    <ul class="insights-list">
+                        <li><i class="fas fa-check-circle"></i> Average time-to-hire</li>
+                        <li><i class="fas fa-check-circle"></i> Stage-by-stage breakdown</li>
+                        <li><i class="fas fa-check-circle"></i> Bottleneck identification</li>
+                    </ul>
+                </div>
+
+                <div class="insights-card">
+                    <div class="insights-icon"><i class="fas fa-users"></i></div>
+                    <h3>Candidate Quality Metrics</h3>
+                    <p>Measure the quality of your candidate pool and the effectiveness of your sourcing channels.</p>
+                    <ul class="insights-list">
+                        <li><i class="fas fa-check-circle"></i> Candidate quality score</li>
+                        <li><i class="fas fa-check-circle"></i> Source effectiveness</li>
+                        <li><i class="fas fa-check-circle"></i> Conversion rates</li>
+                    </ul>
+                </div>
+
+                <div class="insights-card">
+                    <div class="insights-icon"><i class="fas fa-dollar-sign"></i></div>
+                    <h3>Cost Analytics</h3>
+                    <p>Understand your recruitment costs and optimize your hiring budget for maximum ROI.</p>
+                    <ul class="insights-list">
+                        <li><i class="fas fa-check-circle"></i> Cost-per-hire breakdown</li>
+                        <li><i class="fas fa-check-circle"></i> Budget optimization</li>
+                        <li><i class="fas fa-check-circle"></i> ROI analysis</li>
+                    </ul>
+                </div>
+
+                <div class="insights-card">
+                    <div class="insights-icon"><i class="fas fa-chart-pie"></i></div>
+                    <h3>Market Insights</h3>
+                    <p>Get real-time market data to benchmark your hiring against industry standards.</p>
+                    <ul class="insights-list">
+                        <li><i class="fas fa-check-circle"></i> Salary benchmarks</li>
+                        <li><i class="fas fa-check-circle"></i> Talent availability</li>
+                        <li><i class="fas fa-check-circle"></i> Industry trends</li>
+                    </ul>
+                </div>
+
+                <div class="insights-card">
+                    <div class="insights-icon"><i class="fas fa-funnel-dollar"></i></div>
+                    <h3>Pipeline Analytics</h3>
+                    <p>Visualize your talent pipeline and identify where candidates drop off in your hiring funnel.</p>
+                    <ul class="insights-list">
+                        <li><i class="fas fa-check-circle"></i> Pipeline visualization</li>
+                        <li><i class="fas fa-check-circle"></i> Drop-off points</li>
+                        <li><i class="fas fa-check-circle"></i> Optimization recommendations</li>
+                    </ul>
+                </div>
+
+                <div class="insights-card">
+                    <div class="insights-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Predictive Analytics</h3>
+                    <p>Use AI-powered predictions to forecast hiring needs, candidate success, and retention.</p>
+                    <ul class="insights-list">
+                        <li><i class="fas fa-check-circle"></i> Hiring forecasts</li>
+                        <li><i class="fas fa-check-circle"></i> Candidate success prediction</li>
+                        <li><i class="fas fa-check-circle"></i> Retention risk analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- HOW IT WORKS -->
+    <!-- ============================================================ -->
+    <section class="insights-process">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">How It Works</span>
+                <h2>How Our <span>Insights</span> Work</h2>
+                <p>Simple steps to unlock powerful hiring intelligence</p>
+            </div>
+
+            <div class="insights-steps">
+                <div class="insights-step">
+                    <div class="insights-step-number">01</div>
+                    <div class="insights-step-icon"><i class="fas fa-link"></i></div>
+                    <h3>Connect Your Data</h3>
+                    <p>Integrate your recruitment data seamlessly with our platform for real-time analytics.</p>
+                </div>
+
+                <div class="insights-step">
+                    <div class="insights-step-number">02</div>
+                    <div class="insights-step-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Our AI processes your data to uncover patterns, trends, and actionable insights.</p>
+                </div>
+
+                <div class="insights-step">
+                    <div class="insights-step-number">03</div>
+                    <div class="insights-step-icon"><i class="fas fa-chart-simple"></i></div>
+                    <h3>Visualize & Optimize</h3>
+                    <p>Access intuitive dashboards and reports to optimize your recruitment strategy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SAMPLE DASHBOARD -->
+    <!-- ============================================================ -->
+    <section class="sample-dashboard">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Dashboard</span>
+                <h2>Your Insights <span>Dashboard</span></h2>
+                <p>Real-time analytics at your fingertips</p>
+            </div>
+
+            <div class="dashboard-preview">
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <span class="dashboard-card-title">Time-to-Hire</span>
+                        <span class="dashboard-card-value">12 days</span>
+                    </div>
+                    <div class="dashboard-progress">
+                        <div class="dashboard-progress-bar" style="width: 75%;"></div>
+                    </div>
+                    <p class="dashboard-card-note">5 days faster than industry average</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <span class="dashboard-card-title">Quality Score</span>
+                        <span class="dashboard-card-value">94%</span>
+                    </div>
+                    <div class="dashboard-progress">
+                        <div class="dashboard-progress-bar" style="width: 94%;"></div>
+                    </div>
+                    <p class="dashboard-card-note">Top 5% in your industry</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <span class="dashboard-card-title">Cost-per-Hire</span>
+                        <span class="dashboard-card-value">$3,200</span>
+                    </div>
+                    <div class="dashboard-progress">
+                        <div class="dashboard-progress-bar" style="width: 60%;"></div>
+                    </div>
+                    <p class="dashboard-card-note">20% below industry average</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <span class="dashboard-card-title">Retention Rate</span>
+                        <span class="dashboard-card-value">92%</span>
+                    </div>
+                    <div class="dashboard-progress">
+                        <div class="dashboard-progress-bar" style="width: 92%;"></div>
+                    </div>
+                    <p class="dashboard-card-note">15% higher than industry average</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- TESTIMONIALS -->
+    <!-- ============================================================ -->
+    <section class="insights-testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Testimonials</span>
+                <h2>What Our <span>Clients Say</span></h2>
+                <p>Real feedback from employers using our insights</p>
+            </div>
+
+            <div class="insights-testimonials-grid">
+                <div class="insights-testimonial-card">
+                    <div class="insights-testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"The insights dashboard has transformed our hiring strategy. We can now make data-driven decisions with confidence."</p>
+                    <div class="insights-testimonial-author">
+                        <img src="https://i.pravatar.cc/60?img=2" alt="Sarah" />
+                        <div>
+                            <h4>Sarah Wanjiru</h4>
+                            <span>HR Manager, TechHub Kenya</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="insights-testimonial-card">
+                    <div class="insights-testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"The real-time analytics have helped us reduce our time-to-hire by 30%. It's been a game-changer for our recruitment process."</p>
+                    <div class="insights-testimonial-author">
+                        <img src="https://i.pravatar.cc/60?img=4" alt="Mary" />
+                        <div>
+                            <h4>Mary Akinyi</h4>
+                            <span>CEO, Vertex Solutions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- CTA SECTION -->
+    <!-- ============================================================ -->
+    <section class="cta-section-simple insights-cta">
+        <div class="container">
+            <div class="cta-simple-content">
+                <h2>Unlock <span>Data-Driven</span> Hiring</h2>
+                <p>Get the insights you need to make smarter hiring decisions and build a stronger team.</p>
+                <div class="cta-simple-buttons">
+                    <a href="register.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-user-plus"></i> Register as Employer
+                    </a>
+                    <a href="contact.html" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-envelope"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================================ -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+                            <div class="logo-icon"><i class="fas fa-award"></i></div>
+                            <span>Awards <span>Recruitment</span></span>
+                        </a>
+                    </div>
+                    <p>Premier outsourcing and resourcing solutions tailored to meet the unique needs of businesses worldwide.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Quick Links</h4>
+                         <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="job-seekers.html">Job Seekers</a></li>
+                            <li><a href="careers.html">Job Posts</a></li>
+                            <li><a href="employers.html">Employers</a></li>
+                            <li><a href="partners.html">Partners</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>For Employers</h4>
+                        <ul>
+                            <li><a href="register.html">Register</a></li>
+                            <li><a href="employer-login.html">Login</a></li>
+                            <li><a href="post-job.html">Post a Job</a></li>
+                            <li><a href="pre-screened-candidates.html">Pre-Screened Candidates</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>For Job Seekers</h4>
+                        <ul>
+                            <li><a href="create-account.html">Create Account</a></li>
+                            <li><a href="login.html">Login</a></li>
+                            <li><a href="login.html">Dashboard</a></li>
+                            <li><a href="careers.html">Browse Jobs</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i> Finance House, 8th Floor, Loita Street</li>
+                            <li><i class="fas fa-phone"></i> +254 741 979 797</li>
+                            <li><i class="fas fa-envelope"></i> info@awardsrecruitment.com</li>
+                            <li><i class="fas fa-clock"></i> Mon – Fri: 8AM – 6PM</li>
+                            <li><i class="fas fa-clock"></i>Sartuday 8:00AM - 1PM</li>                                
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+                      <div class="footer-bottom">
+    <div class="footer-bottom-left">
+        <p>&copy; 2026 <strong>Awards Recruitment Ltd</strong>. All Rights Reserved.</p>
+    </div>
+    <div class="footer-bottom-right">
+        <a href="terms.html">Terms</a>
+        <a href="privacy-policy.html">Privacy</a>
+    </div>
+</div>
+        </div>
+        </div>
+    </footer>
+
+    <button id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
