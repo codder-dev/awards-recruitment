@@ -13639,3 +13639,467 @@ footer {
         padding: 2px 10px;
     }
 }
+/* ============================================================ */
+/* CAREER TIPS PAGES — Mobile Responsiveness */
+/* Interview Tips, CV Tips, Career Growth */
+/* ============================================================ */
+
+/* ============================================================ */
+/* Tips Pages Hero */
+/* ============================================================ */
+@media (max-width: 991px) {
+    .tips-hero .page-hero-content,
+    .cv-hero .page-hero-content,
+    .growth-hero .page-hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 20px !important;
+    }
+
+    .tips-hero .page-hero-image,
+    .cv-hero .page-hero-image,
+    .growth-hero .page-hero-image {
+        display: none !important;
+    }
+
+    .tips-hero .page-hero-text,
+    .cv-hero .page-hero-text,
+    .growth-hero .page-hero-text {
+        padding: 0 10px;
+    }
+
+    .tips-hero .page-hero-text h1,
+    .cv-hero .page-hero-text h1,
+    .growth-hero .page-hero-text h1 {
+        font-size: 1.8rem !important;
+    }
+
+    .tips-hero .page-hero-text p,
+    .cv-hero .page-hero-text p,
+    .growth-hero .page-hero-text p {
+        font-size: 0.9rem !important;
+    }
+
+    .tips-hero .page-hero-buttons,
+    .cv-hero .page-hero-buttons,
+    .growth-hero .page-hero-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px !important;
+    }
+
+    .tips-hero .page-hero-buttons .btn,
+    .cv-hero .page-hero-buttons .btn,
+    .growth-hero .page-hero-buttons .btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+        font-size: 0.85rem !important;
+        padding: 12px 20px !important;
+        min-height: 44px;
+    }
+}
+
+/* ============================================================ */
+/* Tips Grid — Mobile */
+/* ============================================================ */
+@media (max-width: 767px) {
+    .tips-grid,
+    .cv-grid,
+    .network-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    .tip-card,
+    .cv-tip-card,
+    .network-card {
+        padding: 20px 15px !important;
+    }
+
+    .tip-number,
+    .cv-tip-number,
+    .network-number {
+        font-size: 2.5rem !important;
+    }
+
+    .tip-icon,
+    .cv-tip-icon,
+    .network-icon {
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 1.2rem !important;
+    }
+
+    .tip-card h3,
+    .cv-tip-card h3,
+    .network-card h3 {
+        font-size: 0.95rem !important;
+    }
+
+    .tip-card p,
+    .cv-tip-card p,
+    .network-card p {
+        font-size: 0.85rem !important;
+    }
+
+    .tip-sub-list li,
+    .network-list li {
+        font-size: 0.8rem !important;
+    }
+
+    .cv-tip-example {
+        padding: 10px 12px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+    }
+
+    .cv-tip-example i {
+        font-size: 0.8rem !important;
+    }
+
+    .cv-tip-example span {
+        font-size: 0.78rem !important;
+    }
+}
+
+/* ============================================================ */
+/* Bonus Tips Section — Mobile */
+/* ============================================================ */
+@media (max-width: 767px) {
+    .bonus-tips,
+    .growth-bonus,
+    .cv-template {
+        padding: 40px 0 !important;
+    }
+
+    .bonus-content,
+    .template-content {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+        text-align: center !important;
+    }
+
+    .bonus-text h2,
+    .template-text h2 {
+        font-size: 1.6rem !important;
+    }
+
+    .bonus-text p,
+    .template-text p {
+        font-size: 0.9rem !important;
+    }
+
+    .bonus-list li,
+    .template-list li {
+        justify-content: center !important;
+        font-size: 0.85rem !important;
+    }
+
+    .bonus-quote {
+        padding: 15px 18px !important;
+        text-align: left !important;
+    }
+
+    .bonus-quote blockquote {
+        font-size: 0.9rem !important;
+    }
+
+    .bonus-actions {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .bonus-actions .btn {
+        width: 100% !important;
+        max-width: 280px !important;
+        justify-content: center !important;
+        min-height: 40px !important;
+    }
+
+    .bonus-image img,
+    .template-image img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* ============================================================ */
+/* Growth Strategies — Mobile */
+/* ============================================================ */
+@media (max-width: 767px) {
+    .growth-strategies {
+        padding: 40px 0 !important;
+    }
+
+    .strategy-block {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 20px 15px !important;
+        gap: 15px !important;
+        margin-bottom: 15px !important;
+    }
+
+    .strategy-number {
+        font-size: 2.5rem !important;
+        min-width: auto !important;
+    }
+
+    .strategy-content {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
+
+    .strategy-icon {
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 1.2rem !important;
+    }
+
+    .strategy-text h3 {
+        font-size: 1rem !important;
+    }
+
+    .strategy-text p {
+        font-size: 0.85rem !important;
+    }
+
+    .strategy-list li {
+        justify-content: center !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* ============================================================ */
+/* Growth Stats — Mobile */
+/* ============================================================ */
+@media (max-width: 767px) {
+    .growth-stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+    }
+
+    .growth-stat-item .growth-stat-number {
+        font-size: 2rem !important;
+    }
+
+    .growth-stat-item p {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* ============================================================ */
+/* Related Articles — Mobile */
+/* ============================================================ */
+@media (max-width: 767px) {
+    .related-articles {
+        padding: 40px 0 !important;
+    }
+
+    .related-articles-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+
+    .related-article-card {
+        padding: 20px 15px !important;
+    }
+
+    .related-article-icon {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.3rem !important;
+    }
+
+    .related-article-card h3 {
+        font-size: 0.95rem !important;
+    }
+
+    .related-article-card p {
+        font-size: 0.85rem !important;
+    }
+
+    .related-article-link {
+        font-size: 0.8rem !important;
+    }
+}
+
+/* ============================================================ */
+/* Tips Pages CTA — Mobile */
+/* ============================================================ */
+@media (max-width: 767px) {
+    .tips-cta,
+    .cv-cta,
+    .growth-cta {
+        padding: 40px 0 !important;
+    }
+
+    .tips-cta .cta-simple-content h2,
+    .cv-cta .cta-simple-content h2,
+    .growth-cta .cta-simple-content h2 {
+        font-size: 1.6rem !important;
+    }
+
+    .tips-cta .cta-simple-content p,
+    .cv-cta .cta-simple-content p,
+    .growth-cta .cta-simple-content p {
+        font-size: 0.9rem !important;
+    }
+
+    .tips-cta .cta-simple-buttons,
+    .cv-cta .cta-simple-buttons,
+    .growth-cta .cta-simple-buttons {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .tips-cta .cta-simple-buttons .btn,
+    .cv-cta .cta-simple-buttons .btn,
+    .growth-cta .cta-simple-buttons .btn {
+        width: 100% !important;
+        max-width: 280px !important;
+        justify-content: center !important;
+        min-height: 44px !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* ============================================================ */
+/* Extra Small Phones (480px and below) */
+/* ============================================================ */
+@media (max-width: 480px) {
+    .tips-hero .page-hero-text h1,
+    .cv-hero .page-hero-text h1,
+    .growth-hero .page-hero-text h1 {
+        font-size: 1.4rem !important;
+    }
+
+    .tips-hero .page-hero-text p,
+    .cv-hero .page-hero-text p,
+    .growth-hero .page-hero-text p {
+        font-size: 0.78rem !important;
+    }
+
+    .tip-number,
+    .cv-tip-number,
+    .network-number {
+        font-size: 2rem !important;
+    }
+
+    .tip-card,
+    .cv-tip-card,
+    .network-card {
+        padding: 16px 12px !important;
+    }
+
+    .tip-card h3,
+    .cv-tip-card h3,
+    .network-card h3 {
+        font-size: 0.85rem !important;
+    }
+
+    .tip-card p,
+    .cv-tip-card p,
+    .network-card p {
+        font-size: 0.78rem !important;
+    }
+
+    .bonus-text h2,
+    .template-text h2 {
+        font-size: 1.3rem !important;
+    }
+
+    .strategy-block {
+        padding: 16px 12px !important;
+    }
+
+    .strategy-number {
+        font-size: 2rem !important;
+    }
+
+    .strategy-text h3 {
+        font-size: 0.9rem !important;
+    }
+
+    .strategy-text p {
+        font-size: 0.78rem !important;
+    }
+
+    .growth-stat-item .growth-stat-number {
+        font-size: 1.5rem !important;
+    }
+
+    .growth-stat-item p {
+        font-size: 0.65rem !important;
+    }
+
+    .related-article-card {
+        padding: 16px 12px !important;
+    }
+
+    .related-article-card h3 {
+        font-size: 0.85rem !important;
+    }
+
+    .related-article-card p {
+        font-size: 0.78rem !important;
+    }
+}
+
+/* ============================================================ */
+/* Very Small Phones (360px and below) */
+/* ============================================================ */
+@media (max-width: 360px) {
+    .tips-hero .page-hero-text h1,
+    .cv-hero .page-hero-text h1,
+    .growth-hero .page-hero-text h1 {
+        font-size: 1.2rem !important;
+    }
+
+    .tips-hero .page-hero-text p,
+    .cv-hero .page-hero-text p,
+    .growth-hero .page-hero-text p {
+        font-size: 0.7rem !important;
+    }
+
+    .tip-card h3,
+    .cv-tip-card h3,
+    .network-card h3 {
+        font-size: 0.8rem !important;
+    }
+
+    .tip-card p,
+    .cv-tip-card p,
+    .network-card p {
+        font-size: 0.72rem !important;
+    }
+
+    .bonus-text h2,
+    .template-text h2 {
+        font-size: 1.1rem !important;
+    }
+
+    .strategy-text h3 {
+        font-size: 0.85rem !important;
+    }
+
+    .strategy-text p {
+        font-size: 0.72rem !important;
+    }
+
+    .strategy-number {
+        font-size: 1.8rem !important;
+    }
+
+    .growth-stat-item .growth-stat-number {
+        font-size: 1.3rem !important;
+    }
+
+    .growth-stat-item p {
+        font-size: 0.6rem !important;
+    }
+}
