@@ -2173,6 +2173,193 @@ function toggleLoginPassword() {
         icon.classList.add('fa-eye');
     }
 }
+// ============================================================ */
+// CHECK IF PASSWORD RESET IS REQUIRED
+// ============================================================ */
+
+function checkPasswordResetRequired() {
+    const session = JSON.parse(localStorage.getItem('employerSession'));
+    if (!session) {
+        window.location.href = 'employer-login.html';
+        return null;
+    }
+    
+    // Check if this is a temporary password login
+    if (session.tempPassword === true) {
+        // Redirect to reset password page
+        window.location.href = 'reset-password.html';
+        return null;
+    }
+    
+    return session;
+}
+
+// ============================================================ */
+// CHECK NEW PASSWORD STRENGTH (For Reset Page)
+// ============================================================ */
+
+function checkNewPasswordStrength(password) {
+    const hasLength = password.length >= 8;
+    const hasLower = /[a-z]/.test(password);
+    const hasUpper = /[A-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecial = /[^a-zA-Z0-9]/.test(password);
+    
+    // Update requirement indicators
+    updateNewRequirement('newReqLength', hasLength);
+    updateNewRequirement('newReqLower', hasLower);
+    updateNewRequirement('newReqUpper', hasUpper);
+    updateNewRequirement('newReqNumber', hasNumber);
+    updateNewRequirement('newReqSpecial', hasSpecial);
+    
+    return hasLength && hasLower && hasUpper && hasNumber && hasSpecial;
+}
+
+function updateNewRequirement(id, met) {
+    const el = document.getElementById(id);
+    if (el) {
+        if (met) {
+            el.classList.add('met');
+            el.classList.remove('failed');
+            el.querySelector('i').className = 'fas fa-check-circle';
+        } else {
+            el.classList.remove('met');
+            el.classList.add('failed');
+            el.querySelector('i').className = 'fas fa-circle';
+        }
+    }
+}
+
+// ============================================================ */
+// HANDLE PASSWORD RESET - Redirect to Dashboard
+// ============================================================ */
+
+function handleResetPassword(e) {
+    e.preventDefault();
+    
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmNewPassword').value;
+    const errorEl = document.getElementById('resetError');
+    const errorMsg = document.getElementById('resetErrorMessage');
+    const infoEl = document.getElementById('resetInfo');
+    
+    // Clear previous errors
+    errorEl.classList.remove('show');
+    document.querySelectorAll('.form-error').forEach(el => el.classList.remove('show'));
+    document.querySelectorAll('.input-wrapper').forEach(el => el.classList.remove('error', 'success'));
+    
+    // Check password strength
+    if (!checkNewPasswordStrength(newPassword)) {
+        errorMsg.textContent = 'Please create a password that meets all requirements above.';
+        errorEl.classList.add('show');
+        document.getElementById('newPasswordWrapper').classList.add('error');
+        return;
+    }
+    
+    // Check if passwords match
+    if (newPassword !== confirmPassword) {
+        document.getElementById('confirmNewError').classList.add('show');
+        document.getElementById('confirmNewWrapper').classList.add('error');
+        return;
+    }
+    
+    // Get the session
+    const session = JSON.parse(localStorage.getItem('employerSession'));
+    if (!session) {
+        window.location.href = 'employer-login.html';
+        return;
+    }
+    
+    // Get users
+    const users = JSON.parse(localStorage.getItem('awardsRecruitmentUsers')) || [];
+    const userIndex = users.findIndex(u => u.email === session.email);
+    
+    if (userIndex === -1) {
+        alert('User not found. Please login again.');
+        window.location.href = 'employer-login.html';
+        return;
+    }
+    
+    try {
+        // Update password - store encrypted
+        users[userIndex].password = btoa(newPassword);
+        users[userIndex].tempPassword = null; // Clear temporary password
+        users[userIndex].tempPasswordPlain = null;
+        users[userIndex].passwordResetAt = new Date().toISOString();
+        users[userIndex].isPasswordReset = true;
+        
+        localStorage.setItem('awardsRecruitmentUsers', JSON.stringify(users));
+        
+        // Update session - remove temp password flag
+        session.tempPassword = false;
+        session.isPasswordReset = true;
+        localStorage.setItem('employerSession', JSON.stringify(session));
+        
+        // Show success message
+        infoEl.innerHTML = `
+            <i class="fas fa-check-circle" style="color:#22c55e;"></i>
+            <span>Password updated successfully! Redirecting to dashboard...</span>
+        `;
+        infoEl.style.background = '#f0fdf4';
+        infoEl.style.borderColor = '#bbf7d0';
+        infoEl.style.color = '#166534';
+        
+        // Disable form button
+        const submitBtn = document.querySelector('#resetPasswordForm button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+        }
+        
+        // Redirect to dashboard after 2 seconds
+        setTimeout(() => {
+            window.location.href = 'post-job.html';
+        }, 2000);
+        
+    } catch (error) {
+        console.error('Error updating password:', error);
+        errorMsg.textContent = 'An error occurred. Please try again.';
+        errorEl.classList.add('show');
+    }
+}
+
+// ============================================================ */
+// INIT - Reset Password Page
+// ============================================================ */
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on the reset password page
+    if (document.querySelector('.reset-password-page') || document.getElementById('resetPasswordForm')) {
+        // Check if user is logged in with temp password
+        const session = JSON.parse(localStorage.getItem('employerSession'));
+        if (!session || !session.loggedIn) {
+            window.location.href = 'employer-login.html';
+            return;
+        }
+        
+        // If not a temp password login, redirect to dashboard
+        if (!session.tempPassword) {
+            window.location.href = 'post-job.html';
+            return;
+        }
+        
+        // Real-time password validation
+        const passwordInput = document.getElementById('newPassword');
+        if (passwordInput) {
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                if (password.length === 0) {
+                    document.querySelectorAll('#newPasswordRequirements .req-item').forEach(el => {
+                        el.classList.remove('met', 'failed');
+                        el.querySelector('i').className = 'fas fa-circle';
+                    });
+                } else {
+                    checkNewPasswordStrength(password);
+                }
+            });
+        }
+    }
+});
 
 // ============================================================ */
 // EMPLOYER LOGIN - With Remember Me
@@ -2270,6 +2457,12 @@ function checkEmployerSession() {
         return null;
     }
     
+    // Check if this is a temporary password login
+    if (session.tempPassword === true) {
+        window.location.href = 'reset-password.html';
+        return null;
+    }
+    
     const companyNameEl = document.getElementById('employerCompanyName');
     if (companyNameEl) {
         companyNameEl.textContent = session.companyName;
@@ -2277,7 +2470,6 @@ function checkEmployerSession() {
     
     return session;
 }
-
 function loadEmployerStats() {
     const session = JSON.parse(localStorage.getItem('employerSession'));
     if (!session) return;
@@ -2671,15 +2863,18 @@ function downloadDocument(applicantEmail, docType) {
     }
 }
 
-// ============================================================ */
-// INIT - Post Job Page
+
 // ============================================================ */
 
-// Update the existing DOMContentLoaded to include applications loading
+// ============================================================ */
+// POST JOB PAGE INIT - With Password Reset Check
+// ============================================================ */
+
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on the post job page
     if (document.getElementById('postJobDashboard')) {
-        const session = checkPasswordResetRequired(); 
+        // Use checkPasswordResetRequired instead of checkEmployerSession
+        const session = checkPasswordResetRequired();
         if (session) {
             loadEmployerStats();
             loadEmployerApplications();
