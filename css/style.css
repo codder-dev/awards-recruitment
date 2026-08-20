@@ -3705,6 +3705,81 @@ footer {
 .cover-info .file-remove:hover {
     background: #fef2f2;
 }
+/* ============================================================ */
+/* RELEVANT DOCUMENTS UPLOAD */
+/* ============================================================ */
+.document-letter-area {
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: #fafafa;
+    position: relative;
+}
+
+.document-letter-area:hover {
+    border-color: #f47a20;
+    background: #fefaf5;
+}
+
+.document-letter-area .cover-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.document-letter-area.has-file {
+    border-color: #22c55e;
+    background: #f0fdf4;
+}
+
+.document-letter-area .cover-info {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.document-letter-area.has-file .cover-info {
+    display: flex;
+}
+
+.document-letter-area.has-file .upload-text {
+    display: none;
+}
+
+.cover-info .file-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: #0f1a2b;
+}
+
+.cover-info .file-name i {
+    color: #22c55e;
+}
+
+.cover-info .file-remove {
+    background: none;
+    border: none;
+    color: #dc2626;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.cover-info .file-remove:hover {
+    background: #fef2f2;
+}
+
 
 /* ============================================================ */
 /* SUCCESS MODAL — Hand-Crafted */

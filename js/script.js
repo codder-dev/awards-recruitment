@@ -2763,6 +2763,12 @@ function removeFile(type) {
         document.getElementById('coverFileName').textContent = 'cover-letter.pdf';
         document.getElementById('coverFileError').classList.remove('show');
         document.getElementById('coverFileTypeError').style.display = 'none';
+    } else if (type === 'document') {
+        document.getElementById('documentFileInput').value = '';
+        document.getElementById('documentUploadArea').classList.remove('has-file');
+        document.getElementById('documentFileName').textContent = 'document-required.pdf';
+        document.getElementById('documentFileError').classList.remove('show');
+        document.getElementById('documentFileTypeError').style.display = 'none';
     }
 }
 
@@ -2781,6 +2787,8 @@ function handleApply(e) {
     document.getElementById('cvFileTypeError').style.display = 'none';
     document.getElementById('coverFileError').classList.remove('show');
     document.getElementById('coverFileTypeError').style.display = 'none';
+    document.getElementById('documentFileError').classList.remove('show');
+    document.getElementById('documentFileTypeError').style.display = 'none';
     
     // Validate Name
     const name = document.getElementById('applicantName');
@@ -2835,6 +2843,17 @@ function handleApply(e) {
         const file = coverInput.files[0];
         if (file.type !== 'application/pdf') {
             document.getElementById('coverFileTypeError').style.display = 'block';
+            valid = false;
+        }
+    }
+    const documentInput = document.getElementById('documentFileInput');
+    if (!documentInput.files || documentInput.files.length === 0) {
+        document.getElementById('documentFileError').classList.add('show');
+        valid = false;
+    }else{
+        const file = documentInput.files[0];
+        if (file.type !== 'application/pdf') {
+            document.getElementById('documentFileTypeError').style.display = 'block';
             valid = false;
         }
     }
