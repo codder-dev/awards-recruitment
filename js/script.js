@@ -2755,9 +2755,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const validType = 'application/pdf';
                 
                 document.getElementById('documentFileError').classList.remove('show');
-                document.getElementsByName('documentFileTypeError').style.display = 'block';
-                this.value = '';
-                return;
+                document.getElementById('documentFileTypeError').style.display = 'none';
+                
 
                 if (file.type !== validType) {
                     document.getElementById('documentFileTypeError').style.display = 'block';
@@ -2798,7 +2797,7 @@ function removeFile(type) {
     } else if (type === 'document') {
         document.getElementById('documentFileInput').value = '';
         document.getElementById('documentUploadArea').classList.remove('has-file');
-        document.getElementById('documentFileName').textContent = 'document-required.pdf';
+        document.getElementById('documentFileName').textContent = 'Documents.pdf';
         document.getElementById('documentFileError').classList.remove('show');
         document.getElementById('documentFileTypeError').style.display = 'none';
     }
@@ -2878,6 +2877,7 @@ function handleApply(e) {
             valid = false;
         }
     }
+    //validate documents
     const documentInput = document.getElementById('documentFileInput');
     if (!documentInput.files || documentInput.files.length === 0) {
         document.getElementById('documentFileError').classList.add('show');
