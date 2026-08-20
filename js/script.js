@@ -2745,19 +2745,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    // Document upload//
-    const documentInput = document.getElementById('documentFileInput');
+     const documentInput = document.getElementById('documentFileInput');
     if (documentInput) {
         documentInput.addEventListener('change', function() {
             if (this.files && this.files[0]) {
-               const file = this.files[0];
+                const file = this.files[0];
                 const maxSize = 5 * 1024 * 1024;
                 const validType = 'application/pdf';
                 
                 document.getElementById('documentFileError').classList.remove('show');
                 document.getElementById('documentFileTypeError').style.display = 'none';
                 
-
                 if (file.type !== validType) {
                     document.getElementById('documentFileTypeError').style.display = 'block';
                     this.value = '';
@@ -2774,8 +2772,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('documentFileName').textContent = file.name;
                 document.getElementById('documentFileError').classList.remove('show');
             }
-        }) 
+        });
     }
+
 });
 
 // ============================================================ */

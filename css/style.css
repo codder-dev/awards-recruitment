@@ -3711,7 +3711,7 @@ footer {
 .document-letter-area {
     border: 2px dashed #d1d5db;
     border-radius: 12px;
-    padding: 20px;
+    padding: 30px 20px;
     text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -3724,7 +3724,24 @@ footer {
     background: #fefaf5;
 }
 
-.document-letter-area .document-input {
+.document-letter-area .upload-icon {
+    font-size: 2.5rem;
+    color: #f47a20;
+    margin-bottom: 10px;
+}
+
+.document-letter-area .upload-text {
+    font-size: 0.95rem;
+    color: #4a5a6a;
+}
+
+.document-letter-area .upload-subtext {
+    font-size: 0.8rem;
+    color: #8a9aa8;
+    margin-top: 4px;
+}
+
+.document-letter-area .file-input {
     position: absolute;
     top: 0;
     left: 0;
@@ -3732,6 +3749,7 @@ footer {
     height: 100%;
     opacity: 0;
     cursor: pointer;
+    z-index: 10;
 }
 
 .document-letter-area.has-file {
@@ -3739,21 +3757,28 @@ footer {
     background: #f0fdf4;
 }
 
-.document-letter-area .document-info {
+.document-letter-area .file-info {
     display: none;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 14px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e8ecf0;
+    margin-top: 15px;
 }
 
-.document-letter-area.has-file .document-info {
+.document-letter-area.has-file .file-info {
     display: flex;
 }
 
-.document-letter-area.has-file .upload-text {
+.document-letter-area.has-file .upload-icon,
+.document-letter-area.has-file .upload-text,
+.document-letter-area.has-file .upload-subtext {
     display: none;
 }
 
-.document-info .file-name {
+.file-info .file-name {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -3761,11 +3786,12 @@ footer {
     color: #0f1a2b;
 }
 
-.document-info .file-name i {
+.file-info .file-name i {
     color: #22c55e;
+    font-size: 1.1rem;
 }
 
-.document-info .file-remove {
+.file-info .file-remove {
     background: none;
     border: none;
     color: #dc2626;
@@ -3776,10 +3802,29 @@ footer {
     transition: all 0.3s ease;
 }
 
-.document-info .file-remove:hover {
+.file-info .file-remove:hover {
     background: #fef2f2;
 }
 
+.file-error {
+    display: none;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    color: #991b1b;
+    font-size: 0.85rem;
+}
+
+.file-error.show {
+    display: block;
+}
+
+.file-error i {
+    margin-right: 8px;
+    color: #dc2626;
+}
 
 /* ============================================================ */
 /* SUCCESS MODAL — Hand-Crafted */

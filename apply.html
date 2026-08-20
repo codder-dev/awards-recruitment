@@ -171,25 +171,26 @@
                         </div>
                     </div>
 
-                    <!----Relevant documents-->
-                    <div class="form-group">
-                        <label>Upload Relevant Documents <span class="required">*</span></label>
-                        <div class="document-letter-area" id="documentUploadArea">
-                            <div class="upload-icon"><i class="fas fa-file-alt"></i></div>
-                            <div class="upload-text">Drop Your Combined Documents here or <strong>browse</strong></div>
-                            <input type="file" class="file-input" id="documentFileInput" accept=".pdf" required />
-                            <div class="file-info">
-                                <span class="file-name"><i class="fas fa-file-alt"> <span id="documentFileName">Documents.pdf</span></i></span>
-                                <button type="button" class="file-remove" onclick="removeFile(document)">X Remove</button>
-                            </div>
-                            <div class="file-error" id="documentFileError">
-                                <i class="fas fa-exclamation-circle"></i> Please upload relevant documents according to the job applied (PDF format only).
-                            </div>
-                            <div class="file-error" id="documentFileTypeError" style="display:none;">
-                                <i class="fas fa-exclamation-circle"></i> Only PDF files are accepted. Please upload a PDF.
-                        </div>
-                        </div>
-                    </div>
+                   <!-- Relevant documents -->
+<div class="form-group">
+    <label>Upload Relevant Documents <span class="required">*</span></label>
+    <div class="document-letter-area" id="documentUploadArea">
+        <div class="upload-icon"><i class="fas fa-file-alt"></i></div>
+        <div class="upload-text">Drop Your Combined Documents here or <strong>browse</strong></div>
+        <div class="upload-subtext">Only <strong>PDF</strong> files are accepted (Max 5MB)</div>
+        <input type="file" class="file-input" id="documentFileInput" accept=".pdf" required />
+        <div class="file-info">
+            <span class="file-name"><i class="fas fa-file-pdf"></i> <span id="documentFileName">Documents.pdf</span></span>
+            <button type="button" class="file-remove" onclick="removeFile('document')">✕ Remove</button>
+        </div>
+    </div>
+    <div class="file-error" id="documentFileError">
+        <i class="fas fa-exclamation-circle"></i> Please upload relevant documents according to the job applied (PDF format only).
+    </div>
+    <div class="file-error" id="documentFileTypeError" style="display:none;">
+        <i class="fas fa-exclamation-circle"></i> Only PDF files are accepted. Please upload a PDF.
+    </div>
+</div>
 
                    
 
