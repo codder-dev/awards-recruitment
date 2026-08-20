@@ -1778,7 +1778,175 @@ footer {
 .employer-benefit-card:hover .employer-benefit-hover {
     gap: 14px;
 }
+/* ============================================================ */
+/* SAVE JOB BUTTON */
+/* ============================================================ */
 
+.save-job-btn {
+    transition: all 0.3s ease !important;
+    min-width: 80px;
+}
+
+.save-job-btn:hover {
+    transform: scale(1.05);
+}
+
+.save-job-btn.btn-success {
+    background: #22c55e !important;
+    color: #fff !important;
+    border-color: #22c55e !important;
+}
+
+.save-job-btn.btn-success:hover {
+    background: #16a34a !important;
+    border-color: #16a34a !important;
+}
+
+/* ============================================================ */
+/* NOTIFICATION ANIMATIONS */
+/* ============================================================ */
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+/* ============================================================ */
+/* SAVED JOBS - Dashboard Enhanced */
+/* ============================================================ */
+
+.saved-job-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f2f5;
+    transition: all 0.3s ease;
+}
+
+.saved-job-item:last-child {
+    border-bottom: none;
+}
+
+.saved-job-item:hover {
+    background: #f8f9fc;
+    margin: 0 -10px;
+    padding: 14px 10px;
+    border-radius: 8px;
+}
+
+.saved-job-item .job-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #0f1a2b;
+    flex: 1;
+}
+
+.saved-job-item .job-title small {
+    display: block;
+    font-weight: 400;
+    color: #6b7a8a;
+    font-size: 0.78rem;
+    margin-top: 2px;
+}
+
+.saved-job-item .saved-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.saved-job-item .saved-actions .btn {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    min-width: 36px;
+    justify-content: center;
+}
+
+.saved-job-item .saved-actions .btn-success {
+    background: #22c55e;
+    border-color: #22c55e;
+    color: #fff;
+}
+
+.saved-job-item .saved-actions .btn-success:hover {
+    background: #16a34a;
+    border-color: #16a34a;
+}
+
+.saved-job-item .saved-actions .btn-outline-primary {
+    border-color: #f47a20;
+    color: #f47a20;
+}
+
+.saved-job-item .saved-actions .btn-outline-primary:hover {
+    background: #f47a20;
+    color: #fff;
+}
+
+.saved-job-item .saved-actions .btn-outline-danger {
+    border-color: #dc2626;
+    color: #dc2626;
+}
+
+.saved-job-item .saved-actions .btn-outline-danger:hover {
+    background: #dc2626;
+    color: #fff;
+}
+
+/* Saved Jobs Badge */
+#savedJobsCountBadge {
+    background: #f47a20;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0 8px;
+    font-size: 0.7rem;
+    margin-left: 8px;
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* ============================================================ */
+/* MOBILE RESPONSIVE - Saved Jobs */
+/* ============================================================ */
+
+@media (max-width: 480px) {
+    .saved-job-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px 0;
+    }
+    
+    .saved-job-item .saved-actions {
+        justify-content: flex-start;
+        gap: 6px;
+    }
+    
+    .saved-job-item .saved-actions .btn {
+        font-size: 0.65rem;
+        padding: 4px 10px;
+    }
+}
 /* ============================================================ */
 /* EMPLOYER STEPS */
 /* ============================================================ */

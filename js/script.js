@@ -1265,8 +1265,9 @@ document.addEventListener('click', function(e) {
     }
 });
 // ============================================================ */
-// RENDER JOBS LIST (Careers Page) — With Working Flyer Buttons
+// RENDER JOBS LIST (Careers Page) - With Save Button
 // ============================================================ */
+
 function renderJobsList(jobs) {
     const container = document.getElementById('jobsList');
     const noResults = document.getElementById('noResults');
@@ -1284,13 +1285,20 @@ function renderJobsList(jobs) {
     const jobsFoundText = document.getElementById('jobsFoundText');
     if (jobsFoundText) jobsFoundText.textContent = `Found ${jobs.length} job${jobs.length > 1 ? 's' : ''} for you`;
 
+    // Get current user session to check saved jobs
+    const session = JSON.parse(localStorage.getItem('awardsRecruitmentCurrentUser'));
+    const savedJobs = session ? getSavedJobs(session.email) : [];
+
     container.innerHTML = jobs.map(job => {
-        // Escape special characters in image path for onclick
+        // Check if job is saved
+        const isSaved = savedJobs.some(s => s.jobId === job.id);
+        
+        // Escape special characters
         const escapedImagePath = job.flyerImage ? job.flyerImage.replace(/'/g, "\\'") : '';
         const escapedTitle = job.title.replace(/'/g, "\\'");
         
         return `
-        <div class="job-card ${job.hasFlyer ? 'has-flyer' : ''}">
+        <div class="job-card ${job.hasFlyer ? 'has-flyer' : ''}" data-job-id="${job.id}">
             <div class="job-info">
                 <div class="job-header">
                     ${job.tag ? `<span class="job-tag">${job.tag}</span>` : ''}
@@ -1326,7 +1334,8 @@ function renderJobsList(jobs) {
                 </div>
             </div>
             <div class="job-actions">
-                <a href="job-detail.html?id=${job.id}" class="btn btn-primary btn-sm">
+                <!-- Apply Now - Direct to apply.html -->
+                <a href="apply.html?job=${job.id}" class="btn btn-primary btn-sm">
                     <i class="fas fa-paper-plane"></i> Apply Now
                 </a>
                 ${job.hasFlyer ? `
@@ -1334,9 +1343,163 @@ function renderJobsList(jobs) {
                         <i class="fas fa-image"></i> View Flyer
                     </button>
                 ` : ''}
+                <!-- Save Job Button -->
+                <button class="btn ${isSaved ? 'btn-success' : 'btn-outline-primary'} btn-sm save-job-btn" 
+                        onclick="toggleSaveJob(${job.id}, '${escapedTitle.replace(/'/g, "\\'")}', '${job.company.replace(/'/g, "\\'")}', '${job.location.replace(/'/g, "\\'")}')" 
+                        type="button"
+                        data-job-id="${job.id}">
+                    <i class="fas ${isSaved ? 'fa-bookmark' : 'fa-bookmark'}"></i>
+                    ${isSaved ? ' Saved' : ' Save'}
+                </button>
             </div>
         </div>
     `}).join('');
+}
+// ============================================================ */
+// SAVE JOB FUNCTIONS
+// ============================================================ */
+
+function toggleSaveJob(jobId, jobTitle, jobCompany, jobLocation) {
+    // Check if user is logged in
+    const session = JSON.parse(localStorage.getItem('awardsRecruitmentCurrentUser'));
+    if (!session || !session.loggedIn) {
+        // Prompt user to login
+        if (confirm('Please login to save jobs. Would you like to login now?')) {
+            window.location.href = 'login.html';
+        }
+        return;
+    }
+    
+    // Get saved jobs
+    let savedJobs = JSON.parse(localStorage.getItem('awardsRecruitmentSavedJobs')) || [];
+    
+    // Check if job is already saved
+    const existingIndex = savedJobs.findIndex(item => item.userEmail === session.email && item.jobId === jobId);
+    
+    if (existingIndex !== -1) {
+        // Remove from saved jobs
+        savedJobs.splice(existingIndex, 1);
+        localStorage.setItem('awardsRecruitmentSavedJobs', JSON.stringify(savedJobs));
+        
+        // Update button
+        const buttons = document.querySelectorAll(`.save-job-btn[data-job-id="${jobId}"]`);
+        buttons.forEach(btn => {
+            btn.classList.remove('btn-success');
+            btn.classList.add('btn-outline-primary');
+            btn.innerHTML = '<i class="fas fa-bookmark"></i> Save';
+        });
+        
+        // Show notification
+        showNotification('Job removed from saved jobs', 'info');
+        
+    } else {
+        // Add to saved jobs
+        const jobData = {
+            userEmail: session.email,
+            jobId: jobId,
+            jobTitle: jobTitle,
+            jobCompany: jobCompany,
+            location: jobLocation,
+            savedAt: new Date().toISOString()
+        };
+        savedJobs.push(jobData);
+        localStorage.setItem('awardsRecruitmentSavedJobs', JSON.stringify(savedJobs));
+        
+        // Update button
+        const buttons = document.querySelectorAll(`.save-job-btn[data-job-id="${jobId}"]`);
+        buttons.forEach(btn => {
+            btn.classList.remove('btn-outline-primary');
+            btn.classList.add('btn-success');
+            btn.innerHTML = '<i class="fas fa-bookmark"></i> Saved';
+        });
+        
+        // Show notification
+        showNotification('Job saved successfully!', 'success');
+    }
+    
+    // Update dashboard if it's open
+    if (document.getElementById('dashboardPage')) {
+        renderDashboard();
+    }
+}
+
+// ============================================================ */
+// GET SAVED JOBS (Already exists, but make sure it's updated)
+// ============================================================ */
+
+function getSavedJobs(email) {
+    const saved = JSON.parse(localStorage.getItem('awardsRecruitmentSavedJobs')) || [];
+    return saved.filter(item => item.userEmail === email);
+}
+
+// ============================================================ */
+// SHOW NOTIFICATION (Toast)
+// ============================================================ */
+
+function showNotification(message, type = 'success') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 90px;
+        right: 20px;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        z-index: 9999;
+        animation: slideInRight 0.5s ease;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        max-width: 400px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    `;
+    
+    const colors = {
+        success: { bg: '#f0fdf4', border: '#bbf7d0', color: '#166534', icon: 'fa-check-circle' },
+        error: { bg: '#fef2f2', border: '#fecaca', color: '#991b1b', icon: 'fa-exclamation-circle' },
+        info: { bg: '#eff6ff', border: '#bfdbfe', color: '#1e40af', icon: 'fa-info-circle' },
+        warning: { bg: '#fffbeb', border: '#fde68a', color: '#92400e', icon: 'fa-exclamation-triangle' }
+    };
+    
+    const style = colors[type] || colors.success;
+    notification.style.background = style.bg;
+    notification.style.border = `1px solid ${style.border}`;
+    notification.style.color = style.color;
+    
+    notification.innerHTML = `
+        <i class="fas ${style.icon}" style="font-size:1.2rem;"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.5s ease';
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    }, 3000);
+}
+// ============================================================ */
+// QUICK APPLY FROM SAVED JOBS
+// ============================================================ */
+
+function quickApplyFromSaved(jobId) {
+    // Check if user is logged in
+    const session = JSON.parse(localStorage.getItem('awardsRecruitmentCurrentUser'));
+    if (!session || !session.loggedIn) {
+        if (confirm('Please login to apply. Would you like to login now?')) {
+            window.location.href = 'login.html';
+        }
+        return;
+    }
+    
+    // Redirect to apply page with job ID
+    window.location.href = `apply.html?job=${jobId}`;
 }
 // ============================================================ */
 // FILTER JOBS (Careers Page)
@@ -3783,8 +3946,9 @@ function getSavedJobs(email) {
     return saved.filter(item => item.userEmail === email);
 }
 // ============================================================ */
-// RENDER DASHBOARD — With Profile Photo Support
+// RENDER DASHBOARD - With Saved Jobs Count
 // ============================================================ */
+
 function renderDashboard() {
     const session = checkUserSession();
     if (!session) return;
@@ -3800,18 +3964,14 @@ function renderDashboard() {
     
     if (user) {
         const displayName = user.fullName || user.companyName || 'User';
-        // Get initials from full name
         const initials = displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
         nameEl.textContent = `Welcome back, ${displayName}!`;
         
-        // Check if profile photo exists
         if (user.profilePhoto && user.profilePhoto !== '') {
-            // Show profile photo, hide initials
             profileImg.src = user.profilePhoto;
             profileImg.style.display = 'block';
             initialsSpan.style.display = 'none';
         } else {
-            // Show initials with orange background
             profileImg.style.display = 'none';
             initialsSpan.textContent = initials;
             initialsSpan.style.display = 'flex';
@@ -3839,6 +3999,12 @@ function renderDashboard() {
     const savedJobs = getSavedJobs(session.email);
     document.getElementById('savedJobsCount').textContent = savedJobs.length;
     
+    // Update saved jobs badge if exists
+    const badge = document.getElementById('savedJobsCountBadge');
+    if (badge) {
+        badge.textContent = savedJobs.length;
+    }
+    
     // Render applications
     renderApplications(applications);
     
@@ -3848,7 +4014,6 @@ function renderDashboard() {
     // Render saved jobs
     renderSavedJobs(savedJobs);
 }
-
 // ============================================================ */
 // RENDER APPLICATIONS
 // ============================================================ */
@@ -3962,10 +4127,19 @@ function renderProfile(user) {
 }
 
 // ============================================================ */
-// RENDER SAVED JOBS
+// RENDER SAVED JOBS - Dashboard with Quick Apply
 // ============================================================ */
+
 function renderSavedJobs(savedJobs) {
     const container = document.getElementById('savedJobsList');
+    const badge = document.getElementById('savedJobsCountBadge');
+    
+    if (!container) return;
+    
+    // Update badge count
+    if (badge) {
+        badge.textContent = savedJobs.length;
+    }
     
     if (savedJobs.length === 0) {
         container.innerHTML = `
@@ -3987,10 +4161,14 @@ function renderSavedJobs(savedJobs) {
                 <small>${item.jobCompany || 'Company'} • ${item.location || ''}</small>
             </div>
             <div class="saved-actions">
-                <a href="job-detail.html?id=${item.jobId}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-eye"></i> View
+                <!-- Quick Apply Button - Direct to apply.html -->
+                <a href="apply.html?job=${item.jobId}" class="btn btn-success btn-sm" style="background:#22c55e;color:#fff;">
+                    <i class="fas fa-paper-plane"></i> Apply Now
                 </a>
-                <button class="btn btn-outline-danger btn-sm" onclick="removeSavedJob(${item.jobId})">
+                <a href="job-detail.html?id=${item.jobId}" class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <button class="btn btn-outline-danger btn-sm" onclick="removeSavedJob(${item.jobId})" title="Remove from saved">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -4001,11 +4179,15 @@ function renderSavedJobs(savedJobs) {
 // ============================================================ */
 // REMOVE SAVED JOB
 // ============================================================ */
+
 function removeSavedJob(jobId) {
     if (!confirm('Remove this job from saved list?')) return;
     
     const session = JSON.parse(localStorage.getItem('awardsRecruitmentCurrentUser'));
-    if (!session) return;
+    if (!session) {
+        window.location.href = 'login.html';
+        return;
+    }
     
     let saved = JSON.parse(localStorage.getItem('awardsRecruitmentSavedJobs')) || [];
     saved = saved.filter(item => !(item.userEmail === session.email && item.jobId === jobId));
@@ -4013,6 +4195,9 @@ function removeSavedJob(jobId) {
     
     // Re-render dashboard
     renderDashboard();
+    
+    // Show notification
+    showNotification('Job removed from saved list', 'info');
 }
 
 // ============================================================ */
