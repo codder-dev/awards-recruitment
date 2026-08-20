@@ -6002,6 +6002,350 @@ footer {
     font-size: 0.85rem;
     margin-top: 4px;
 }
+/* ============================================================ */
+/* APPLICATIONS SECTION - Employer Dashboard */
+/* ============================================================ */
+
+.applications-section {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 2px solid #f0f2f5;
+}
+
+/* Application Cards */
+.application-card {
+    background: #f8f9fc;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.application-card:hover {
+    border-color: #f47a20;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+.application-card .applicant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.application-card .applicant-info h4 {
+    margin: 0 0 4px 0;
+    color: #0f1a2b;
+    font-size: 1.05rem;
+}
+
+.application-card .applicant-info h4 i {
+    color: #f47a20;
+    margin-right: 6px;
+}
+
+.application-card .applicant-info p {
+    margin: 0 0 2px 0;
+    color: #6b7a8a;
+    font-size: 0.85rem;
+}
+
+.application-card .applicant-info p i {
+    color: #f47a20;
+    width: 16px;
+}
+
+.application-card .applicant-info .app-date {
+    color: #8a9aa8;
+    font-size: 0.78rem;
+    margin-top: 4px;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.status-badge.pending {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.status-badge.shortlisted {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.status-badge.hired {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.status-badge.rejected {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* Action Buttons */
+.applicant-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.applicant-actions .btn-action {
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.applicant-actions .btn-action:hover {
+    transform: translateY(-2px);
+}
+
+.btn-shortlist {
+    background: #2563eb;
+    color: #fff;
+}
+
+.btn-shortlist:hover {
+    background: #1d4ed8;
+}
+
+.btn-hire {
+    background: #22c55e;
+    color: #fff;
+}
+
+.btn-hire:hover {
+    background: #16a34a;
+}
+
+.btn-reject {
+    background: #dc2626;
+    color: #fff;
+}
+
+.btn-reject:hover {
+    background: #b91c1c;
+}
+
+.btn-view {
+    background: #f47a20;
+    color: #fff;
+}
+
+.btn-view:hover {
+    background: #d96a18;
+}
+
+/* Documents Section */
+.documents-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #e8ecf0;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.document-item {
+    background: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #e8ecf0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.document-item:hover {
+    border-color: #f47a20;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.document-item .doc-icon {
+    font-size: 1.1rem;
+}
+
+.document-item .doc-icon.cv {
+    color: #dc2626;
+}
+
+.document-item .doc-icon.cover {
+    color: #2563eb;
+}
+
+.document-item .doc-icon.document {
+    color: #7c3aed;
+}
+
+.document-item .file-name {
+    font-size: 0.82rem;
+    color: #0f1a2b;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.document-item .btn-download {
+    background: #f47a20;
+    color: #fff;
+    border: none;
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.document-item .btn-download:hover {
+    background: #d96a18;
+    transform: scale(1.05);
+}
+
+/* Filter Dropdown */
+.filter-applications {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-applications select {
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    max-width: 350px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-applications select:focus {
+    outline: none;
+    border-color: #f47a20;
+    box-shadow: 0 0 0 3px rgba(244, 122, 32, 0.1);
+}
+
+/* No Applications Message */
+.no-applications {
+    text-align: center;
+    padding: 60px 20px;
+    color: #8a9aa8;
+}
+
+.no-applications i {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 15px;
+    color: #d1d5db;
+}
+
+.no-applications h4 {
+    color: #0f1a2b;
+    margin-bottom: 5px;
+}
+
+.no-applications p {
+    font-size: 0.9rem;
+}
+
+/* New Applications Badge */
+#newApplicationsBadge {
+    background: #fff;
+    color: #f47a20;
+    padding: 0 6px;
+    border-radius: 50%;
+    font-weight: 700;
+}
+
+/* ============================================================ */
+/* RESPONSIVE - Applications Section */
+/* ============================================================ */
+
+@media (max-width: 767px) {
+    .application-card .applicant-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .applicant-actions {
+        justify-content: flex-start;
+    }
+    
+    .documents-section {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .document-item {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .document-item .file-name {
+        max-width: 100px;
+    }
+    
+    .filter-applications {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-applications select {
+        max-width: 100%;
+    }
+    
+    .applications-section h2 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .application-card {
+        padding: 15px;
+    }
+    
+    .applicant-actions {
+        flex-wrap: wrap;
+    }
+    
+    .applicant-actions .btn-action {
+        font-size: 0.65rem;
+        padding: 3px 10px;
+    }
+    
+    .document-item {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+    
+    .document-item .file-name {
+        max-width: 70px;
+    }
+}
 
 .post-job-form {
     background: #fff;

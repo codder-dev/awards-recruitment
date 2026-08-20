@@ -2295,6 +2295,281 @@ function handlePostJob(e) {
     }, 5000);
 }
 // ============================================================ */
+// LOAD EMPLOYER APPLICATIONS - For Post Job Page
+// ============================================================ */
+
+function loadEmployerApplications() {
+    const session = JSON.parse(localStorage.getItem('employerSession'));
+    if (!session) {
+        return;
+    }
+
+    // Get all posted jobs by this employer
+    const allJobs = JSON.parse(localStorage.getItem('awardsRecruitmentJobs')) || [];
+    const employerJobs = allJobs.filter(j => j.postedBy === session.email);
+    
+    // Update stats
+    document.getElementById('postedJobsCount').textContent = employerJobs.length;
+    document.getElementById('activeJobs').textContent = employerJobs.filter(j => j.active !== false).length;
+    
+    // Get all applications
+    const allApplications = JSON.parse(localStorage.getItem('awardsRecruitmentApplications')) || [];
+    
+    // Filter applications for this employer's jobs
+    const employerJobIds = employerJobs.map(j => j.id);
+    const employerApplications = allApplications.filter(app => employerJobIds.includes(app.jobId));
+    
+    // Update application count
+    document.getElementById('totalApplications').textContent = employerApplications.length;
+    
+    // Count new applications (last 7 days)
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    const newApps = employerApplications.filter(app => new Date(app.appliedAt) > oneWeekAgo);
+    document.getElementById('newApplicationsBadge').textContent = newApps.length;
+    
+    // Populate job filter dropdown
+    populateJobFilter(employerJobs);
+    
+    // Render applications
+    renderEmployerApplications(employerApplications, employerJobs);
+}
+
+function populateJobFilter(jobs) {
+    const select = document.getElementById('filterJobSelect');
+    if (!select) return;
+    
+    select.innerHTML = '<option value="all">All Jobs</option>';
+    jobs.forEach(job => {
+        const option = document.createElement('option');
+        option.value = job.id;
+        option.textContent = `${job.title} (${job.location})`;
+        select.appendChild(option);
+    });
+}
+
+function filterApplicationsByJob() {
+    const select = document.getElementById('filterJobSelect');
+    const jobId = parseInt(select.value);
+    
+    const session = JSON.parse(localStorage.getItem('employerSession'));
+    if (!session) return;
+    
+    const allJobs = JSON.parse(localStorage.getItem('awardsRecruitmentJobs')) || [];
+    const employerJobs = allJobs.filter(j => j.postedBy === session.email);
+    const allApplications = JSON.parse(localStorage.getItem('awardsRecruitmentApplications')) || [];
+    const employerJobIds = employerJobs.map(j => j.id);
+    let filteredApps = allApplications.filter(app => employerJobIds.includes(app.jobId));
+    
+    if (jobId !== 'all') {
+        filteredApps = filteredApps.filter(app => app.jobId === jobId);
+    }
+    
+    renderEmployerApplications(filteredApps, employerJobs);
+}
+
+function renderEmployerApplications(applications, employerJobs) {
+    const container = document.getElementById('applicationsList');
+    const noMsg = document.getElementById('noApplicationsMsg');
+    
+    if (!container) return;
+    
+    if (applications.length === 0) {
+        container.innerHTML = `
+            <div class="no-applications">
+                <i class="fas fa-inbox"></i>
+                <h4>No Applications Yet</h4>
+                <p>When candidates apply to your jobs, their applications and documents will appear here.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Create a map for quick job lookup
+    const jobMap = {};
+    employerJobs.forEach(job => {
+        jobMap[job.id] = job;
+    });
+    
+    container.innerHTML = applications.map(app => {
+        const job = jobMap[app.jobId];
+        const date = new Date(app.appliedAt);
+        const dateStr = date.toLocaleDateString('en-US', { 
+            month: 'short', 
+            day: 'numeric', 
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        
+        return `
+            <div class="application-card">
+                <div class="applicant-header">
+                    <div class="applicant-info">
+                        <h4><i class="fas fa-user"></i> ${app.applicantName}</h4>
+                        <p><i class="fas fa-envelope"></i> ${app.applicantEmail}</p>
+                        <p><i class="fas fa-phone"></i> ${app.applicantPhone || 'N/A'}</p>
+                        <p class="app-date"><i class="fas fa-clock"></i> Applied: ${dateStr}</p>
+                        <p style="margin: 4px 0 0 0; color: #8a9aa8; font-size: 0.78rem;">
+                            <i class="fas fa-briefcase" style="color: #f47a20;"></i> 
+                            ${job ? job.title : 'Unknown Job'} 
+                            ${job && job.reference ? `(Ref: ${job.reference})` : ''}
+                        </p>
+                    </div>
+                    <div class="applicant-actions">
+                        <span class="status-badge ${app.status || 'pending'}">${app.status || 'Pending'}</span>
+                        <button onclick="updateApplicationStatus(${app.id}, 'shortlisted')" class="btn-action btn-shortlist">
+                            <i class="fas fa-check"></i> Shortlist
+                        </button>
+                        <button onclick="updateApplicationStatus(${app.id}, 'hired')" class="btn-action btn-hire">
+                            <i class="fas fa-user-check"></i> Hire
+                        </button>
+                        <button onclick="updateApplicationStatus(${app.id}, 'rejected')" class="btn-action btn-reject">
+                            <i class="fas fa-times"></i> Reject
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Documents -->
+                <div class="documents-section">
+                    ${app.cvFileName ? `
+                        <div class="document-item">
+                            <i class="fas fa-file-pdf doc-icon cv"></i>
+                            <span class="file-name">${app.cvFileName}</span>
+                            <button onclick="downloadDocument('${app.applicantEmail}', 'cv')" class="btn-download">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    ` : ''}
+                    
+                    ${app.coverFileName ? `
+                        <div class="document-item">
+                            <i class="fas fa-file-pdf doc-icon cover"></i>
+                            <span class="file-name">${app.coverFileName}</span>
+                            <button onclick="downloadDocument('${app.applicantEmail}', 'cover')" class="btn-download">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    ` : ''}
+                    
+                    ${app.documentFileName ? `
+                        <div class="document-item">
+                            <i class="fas fa-file-pdf doc-icon document"></i>
+                            <span class="file-name">${app.documentFileName}</span>
+                            <button onclick="downloadDocument('${app.applicantEmail}', 'document')" class="btn-download">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// ============================================================ */
+// UPDATE APPLICATION STATUS
+// ============================================================ */
+
+function updateApplicationStatus(appId, status) {
+    if (!confirm(`Update application status to "${status}"?`)) return;
+    
+    const applications = JSON.parse(localStorage.getItem('awardsRecruitmentApplications')) || [];
+    const index = applications.findIndex(app => app.id === appId);
+    
+    if (index !== -1) {
+        applications[index].status = status;
+        applications[index].updatedAt = new Date().toISOString();
+        localStorage.setItem('awardsRecruitmentApplications', JSON.stringify(applications));
+        
+        // Reload the applications
+        loadEmployerApplications();
+        
+        alert(`✅ Application status updated to "${status}" successfully!`);
+    }
+}
+
+// ============================================================ */
+// DOWNLOAD DOCUMENT - Convert Base64 back to PDF
+// ============================================================ */
+
+function downloadDocument(applicantEmail, docType) {
+    const applications = JSON.parse(localStorage.getItem('awardsRecruitmentApplications')) || [];
+    const app = applications.find(a => a.applicantEmail === applicantEmail);
+    
+    if (!app) {
+        alert('Application not found.');
+        return;
+    }
+    
+    let fileData = null;
+    let fileName = '';
+    let fileType = '';
+    
+    if (docType === 'cv') {
+        fileData = app.cvFileData;
+        fileName = app.cvFileName || 'CV.pdf';
+        fileType = 'application/pdf';
+    } else if (docType === 'cover') {
+        fileData = app.coverFileData;
+        fileName = app.coverFileName || 'Cover-Letter.pdf';
+        fileType = 'application/pdf';
+    } else if (docType === 'document') {
+        fileData = app.documentFileData;
+        fileName = app.documentFileName || 'Documents.pdf';
+        fileType = 'application/pdf';
+    }
+    
+    if (!fileData) {
+        alert('No file data available for download.');
+        return;
+    }
+    
+    try {
+        // Convert base64 to blob
+        const byteCharacters = atob(fileData);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: fileType });
+        
+        // Create download link
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Clean up
+        setTimeout(() => {
+            URL.revokeObjectURL(link.href);
+        }, 100);
+        
+    } catch (error) {
+        console.error('Error downloading file:', error);
+        alert('Error downloading file. Please try again.');
+    }
+}
+
+// ============================================================ */
+// INIT - Post Job Page
+// ============================================================ */
+
+// Update the existing DOMContentLoaded to include applications loading
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on the post job page
+    if (document.getElementById('postJobDashboard')) {
+        const session = checkEmployerSession();
+        if (session) {
+            loadEmployerStats();
+            loadEmployerApplications(); // Load applications with documents
+        }
+    }
+});
+// ============================================================ */
 // RENDER JOB DETAIL (Job Detail Page)
 // ============================================================ */
 function renderJobDetail() {
@@ -2906,54 +3181,89 @@ function handleApply(e) {
         return;
     }
     
-    // Get job ID
+     // Get job ID
     const jobId = parseInt(document.getElementById('applyForm').dataset.jobId);
     
-    // Collect application data
-    const applicationData = {
-        id: Date.now(),
-        jobId: jobId,
-        jobTitle: document.getElementById('jobTitleDisplay').textContent,
-        jobCompany: document.getElementById('jobCompanyDisplay').textContent,
-        applicantName: name.value.trim(),
-        applicantEmail: email.value.trim(),
-        applicantPhone: phone.value.trim(),
-        cvFileName: cvInput.files[0] ? cvInput.files[0].name : '',
-        coverFileName: coverInput.files[0] ? coverInput.files[0].name : '',
-        appliedAt: new Date().toISOString(),
-        status: 'pending'
-    };
-    
-    // Save to localStorage
-    try {
-        let applications = JSON.parse(localStorage.getItem('awardsRecruitmentApplications')) || [];
-        applications.push(applicationData);
-        localStorage.setItem('awardsRecruitmentApplications', JSON.stringify(applications));
-        
-        // Update job applicants count
-        updateJobApplicants(jobId);
-        
-        // Show success modal
-        document.getElementById('successModal').classList.add('show');
-        
-        // Reset form after delay
-        setTimeout(() => {
-            document.getElementById('applyForm').reset();
-            document.getElementById('cvUploadArea').classList.remove('has-file');
-            document.getElementById('coverUploadArea').classList.remove('has-file');
-            document.getElementById('cvFileName').textContent = 'document.pdf';
-            document.getElementById('coverFileName').textContent = 'cover-letter.pdf';
-            document.querySelectorAll('.input-wrapper').forEach(el => el.classList.remove('error', 'success'));
-            document.querySelectorAll('.form-error').forEach(el => el.classList.remove('show'));
-            document.querySelectorAll('.file-error').forEach(el => el.classList.remove('show'));
-            document.getElementById('cvFileTypeError').style.display = 'none';
-            document.getElementById('coverFileTypeError').style.display = 'none';
-        }, 3000);
-        
-    } catch (error) {
-        console.error('Error saving application:', error);
-        alert('There was an error submitting your application. Please try again.');
+    // Helper function to convert file to base64
+    function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                // Remove data URL prefix to get just base64
+                const base64 = reader.result.split(',')[1];
+                resolve(base64);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
     }
+    
+    // Process files asynchronously
+    async function processApplication() {
+        try {
+            const cvFile = cvInput.files[0];
+            const coverFile = coverInput.files[0];
+            const documentFile = documentInput.files[0];
+            
+            // Convert files to base64
+            const cvBase64 = await fileToBase64(cvFile);
+            const coverBase64 = await fileToBase64(coverFile);
+            const documentBase64 = await fileToBase64(documentFile);
+            
+            // Create application data with file contents
+            const applicationData = {
+                id: Date.now(),
+                jobId: jobId,
+                jobTitle: document.getElementById('jobTitleDisplay').textContent,
+                jobCompany: document.getElementById('jobCompanyDisplay').textContent,
+                applicantName: name.value.trim(),
+                applicantEmail: email.value.trim(),
+                applicantPhone: phone.value.trim(),
+                cvFileName: cvFile.name,
+                cvFileData: cvBase64,
+                coverFileName: coverFile.name,
+                coverFileData: coverBase64,
+                documentFileName: documentFile.name,
+                documentFileData: documentBase64,
+                appliedAt: new Date().toISOString(),
+                status: 'pending'
+            };
+            
+            // Save to localStorage
+            let applications = JSON.parse(localStorage.getItem('awardsRecruitmentApplications')) || [];
+            applications.push(applicationData);
+            localStorage.setItem('awardsRecruitmentApplications', JSON.stringify(applications));
+            
+            // Update job applicants count
+            updateJobApplicants(jobId);
+            
+            // Show success modal
+            document.getElementById('successModal').classList.add('show');
+            
+            // Reset form after delay
+            setTimeout(() => {
+                document.getElementById('applyForm').reset();
+                document.getElementById('cvUploadArea').classList.remove('has-file');
+                document.getElementById('coverUploadArea').classList.remove('has-file');
+                document.getElementById('documentUploadArea').classList.remove('has-file');
+                document.getElementById('cvFileName').textContent = 'document.pdf';
+                document.getElementById('coverFileName').textContent = 'cover-letter.pdf';
+                document.getElementById('documentFileName').textContent = 'Documents.pdf';
+                document.querySelectorAll('.input-wrapper').forEach(el => el.classList.remove('error', 'success'));
+                document.querySelectorAll('.form-error').forEach(el => el.classList.remove('show'));
+                document.querySelectorAll('.file-error').forEach(el => el.classList.remove('show'));
+                document.getElementById('cvFileTypeError').style.display = 'none';
+                document.getElementById('coverFileTypeError').style.display = 'none';
+                document.getElementById('documentFileTypeError').style.display = 'none';
+            }, 3000);
+            
+        } catch (error) {
+            console.error('Error processing files:', error);
+            alert('There was an error processing your files. Please try again.');
+        }
+    }
+    
+    processApplication();
 }
 
 // ============================================================ */

@@ -98,6 +98,44 @@
                 <i class="fas fa-check-circle"></i>
                 <span id="postSuccessMessage">Job posted successfully!</span>
             </div>
+            <!-- ============================================================ -->
+<!-- APPLICATIONS SECTION - Added to Post Job Page -->
+<!-- ============================================================ -->
+<div class="applications-section" id="applicationsSection" style="margin-top: 40px; padding-top: 40px; border-top: 2px solid #f0f2f5;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
+        <div>
+            <h2 style="font-size: 1.5rem; color: #0f1a2b; font-weight: 700;">
+                <i class="fas fa-file-alt" style="color: #f47a20;"></i> Applications & Documents
+            </h2>
+            <p style="color: #6b7a8a; font-size: 0.9rem;">Review applications and download uploaded documents from candidates</p>
+        </div>
+        <div>
+            <span style="background: #f47a20; color: #fff; padding: 4px 16px; border-radius: 50px; font-size: 0.8rem; font-weight: 600;">
+                <i class="fas fa-bell"></i> <span id="newApplicationsBadge">0</span> New
+            </span>
+        </div>
+    </div>
+
+    <!-- Filter by Job -->
+    <div class="filter-applications" style="margin-bottom: 20px;">
+        <label style="font-weight: 600; font-size: 0.85rem; color: #333; margin-right: 10px;">
+            <i class="fas fa-filter" style="color: #f47a20;"></i> Filter by Job:
+        </label>
+        <select id="filterJobSelect" onchange="filterApplicationsByJob()" style="padding: 10px 16px; border-radius: 10px; border: 1px solid #ddd; font-family: 'Inter', sans-serif; width: 100%; max-width: 350px; background: #fff; cursor: pointer;">
+            <option value="all">All Jobs</option>
+        </select>
+    </div>
+
+    <!-- Applications List -->
+    <div id="applicationsList">
+        <!-- Applications will be rendered here -->
+        <div class="no-applications" id="noApplicationsMsg">
+            <i class="fas fa-inbox"></i>
+            <h4>No Applications Yet</h4>
+            <p>When candidates apply to your jobs, their applications and documents will appear here.</p>
+        </div>
+    </div>
+</div>
 
             <!-- Post Job Form -->
             <form class="post-job-form" id="postJobForm" onsubmit="handlePostJob(event)" novalidate>
