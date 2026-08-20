@@ -1548,6 +1548,13 @@ function validateStep(step) {
         } else {
             document.getElementById('experienceWrapper').classList.add('success');
         }
+        const education = document.getElementById('education');
+        if (!education.value){
+            showError('educationWrapper', 'educationError');
+            valid = false;
+        }else {
+            document.getElementById('educationWrapper').classList.add('success');
+        }
         
         const cvInput = document.getElementById('cvFileInput');
         if (!cvInput.files || cvInput.files.length === 0) {
@@ -1618,6 +1625,7 @@ function handleRegistration(e) {
         location: document.getElementById('location').value.trim(),
         dob: document.getElementById('dob').value,
         industry: document.getElementById('industry').value,
+        education: document.getElementById('education').value,
         experience: document.getElementById('experience').value,
         skills: document.getElementById('skills').value.trim(),
         role: document.getElementById('role').value,
