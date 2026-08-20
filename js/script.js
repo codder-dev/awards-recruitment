@@ -2324,25 +2324,28 @@ function handleResetPassword(e) {
 }
 
 // ============================================================ */
-// INIT - Reset Password Page
+// RESET PASSWORD PAGE INIT - Check temp password status
 // ============================================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on the reset password page
     if (document.querySelector('.reset-password-page') || document.getElementById('resetPasswordForm')) {
-        // Check if user is logged in with temp password
+        // Check if user is logged in
         const session = JSON.parse(localStorage.getItem('employerSession'));
+        
+        // If not logged in, go to login
         if (!session || !session.loggedIn) {
             window.location.href = 'employer-login.html';
             return;
         }
         
-        // If not a temp password login, redirect to dashboard
+        // If NOT a temp password login, redirect to dashboard (they shouldn't be here)
         if (!session.tempPassword) {
             window.location.href = 'post-job.html';
             return;
         }
         
+        // If it IS a temp password login, show the reset form
         // Real-time password validation
         const passwordInput = document.getElementById('newPassword');
         if (passwordInput) {
@@ -2361,8 +2364,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
 // ============================================================ */
-// EMPLOYER LOGIN - With Remember Me
+// EMPLOYER LOGIN - With Remember Me & Temp Password Redirect
 // ============================================================ */
 
 function handleEmployerLogin(e) {
@@ -2384,6 +2388,7 @@ function handleEmployerLogin(e) {
     
     const users = JSON.parse(localStorage.getItem('awardsRecruitmentUsers')) || [];
     
+    // Find employer - must be approved
     const employer = users.find(u => 
         u.type === 'employer' && 
         u.email === email && 
@@ -2396,12 +2401,14 @@ function handleEmployerLogin(e) {
         return;
     }
     
+    // Check password - try temp password first, then regular password
     const enteredPassword = btoa(password);
     const storedPassword = employer.tempPassword || employer.password;
     
     if (enteredPassword !== storedPassword) {
         errorEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Incorrect password. Please try again.';
         errorEl.classList.add('show');
+        document.getElementById('loginPassword').classList.add('error');
         return;
     }
     
@@ -2414,25 +2421,28 @@ function handleEmployerLogin(e) {
     
     // Check if this is a temporary password login
     const isTempPassword = !!employer.tempPassword;
-    const isPasswordReset = employer.isPasswordReset || false;
     
-    const successOverlay = document.getElementById('successOverlay');
-    const welcomeMessage = document.getElementById('welcomeMessage');
-    const welcomeSubtext = document.getElementById('welcomeSubtext');
-    
-    welcomeMessage.textContent = `Welcome back, ${employer.companyName}!`;
-    welcomeSubtext.textContent = isTempPassword ? 'Redirecting to set new password...' : 'Redirecting to dashboard...';
-    successOverlay.classList.add('show');
-    
-    // Store session with temp password flag
+    // Store session
     localStorage.setItem('employerSession', JSON.stringify({
         email: employer.email,
         companyName: employer.companyName,
         loggedIn: true,
-        tempPassword: isTempPassword,
-        isPasswordReset: isPasswordReset
+        tempPassword: isTempPassword,  // This is the key flag
+        isPasswordReset: employer.isPasswordReset || false
     }));
     
+    // Show success overlay
+    const successOverlay = document.getElementById('successOverlay');
+    if (successOverlay) {
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const welcomeSubtext = document.getElementById('welcomeSubtext');
+        
+        welcomeMessage.textContent = `Welcome back, ${employer.companyName}!`;
+        welcomeSubtext.textContent = isTempPassword ? 'Redirecting to set new password...' : 'Redirecting to dashboard...';
+        successOverlay.classList.add('show');
+    }
+    
+    // Redirect based on temp password status
     setTimeout(() => {
         if (isTempPassword) {
             window.location.href = 'reset-password.html';
@@ -2449,17 +2459,15 @@ function logoutEmployer() {
     }
 }
 
+// ============================================================ */
+// CHECK EMPLOYER SESSION - Only check login, NOT password reset
+// ============================================================ */
+
 function checkEmployerSession() {
     const session = JSON.parse(localStorage.getItem('employerSession'));
     
     if (!session || !session.loggedIn) {
         window.location.href = 'employer-login.html';
-        return null;
-    }
-    
-    // Check if this is a temporary password login
-    if (session.tempPassword === true) {
-        window.location.href = 'reset-password.html';
         return null;
     }
     
@@ -2864,17 +2872,18 @@ function downloadDocument(applicantEmail, docType) {
 }
 
 
+
 // ============================================================ */
 
 // ============================================================ */
-// POST JOB PAGE INIT - With Password Reset Check
+// POST JOB PAGE INIT - Only check login, NOT password reset
 // ============================================================ */
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on the post job page
     if (document.getElementById('postJobDashboard')) {
-        // Use checkPasswordResetRequired instead of checkEmployerSession
-        const session = checkPasswordResetRequired();
+        // Only check if user is logged in, don't redirect to reset-password here
+        const session = checkEmployerSession();
         if (session) {
             loadEmployerStats();
             loadEmployerApplications();
