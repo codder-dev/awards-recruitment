@@ -2681,7 +2681,7 @@ function autoFillApplicant() {
 }
 
 // ============================================================ */
-// FILE UPLOAD HANDLING — CV & Cover Letter
+// FILE UPLOAD HANDLING — CV, Cover Letter, Relevant documents
 // ============================================================ */
 document.addEventListener('DOMContentLoaded', function() {
     // CV Upload
@@ -2744,6 +2744,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('coverFileError').classList.remove('show');
             }
         });
+    }
+    // Document upload//
+    const documentInput = document.getElementById('documentFileInput');
+    if (documentInput) {
+        documentInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+               const file = this.files[0];
+                const maxSize = 5 * 1024 * 1024;
+                const validType = 'application/pdf';
+                
+                document.getElementById('documentFileError').classList.remove('show');
+                document.getElementsByName('documentFileTypeError').style.display = 'block';
+                this.value = '';
+                return;
+
+                if (file.type !== validType) {
+                    document.getElementById('documentFileTypeError').style.display = 'block';
+                    this.value = '';
+                    return;
+                }
+                
+                if (file.size > maxSize) {
+                    alert('File is too large. Please upload a file smaller than 5MB.');
+                    this.value = '';
+                    return;
+                }
+                
+                document.getElementById('documentUploadArea').classList.add('has-file');
+                document.getElementById('documentFileName').textContent = file.name;
+                document.getElementById('documentFileError').classList.remove('show');
+            }
+        }) 
     }
 });
 
