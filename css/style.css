@@ -2497,6 +2497,140 @@ footer {
     color: #f47a20;
     margin-right: 6px;
 }
+/* ============================================================ */
+/* RESET PASSWORD PAGE */
+/* ============================================================ */
+
+.reset-password-page {
+    padding: 120px 0 60px;
+    background: #f4f6f9;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.reset-password-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 45px 40px 40px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eee;
+}
+
+.reset-password-card .password-requirements {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 20px;
+    margin-top: 10px;
+    padding: 12px 16px;
+    background: #f8f9fc;
+    border-radius: 10px;
+    border: 1px solid #e8ecf0;
+}
+
+.reset-password-card .password-requirements .req-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: #8a9aa8;
+    transition: all 0.3s ease;
+}
+
+.reset-password-card .password-requirements .req-item i {
+    font-size: 0.7rem;
+    width: 16px;
+    color: #ccc;
+    transition: all 0.3s ease;
+}
+
+.reset-password-card .password-requirements .req-item.met {
+    color: #22c55e;
+}
+
+.reset-password-card .password-requirements .req-item.met i {
+    color: #22c55e;
+}
+
+.reset-password-card .password-requirements .req-item.failed {
+    color: #dc2626;
+}
+
+.reset-password-card .password-requirements .req-item.failed i {
+    color: #dc2626;
+}
+
+.reset-password-card .form-error {
+    display: none;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    color: #991b1b;
+    font-size: 0.85rem;
+    animation: slideDown 0.3s ease;
+}
+
+.reset-password-card .form-error.show {
+    display: block;
+}
+
+.reset-password-card .form-error i {
+    margin-right: 8px;
+    color: #dc2626;
+}
+
+#resetInfo {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #166534;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#resetInfo i {
+    color: #22c55e;
+    font-size: 1.1rem;
+}
+
+#resetError {
+    display: none;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #991b1b;
+    font-size: 0.85rem;
+    animation: slideDown 0.3s ease;
+}
+
+#resetError.show {
+    display: block;
+}
+
+#resetError i {
+    color: #dc2626;
+    margin-right: 8px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .reset-password-card {
+        padding: 25px 20px;
+    }
+    
+    .reset-password-card .password-requirements {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+}
 
 /* ============================================================ */
 /* PARTNER LIST */

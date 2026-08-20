@@ -1000,6 +1000,22 @@ function animateStats() {
         updateCounter();
     });
 }
+// ============================================================ */
+// AUTO-FILL REMEMBER ME CREDENTIALS
+// ============================================================ */
+
+function autoFillRememberMe() {
+    const saved = loadRememberMe();
+    if (saved) {
+        const emailInput = document.getElementById('loginEmail');
+        const passwordInput = document.getElementById('loginPassword');
+        const rememberCheckbox = document.getElementById('rememberMe');
+        
+        if (emailInput) emailInput.value = saved.email;
+        if (passwordInput) passwordInput.value = saved.password;
+        if (rememberCheckbox) rememberCheckbox.checked = true;
+    }
+}
 document.addEventListener('DOMContentLoaded', function() {
     // Homepage
     renderCategories();
@@ -1033,7 +1049,31 @@ document.addEventListener('DOMContentLoaded', function() {
             easing: 'ease-out'
         });
     }
+    // ============================================================ */
+    // REMEMBER ME - Auto-fill on login pages
+    // ============================================================ */
+    
+    // Check if we're on Employer Login page
+    if (document.getElementById('employerLoginPage') || document.querySelector('.employer-login')) {
+        autoFillRememberMe();
+    }
+    
+    // Check if we're on Job Seeker Login page
+    if (document.getElementById('jobSeekerLoginPage') || document.querySelector('.login-page')) {
+        autoFillRememberMe();
+    }
+
+    // AOS (if available)
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+            easing: 'ease-out'
+        });
+    }
 });
+
 
 // ============================================================ */
 // OBSERVER FOR STATS — Triggers animation when visible
@@ -1856,6 +1896,52 @@ function handleEmployerRegistration(e) {
         alert('There was an error creating your account. Please try again.');
     }
 }
+// ============================================================ */
+// REMEMBER ME - Save/Load Login Credentials
+// ============================================================ */
+
+function saveRememberMe(email, password, remember) {
+    if (remember) {
+        // Save encrypted credentials (simple base64 encoding for demo)
+        const rememberData = {
+            email: email,
+            password: password,
+            savedAt: new Date().toISOString()
+        };
+        localStorage.setItem('awardsRecruitmentRememberMe', JSON.stringify(rememberData));
+    } else {
+        // Clear saved credentials
+        localStorage.removeItem('awardsRecruitmentRememberMe');
+    }
+}
+
+function loadRememberMe() {
+    try {
+        const data = localStorage.getItem('awardsRecruitmentRememberMe');
+        if (data) {
+            const parsed = JSON.parse(data);
+            // Check if saved within last 30 days
+            const savedDate = new Date(parsed.savedAt);
+            const now = new Date();
+            const daysDiff = (now - savedDate) / (1000 * 60 * 60 * 24);
+            
+            if (daysDiff < 30) {
+                return parsed;
+            } else {
+                // Expired - clear it
+                localStorage.removeItem('awardsRecruitmentRememberMe');
+                return null;
+            }
+        }
+        return null;
+    } catch (e) {
+        return null;
+    }
+}
+
+function clearRememberMe() {
+    localStorage.removeItem('awardsRecruitmentRememberMe');
+}
 
 // ============================================================ */
 // ADMIN DASHBOARD — JavaScript
@@ -2002,15 +2088,23 @@ function approveEmployer(email) {
         const tempPassword = generateTempPassword();
         employers[index].tempPassword = btoa(tempPassword);
         employers[index].tempPasswordPlain = tempPassword;
+        employers[index].isPasswordReset = false; // Add this flag
         
         saveEmployers(employers);
         updateAdminStats();
         renderAdminTable();
         
-        alert(`✅ Employer Approved!\n\nCompany: ${employers[index].companyName}\nEmail: ${email}\nTemporary Password: ${tempPassword}\n\nShare these credentials with the employer. They can now login and post jobs.`);
+        
+        const session = JSON.parse(localStorage.getItem('employerSession'));
+        if (session && session.email === email) {
+            session.tempPassword = true;
+            session.isPasswordReset = false;
+            localStorage.setItem('employerSession', JSON.stringify(session));
+        }
+        
+        alert(`✅ Employer Approved!\n\nCompany: ${employers[index].companyName}\nEmail: ${email}\nTemporary Password: ${tempPassword}\n\n⚠️ IMPORTANT: The employer will be required to create a new password upon first login.`);
     }
 }
-
 function rejectEmployer(email) {
     if (!confirm(`❌ Reject employer with email: ${email}?`)) return;
 
@@ -2080,11 +2174,16 @@ function toggleLoginPassword() {
     }
 }
 
+// ============================================================ */
+// EMPLOYER LOGIN - With Remember Me
+// ============================================================ */
+
 function handleEmployerLogin(e) {
     e.preventDefault();
     
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value.trim();
+    const rememberMe = document.getElementById('rememberMe')?.checked || false;
     const errorEl = document.getElementById('loginError');
     
     errorEl.classList.remove('show');
@@ -2119,23 +2218,41 @@ function handleEmployerLogin(e) {
         return;
     }
     
+    // Save Remember Me if checked
+    if (rememberMe) {
+        saveRememberMe(email, password, true);
+    } else {
+        clearRememberMe();
+    }
+    
+    // Check if this is a temporary password login
+    const isTempPassword = !!employer.tempPassword;
+    const isPasswordReset = employer.isPasswordReset || false;
+    
     const successOverlay = document.getElementById('successOverlay');
     const welcomeMessage = document.getElementById('welcomeMessage');
     const welcomeSubtext = document.getElementById('welcomeSubtext');
     
     welcomeMessage.textContent = `Welcome back, ${employer.companyName}!`;
-    welcomeSubtext.textContent = 'Redirecting you to the dashboard...';
+    welcomeSubtext.textContent = isTempPassword ? 'Redirecting to set new password...' : 'Redirecting to dashboard...';
     successOverlay.classList.add('show');
     
+    // Store session with temp password flag
     localStorage.setItem('employerSession', JSON.stringify({
         email: employer.email,
         companyName: employer.companyName,
-        loggedIn: true
+        loggedIn: true,
+        tempPassword: isTempPassword,
+        isPasswordReset: isPasswordReset
     }));
     
     setTimeout(() => {
-        window.location.href = 'post-job.html';
-    }, 3000);
+        if (isTempPassword) {
+            window.location.href = 'reset-password.html';
+        } else {
+            window.location.href = 'post-job.html';
+        }
+    }, 2000);
 }
 
 function logoutEmployer() {
@@ -2562,10 +2679,10 @@ function downloadDocument(applicantEmail, docType) {
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on the post job page
     if (document.getElementById('postJobDashboard')) {
-        const session = checkEmployerSession();
+        const session = checkPasswordResetRequired(); 
         if (session) {
             loadEmployerStats();
-            loadEmployerApplications(); // Load applications with documents
+            loadEmployerApplications();
         }
     }
 });
@@ -3327,13 +3444,15 @@ function toggleLoginPassword() {
 }
 
 // ============================================================ */
-// HANDLE LOGIN
+// JOB SEEKER LOGIN - With Remember Me
 // ============================================================ */
+
 function handleLogin(e) {
     e.preventDefault();
     
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value.trim();
+    const rememberMe = document.getElementById('rememberMe')?.checked || false;
     const errorEl = document.getElementById('loginError');
     
     // Reset error
@@ -3359,6 +3478,13 @@ function handleLogin(e) {
         return;
     }
     
+    // Check if user is a job seeker or employer
+    if (user.type === 'employer') {
+        errorEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> This is a job seeker login page. Please use the <a href="employer-login.html">employer login</a>.';
+        errorEl.classList.add('show');
+        return;
+    }
+    
     // Check password (btoa for encoding)
     const enteredPassword = btoa(password);
     const storedPassword = user.password || '';
@@ -3370,11 +3496,11 @@ function handleLogin(e) {
         return;
     }
     
-    // Check if user is a job seeker (has fullName) or employer
-    if (user.type === 'employer') {
-        errorEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> This is a job seeker login page. Please use the <a href="employer-login.html">employer login</a>.';
-        errorEl.classList.add('show');
-        return;
+    // Save Remember Me if checked
+    if (rememberMe) {
+        saveRememberMe(email, password, true);
+    } else {
+        clearRememberMe();
     }
     
     // Login successful — store session
@@ -3408,7 +3534,6 @@ function handleLogin(e) {
     
     document.body.appendChild(successOverlay);
     
- 
     setTimeout(() => {
         // Open dashboard in new tab
         window.open('jobseeker-dashboard.html', '_blank');
