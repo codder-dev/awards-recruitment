@@ -11169,7 +11169,7 @@ footer {
         order: 3 !important;
     }
 
-    header nav.open {
+    header nav.active {
         display: block !important;
     }
 

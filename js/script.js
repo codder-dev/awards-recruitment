@@ -871,17 +871,20 @@ function getAllJobs() {
 }
 
 // ============================================================ */
-// NAVBAR & MOBILE MENU
+// MOBILE MENU TOGGLE - COMPLETE (FIXED)
 // ============================================================ */
+
 function toggleMenu() {
     const nav = document.querySelector('header nav');
     const hamburger = document.querySelector('.unique-hamburger');
+    
     if (nav) {
         nav.classList.toggle('active');
     }
     if (hamburger) {
         hamburger.classList.toggle('active');
     }
+    
     if (nav && nav.classList.contains('active')) {
         document.body.style.overflow = 'hidden';
     } else {
@@ -889,9 +892,54 @@ function toggleMenu() {
     }
 }
 
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+// Close menu when a link is clicked
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('header nav ul li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const nav = document.querySelector('header nav');
+            const hamburger = document.querySelector('.unique-hamburger');
+            if (nav) {
+                nav.classList.remove('active');
+            }
+            if (hamburger) {
+                hamburger.classList.remove('active');
+            }
+            document.body.style.overflow = '';
+        });
+    });
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', function(e) {
+    const nav = document.querySelector('header nav');
+    const hamburger = document.querySelector('.unique-hamburger');
+    
+    if (nav && nav.classList.contains('active')) {
+        if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+            nav.classList.remove('active');
+            if (hamburger) {
+                hamburger.classList.remove('active');
+            }
+            document.body.style.overflow = '';
+        }
+    }
+});
+
+// Close menu on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const nav = document.querySelector('header nav');
+        const hamburger = document.querySelector('.unique-hamburger');
+        if (nav && nav.classList.contains('active')) {
+            nav.classList.remove('active');
+            if (hamburger) {
+                hamburger.classList.remove('active');
+            }
+            document.body.style.overflow = '';
+        }
+    }
+});
 
 // ============================================================ */
 // TYPING ANIMATION
