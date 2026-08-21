@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-
-    
+    <link rel="icon" href="images/company.jpg" type="image/x-icon" />
 </head>
 <body>
 
@@ -22,7 +20,7 @@
         <div class="admin-login-box">
             <div class="login-icon"><i class="fas fa-shield-alt"></i></div>
             <h2>Admin Access</h2>
-            <p>Enter your admin credentials to manage employers and jobs</p>
+            <p>Enter your admin credentials to manage employers, job seekers, and jobs</p>
             <div class="form-group">
                 <label>Admin Password</label>
                 <input type="password" id="adminPasswordInput" placeholder="Enter admin password..." onkeydown="if(event.key==='Enter')adminLogin()" />
@@ -33,7 +31,7 @@
             <div class="login-error" id="adminLoginError">
                 <i class="fas fa-exclamation-circle"></i> Incorrect password. Please try again.
             </div>
-            <p style="margin-top:15px;font-size:0.75rem;color:#8a9aa8;">Default password: <strong>admin123</strong> (Change in script.js)</p>
+            <p style="margin-top:15px;font-size:0.75rem;color:#8a9aa8;">Default password: <strong>admin123</strong></p>
         </div>
     </div>
 
@@ -44,7 +42,7 @@
         <div class="container">
             <div class="logo">
                 <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
-                    <div class="logo-icon"><i class="fas fa-award"></i></div>
+                    <div class="logo-icon"><img src="/images/company.jpg"></div>
                     <span>Awards <span>Recruitment</span></span>
                 </a>
             </div>
@@ -80,14 +78,14 @@
     <!-- ============================================================ -->
     <!-- ADMIN DASHBOARD -->
     <!-- ============================================================ -->
-    <section class="admin-dashboard" id="adminDashboard">
+    <section class="admin-dashboard" id="adminDashboard" style="display:none;">
         <div class="container">
 
             <!-- Admin Header -->
             <div class="admin-header">
                 <div>
                     <h1>Admin <span>Dashboard</span></h1>
-                    <p style="color:#6b7a8a;font-size:0.9rem;">Manage employers, job postings, and approvals</p>
+                    <p style="color:#6b7a8a;font-size:0.9rem;">Manage employers, job seekers, job postings, and approvals</p>
                 </div>
                 <div class="admin-badge">
                     <i class="fas fa-circle" style="color:#22c55e;font-size:0.6rem;"></i>
@@ -98,70 +96,184 @@
                 </div>
             </div>
 
-            <!-- Stats -->
-            <div class="admin-stats-grid">
-                <div class="admin-stat-card">
-                    <div class="stat-icon total"><i class="fas fa-users"></i></div>
-                    <div class="stat-info">
-                        <h3 id="totalEmployers">0</h3>
-                        <p>Total Employers</p>
+            <!-- ============================================================ -->
+            <!-- SECTION 1: OVERALL STATS -->
+            <!-- ============================================================ -->
+            <div style="margin-bottom:30px;">
+                <h3 style="font-size:1.1rem;color:#0f1a2b;margin-bottom:15px;">
+                    <i class="fas fa-chart-bar" style="color:#f47a20;"></i> Overall Statistics
+                </h3>
+                <div class="admin-stats-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+                    <div class="admin-stat-card">
+                        <div class="stat-icon total"><i class="fas fa-users"></i></div>
+                        <div class="stat-info">
+                            <h3 id="totalEmployers">0</h3>
+                            <p>Total Employers</p>
+                        </div>
                     </div>
-                </div>
-                <div class="admin-stat-card">
-                    <div class="stat-icon pending"><i class="fas fa-clock"></i></div>
-                    <div class="stat-info">
-                        <h3 id="pendingEmployers">0</h3>
-                        <p>Pending Approval</p>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon pending"><i class="fas fa-clock"></i></div>
+                        <div class="stat-info">
+                            <h3 id="pendingEmployers">0</h3>
+                            <p>Pending Approval</p>
+                        </div>
                     </div>
-                </div>
-                <div class="admin-stat-card">
-                    <div class="stat-icon approved"><i class="fas fa-check-circle"></i></div>
-                    <div class="stat-info">
-                        <h3 id="approvedEmployers">0</h3>
-                        <p>Approved</p>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon approved"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info">
+                            <h3 id="approvedEmployers">0</h3>
+                            <p>Approved</p>
+                        </div>
                     </div>
-                </div>
-                <div class="admin-stat-card">
-                    <div class="stat-icon rejected"><i class="fas fa-times-circle"></i></div>
-                    <div class="stat-info">
-                        <h3 id="rejectedEmployers">0</h3>
-                        <p>Rejected</p>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon rejected"><i class="fas fa-times-circle"></i></div>
+                        <div class="stat-info">
+                            <h3 id="rejectedEmployers">0</h3>
+                            <p>Rejected</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tabs -->
-            <div class="admin-tabs">
-                <button class="admin-tab active" data-tab="pending" onclick="switchTab('pending')">
-                    <i class="fas fa-clock"></i> Pending
-                </button>
-                <button class="admin-tab" data-tab="approved" onclick="switchTab('approved')">
-                    <i class="fas fa-check-circle"></i> Approved
-                </button>
-                <button class="admin-tab" data-tab="rejected" onclick="switchTab('rejected')">
-                    <i class="fas fa-times-circle"></i> Rejected
-                </button>
-                <button class="admin-tab" data-tab="all" onclick="switchTab('all')">
-                    <i class="fas fa-list"></i> All
-                </button>
+            <!-- ============================================================ -->
+            <!-- SECTION 2: EMPLOYER DETAILS & STATS -->
+            <!-- ============================================================ -->
+            <div style="margin-bottom:30px;">
+                <h3 style="font-size:1.1rem;color:#0f1a2b;margin-bottom:15px;">
+                    <i class="fas fa-building" style="color:#f47a20;"></i> Employer Details & Stats
+                </h3>
+                <div class="admin-stats-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+                    <div class="admin-stat-card">
+                        <div class="stat-icon total"><i class="fas fa-briefcase"></i></div>
+                        <div class="stat-info">
+                            <h3 id="totalJobsPosted">0</h3>
+                            <p>Total Jobs Posted</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon approved"><i class="fas fa-file-alt"></i></div>
+                        <div class="stat-info">
+                            <h3 id="totalApplicantsCount">0</h3>
+                            <p>Total Applicants</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon green"><i class="fas fa-user-check"></i></div>
+                        <div class="stat-info">
+                            <h3 id="totalHiredCount">0</h3>
+                            <p>Total Hired</p>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon pending"><i class="fas fa-clock"></i></div>
+                        <div class="stat-info">
+                            <h3 id="totalJobSeekers">0</h3>
+                            <p>Total Job Seekers</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Table -->
-            <div class="admin-table-wrapper">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Company</th>
-                            <th>Email</th>
-                            <th>Industry</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminTableBody">
-                        <!-- Rendered by JavaScript -->
-                    </tbody>
-                </table>
+            <!-- ============================================================ -->
+            <!-- SECTION 3: EMPLOYER APPROVALS TABLE -->
+            <!-- ============================================================ -->
+            <div style="margin-bottom:40px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:20px;">
+                    <h3 style="font-size:1.1rem;color:#0f1a2b;">
+                        <i class="fas fa-user-tie" style="color:#f47a20;"></i> Employers
+                        <span style="font-size:0.8rem;color:#6b7a8a;font-weight:400;">(Approve or reject employer registrations)</span>
+                    </h3>
+                </div>
+
+                <!-- Tabs -->
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="pending" onclick="switchTab('pending')">
+                        <i class="fas fa-clock"></i> Pending
+                    </button>
+                    <button class="admin-tab" data-tab="approved" onclick="switchTab('approved')">
+                        <i class="fas fa-check-circle"></i> Approved
+                    </button>
+                    <button class="admin-tab" data-tab="rejected" onclick="switchTab('rejected')">
+                        <i class="fas fa-times-circle"></i> Rejected
+                    </button>
+                    <button class="admin-tab" data-tab="all" onclick="switchTab('all')">
+                        <i class="fas fa-list"></i> All
+                    </button>
+                </div>
+
+                <!-- Employer Table -->
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Email</th>
+                                <th>Industry</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody">
+                            <!-- Rendered by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- SECTION 4: EMPLOYER PERFORMANCE TABLE -->
+            <!-- ============================================================ -->
+            <div style="margin-bottom:40px;">
+                <h3 style="font-size:1.1rem;color:#0f1a2b;margin-bottom:15px;">
+                    <i class="fas fa-chart-line" style="color:#f47a20;"></i> Employer Performance
+                    <span style="font-size:0.8rem;color:#6b7a8a;font-weight:400;">(Jobs posted, applicants, hired)</span>
+                </h3>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Jobs Posted</th>
+                                <th>Applicants</th>
+                                <th>Hired</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employerAdminTableBody">
+                            <!-- Rendered by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ============================================================ -->
+            <!-- SECTION 5: JOB SEEKERS TABLE -->
+            <!-- ============================================================ -->
+            <div>
+                <h3 style="font-size:1.1rem;color:#0f1a2b;margin-bottom:15px;">
+                    <i class="fas fa-user-graduate" style="color:#f47a20;"></i> Job Seekers
+                    <span style="font-size:0.8rem;color:#6b7a8a;font-weight:400;">(View, manage, and delete job seeker accounts)</span>
+                </h3>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Education</th>
+                                <th>Industry</th>
+                                <th>Profile %</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jobSeekersTableBody">
+                            <!-- Rendered by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>

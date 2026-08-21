@@ -5,23 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Profile – Awards Recruitment Ltd</title>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Edit your profile at Awards Recruitment Ltd. Update your personal information, skills, and profile photo." />
-    <meta name="keywords" content="edit profile, update profile, job seeker profile, recruitment Kenya" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Edit Profile – Awards Recruitment Ltd" />
-    <meta property="og:description" content="Update your profile information and photo." />
-    <meta property="og:url" content="https://www.awardsrecruitment.com/edit-profile.html" />
-    <meta property="og:type" content="website" />
-
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-
-    
+    <link rel="icon" href="images/company.jpg" type="image/x-icon" />
 </head>
 <body>
 
@@ -32,16 +20,16 @@
         <div class="container">
             <div class="logo">
                 <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
-                    <div class="logo-icon"><i class="fas fa-award"></i></div>
+                    <div class="logo-icon"><img src="/images/company.jpg"></div>
                     <span>Awards <span>Recruitment</span></span>
                 </a>
             </div>
 
-             <nav>
+            <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="job-seekers.html">Job Seekers</a></li>
+                    <li><a href="job-seekers.html" class="active">Job Seekers</a></li>
                     <li><a href="careers.html">Job Posts</a></li>
                     <li><a href="employers.html">Employers</a></li>
                     <li><a href="partners.html">Partners</a></li>
@@ -67,15 +55,14 @@
     </header>
 
     <!-- ============================================================ -->
-    <!-- EDIT PROFILE -->
+    <!-- EDIT PROFILE PAGE -->
     <!-- ============================================================ -->
-    <section class="edit-profile-page">
+    <section class="edit-profile-page" id="editProfilePage">
         <div class="container">
             <div class="edit-profile-card">
-
                 <div class="card-header">
-                    <h2>Edit Profile</h2>
-                    <p>Update your personal information and profile photo</p>
+                    <h2><i class="fas fa-user-edit" style="color:#f47a20;"></i> Edit Profile</h2>
+                    <p>Update your personal information, education, experience, and upload your CV</p>
                 </div>
 
                 <!-- Success Message -->
@@ -85,20 +72,24 @@
                 </div>
 
                 <form id="editProfileForm" onsubmit="handleUpdateProfile(event)" novalidate>
-
+                    
                     <!-- Profile Photo -->
                     <div class="profile-photo-section">
                         <div class="profile-photo-wrapper">
-                            <img class="profile-photo" id="profilePhotoPreview" src="" alt="Profile Photo" />
+                            <img id="profilePhotoPreview" src="" alt="Profile Photo" class="profile-photo" />
                             <label class="photo-upload-btn">
                                 <i class="fas fa-camera"></i>
-                                <input type="file" id="profilePhotoInput" accept="image/*" onchange="previewPhoto(event)" />
+                                <input type="file" accept="image/*" onchange="previewPhoto(event)" />
                             </label>
                         </div>
-                        <p class="photo-hint">Click the camera icon to upload a profile photo (JPG, PNG)</p>
+                        <p class="photo-hint">Click the camera icon to upload a profile photo</p>
                     </div>
 
-                    <!-- Full Name -->
+                    <!-- Personal Information -->
+                    <h3 style="font-size:1.1rem;color:#0f1a2b;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #f0f2f5;">
+                        <i class="fas fa-user" style="color:#f47a20;"></i> Personal Information
+                    </h3>
+
                     <div class="form-group">
                         <label for="editFullName">Full Name <span class="required">*</span></label>
                         <div class="input-wrapper" id="nameWrapper">
@@ -110,16 +101,15 @@
                         </div>
                     </div>
 
-                    <!-- Email (read-only) -->
                     <div class="form-group">
                         <label for="editEmail">Email Address</label>
                         <div class="input-wrapper">
                             <i class="fas fa-envelope"></i>
-                            <input type="email" id="editEmail" placeholder="Your email address" readonly style="background:#f0f2f5;cursor:not-allowed;" />
+                            <input type="email" id="editEmail" placeholder="Enter your email address" disabled />
                         </div>
+                        <p class="form-hint">Email cannot be changed. Contact support if you need to update it.</p>
                     </div>
 
-                    <!-- Phone -->
                     <div class="form-group">
                         <label for="editPhone">Phone Number <span class="required">*</span></label>
                         <div class="input-wrapper" id="phoneWrapper">
@@ -131,69 +121,153 @@
                         </div>
                     </div>
 
-                    <!-- Location -->
                     <div class="form-group">
                         <label for="editLocation">Location <span class="required">*</span></label>
                         <div class="input-wrapper" id="locationWrapper">
                             <i class="fas fa-map-marker-alt"></i>
-                            <input type="text" id="editLocation" placeholder="Enter your location (e.g., Nairobi)" required />
+                            <input type="text" id="editLocation" placeholder="e.g., Nairobi, Kenya" required />
                         </div>
                         <div class="form-error" id="locationError">
                             <i class="fas fa-exclamation-circle"></i> Please enter your location.
                         </div>
                     </div>
 
-                    <!-- Industry -->
+                    <!-- Education & Experience -->
+                    <h3 style="font-size:1.1rem;color:#0f1a2b;margin:25px 0 15px;padding-bottom:10px;border-bottom:2px solid #f0f2f5;">
+                        <i class="fas fa-graduation-cap" style="color:#f47a20;"></i> Education & Experience
+                    </h3>
+
+                    <div class="form-group">
+                        <label for="editEducation">Highest Education Level <span class="required">*</span></label>
+                        <div class="input-wrapper" id="educationWrapper">
+                            <i class="fas fa-graduation-cap"></i>
+                            <select id="editEducation" required>
+                                <option value="">Select your highest education level</option>
+                                <option value="Certificate">Certificate</option>
+                                <option value="Diploma">Diploma</option>
+                                <option value="Bachelor's Degree">Bachelor's Degree</option>
+                                <option value="Master's Degree">Master's Degree</option>
+                                <option value="PhD">PhD</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-error" id="educationError">
+                            <i class="fas fa-exclamation-circle"></i> Please select your highest education level.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editFieldOfStudy">Field of Study</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-book"></i>
+                            <input type="text" id="editFieldOfStudy" placeholder="e.g., Computer Science, Business Administration" />
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="editIndustry">Industry <span class="required">*</span></label>
                         <div class="input-wrapper" id="industryWrapper">
-                            <i class="fas fa-building"></i>
-                            <input type="text" id="editIndustry" placeholder="Enter your industry" />
-                                
+                            <i class="fas fa-briefcase"></i>
+                            <input type="text" id="editIndustry" placeholder="e.g., Information Technology, Finance" required />
                         </div>
                         <div class="form-error" id="industryError">
-                            <i class="fas fa-exclamation-circle"></i> Please select your industry.
+                            <i class="fas fa-exclamation-circle"></i> Please enter your industry.
                         </div>
                     </div>
 
-                    <!-- Experience Level -->
                     <div class="form-group">
-                        <label for="editExperience">Experience Level <span class="required">*</span></label>
+                        <label for="editExperience">Years of Experience <span class="required">*</span></label>
                         <div class="input-wrapper" id="experienceWrapper">
                             <i class="fas fa-chart-line"></i>
                             <select id="editExperience" required>
-                                <option value="">Select your experience level</option>
-                                <option value="Internship">Internship</option>
-                                <option value="Entry Level">Entry Level</option>
-                                <option value="Mid Level">Mid Level</option>
-                                <option value="Senior Level">Senior Level</option>
-                                <option value="Executive">Executive</option>
+                                <option value="">Select years of experience</option>
+                                <option value="0-1">Less than 1 year</option>
+                                <option value="1-2">1 - 2 years</option>
+                                <option value="3-5">3 - 5 years</option>
+                                <option value="5-10">5 - 10 years</option>
+                                <option value="10+">10+ years</option>
                             </select>
                         </div>
                         <div class="form-error" id="experienceError">
-                            <i class="fas fa-exclamation-circle"></i> Please select your experience level.
+                            <i class="fas fa-exclamation-circle"></i> Please select your years of experience.
                         </div>
                     </div>
 
-                    <!-- Skills -->
                     <div class="form-group">
                         <label for="editSkills">Skills (comma separated)</label>
                         <div class="input-wrapper">
-                            <i class="fas fa-tools"></i>
+                            <i class="fas fa-tags"></i>
                             <input type="text" id="editSkills" placeholder="e.g., JavaScript, Project Management, Communication" />
+                        </div>
+                        <p class="form-hint">List your key skills separated by commas</p>
+                    </div>
+
+                    <!-- CV Upload -->
+                    <h3 style="font-size:1.1rem;color:#0f1a2b;margin:25px 0 15px;padding-bottom:10px;border-bottom:2px solid #f0f2f5;">
+                        <i class="fas fa-file-alt" style="color:#f47a20;"></i> Documents
+                    </h3>
+
+                    <div class="form-group">
+                        <label>Upload CV <span class="required">*</span></label>
+                        <div class="file-upload-area" id="cvUploadArea">
+                            <div class="upload-icon"><i class="fas fa-file-pdf"></i></div>
+                            <div class="upload-text">Drop your CV here or <strong>browse</strong></div>
+                            <div class="upload-subtext">Only <strong>PDF</strong> files are accepted (Max 5MB)</div>
+                            <input type="file" class="file-input" id="cvFileInput" accept=".pdf" />
+                            <div class="file-info">
+                                <span class="file-name"><i class="fas fa-file-pdf"></i> <span id="cvFileName">No file chosen</span></span>
+                                <button type="button" class="file-remove" onclick="removeFile('cv')">✕ Remove</button>
+                            </div>
+                        </div>
+                        <div class="file-error" id="cvFileError">
+                            <i class="fas fa-exclamation-circle"></i> Please upload your CV (PDF format only).
+                        </div>
+                        <div class="file-error" id="cvFileTypeError" style="display:none;">
+                            <i class="fas fa-exclamation-circle"></i> Only PDF files are accepted.
                         </div>
                     </div>
 
-                    <!-- Form Actions -->
+                    <div class="form-group">
+                        <label>Upload Cover Letter</label>
+                        <div class="cover-letter-area" id="coverUploadArea">
+                            <div class="upload-icon"><i class="fas fa-file-alt"></i></div>
+                            <div class="upload-text">Drop your cover letter here or <strong>browse</strong></div>
+                            <div class="upload-subtext">Only <strong>PDF</strong> files are accepted (Max 5MB)</div>
+                            <input type="file" class="file-input" id="coverFileInput" accept=".pdf" />
+                            <div class="file-info">
+                                <span class="file-name"><i class="fas fa-file-alt"></i> <span id="coverFileName">No file chosen</span></span>
+                                <button type="button" class="file-remove" onclick="removeFile('cover')">✕ Remove</button>
+                            </div>
+                        </div>
+                        <div class="file-error" id="coverFileError">
+                            <i class="fas fa-exclamation-circle"></i> Please upload your cover letter (PDF format only).
+                        </div>
+                        <div class="file-error" id="coverFileTypeError" style="display:none;">
+                            <i class="fas fa-exclamation-circle"></i> Only PDF files are accepted.
+                        </div>
+                    </div>
+
+                    <!-- About -->
+                    <h3 style="font-size:1.1rem;color:#0f1a2b;margin:25px 0 15px;padding-bottom:10px;border-bottom:2px solid #f0f2f5;">
+                        <i class="fas fa-align-left" style="color:#f47a20;"></i> About You
+                    </h3>
+
+                    <div class="form-group">
+                        <label for="editBio">Professional Summary</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-align-left"></i>
+                            <textarea id="editBio" placeholder="Tell employers about yourself, your career goals, and what you're looking for..." rows="4"></textarea>
+                        </div>
+                    </div>
+
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary btn-lg">
                             <i class="fas fa-save"></i> Save Changes
                         </button>
                         <a href="jobseeker-dashboard.html" class="btn btn-outline-primary btn-lg">
-                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                            <i class="fas fa-arrow-left"></i> Cancel
                         </a>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -208,24 +282,24 @@
                 <div class="footer-brand">
                     <div class="footer-logo">
                         <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
-                            <div class="logo-icon"><i class="fas fa-award"></i></div>
+                            <div class="logo-icon"><img src="/images/company.jpg"></div>
                             <span>Awards <span>Recruitment</span></span>
                         </a>
                     </div>
-                    <p>Premier outsourcing and resourcing solutions tailored to meet the unique needs of businesses worldwide.</p>
+                    <p>Premier Talent resourcing and outsourcing solutions tailored to meet the unique needs of businesses worldwide.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-linkedin-in"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-youtube"></i>
                     </div>
                 </div>
 
                 <div class="footer-links">
                     <div class="footer-col">
                         <h4>Quick Links</h4>
-                         <ul>
+                        <ul>
                             <li><a href="index.html">Home</a></li>
                             <li><a href="about.html">About</a></li>
                             <li><a href="job-seekers.html">Job Seekers</a></li>
