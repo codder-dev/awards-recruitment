@@ -1705,14 +1705,17 @@ function validateStep1() {
     }
     return valid;
 }
-
 function validateStep2() {
     let valid = true;
 
-    document.querySelectorAll('#step2 .form-error').forEach(el => el.classList.remove('show'));
-    document.querySelectorAll('#step2 .input-wrapper').forEach(el => el.classList.remove('error', 'success'));
+    document.querySelectorAll('#step2 .form-error')
+        .forEach(el => el.classList.remove('show'));
+
+    document.querySelectorAll('#step2 .input-wrapper')
+        .forEach(el => el.classList.remove('error', 'success'));
 
     const industry = document.getElementById('industry');
+
     if (!industry.value.trim()) {
         document.getElementById('industryWrapper').classList.add('error');
         document.getElementById('industryError').classList.add('show');
@@ -1722,6 +1725,7 @@ function validateStep2() {
     }
 
     const experience = document.getElementById('experience');
+
     if (!experience.value) {
         document.getElementById('experienceWrapper').classList.add('error');
         document.getElementById('experienceError').classList.add('show');
@@ -1731,6 +1735,7 @@ function validateStep2() {
     }
 
     const education = document.getElementById('education');
+
     if (!education.value.trim()) {
         document.getElementById('educationWrapper').classList.add('error');
         document.getElementById('educationError').classList.add('show');
@@ -1739,16 +1744,22 @@ function validateStep2() {
         document.getElementById('educationWrapper').classList.add('success');
     }
 
-    const cvInput = document.getElementById('cvFileInput');
-    if (!cvInput.files || cvInput.files.length === 0) {
-        document.getElementById('cvError').classList.add('show');
-        valid = false;
-    }
+    /*
+     * CV and Cover Letter are intentionally NOT required here.
+     * They are uploaded later from the Job Seeker profile.
+     */
 
     if (!valid) {
-        const firstError = document.querySelector('#step2 .form-error.show, #step2 .file-error.show');
-        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const firstError = document.querySelector('#step2 .form-error.show');
+
+        if (firstError) {
+            firstError.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
     }
+
     return valid;
 }
 
@@ -1838,76 +1849,84 @@ function handleSimpleRegistrationEnhanced(e) {
     }
 
     const userData = {
-        fullName: fullName,
-        email: email,
-        phone: phone,
-        dob: dob,
-        location: location,
-        industry: industry,
-        experience: experience,
-        education: education,
-        skills: skills,
-        cvFileName: cvFileName,
-        cvFileData: cvFileData,
-        coverFileName: coverFileName,
-        coverFileData: coverFileData,
-        password: btoa(password.value),
-        type: 'jobseeker',
-        createdAt: new Date().toISOString(),
-        profilePhoto: '',
-        bio: '',
-        fieldOfStudy: '',
-        profileComplete: false
-    };
+    fullName: fullName,
+    email: email,
+    phone: phone,
+    dob: dob,
+    location: location,
+    industry: industry,
+    experience: experience,
+    education: education,
+    skills: skills,
 
-    async function processRegistration() {
-        try {
-            if (cvInput.files && cvInput.files.length > 0) {
-                const cvBase64 = await fileToBase64(cvInput.files[0]);
-                userData.cvFileData = cvBase64;
-            }
-            if (coverInput.files && coverInput.files.length > 0) {
-                const coverBase64 = await fileToBase64(coverInput.files[0]);
-                userData.coverFileData = coverBase64;
-            }
+    // Documents are added later from Edit Profile
+    cvFileName: '',
+    cvFileData: '',
+    coverFileName: '',
+    coverFileData: '',
 
-            let users = getUsers();
-            if (users.some(u => u.email === userData.email)) {
-                alert('An account with this email already exists. Please sign in or use a different email.');
-                return;
-            }
+    password: btoa(password.value),
+    type: 'jobseeker',
 
-            users.push(userData);
-            saveUsers(users);
+    createdAt: new Date().toISOString(),
+    lastLoginAt: null,
+    lastProfileUpdateAt: null,
+    lastApplicationAt: null,
 
-            localStorage.setItem('awardsRecruitmentCurrentUser', JSON.stringify({
-                email: userData.email,
-                fullName: userData.fullName,
-                role: 'jobseeker',
-                loggedIn: true
-            }));
+    profilePhoto: '',
+    bio: '',
+    fieldOfStudy: '',
 
-            const successModal = document.getElementById('successModal');
-            if (successModal) successModal.classList.add('show');
+    profileComplete: false,
+    accountStatus: 'active'
+};
 
-            setTimeout(() => {
-                document.getElementById('registrationForm').reset();
-                document.querySelectorAll('.input-wrapper').forEach(el => el.classList.remove('error', 'success'));
-                document.querySelectorAll('.form-error').forEach(el => el.classList.remove('show'));
-                document.querySelectorAll('.password-requirements .req-item').forEach(el => {
-                    el.classList.remove('met', 'failed');
-                    el.querySelector('i').className = 'fas fa-circle';
-                });
-                resetFormSteps();
-                window.location.href = 'jobseeker-dashboard.html';
-            }, 3000);
+try {
+    let users = getUsers();
 
-        } catch (error) {
-            console.error('Error processing registration:', error);
-            alert('There was an error creating your account. Please try again.');
-        }
+    if (users.some(u => u.email === userData.email)) {
+        alert(
+            'An account with this email already exists. Please sign in or use a different email.'
+        );
+        return;
     }
 
+    users.push(userData);
+    saveUsers(users);
+
+    localStorage.setItem(
+        'awardsRecruitmentCurrentUser',
+        JSON.stringify({
+            email: userData.email,
+            fullName: userData.fullName,
+            role: 'jobseeker',
+            loggedIn: true
+        })
+    );
+
+    const successModal = document.getElementById('successModal');
+
+    if (successModal) {
+        successModal.classList.add('show');
+    }
+
+    setTimeout(() => {
+        const form = document.getElementById('registrationForm');
+
+        if (form) form.reset();
+
+        resetFormSteps();
+
+        window.location.href = 'jobseeker-dashboard.html';
+    }, 2000);
+
+} catch (error) {
+    console.error('Error processing registration:', error);
+
+    alert(
+        'There was an error creating your account. Please try again.'
+    );
+}
     processRegistration();
 }
 
@@ -1980,14 +1999,21 @@ function handleLogin(e) {
         localStorage.removeItem('awardsRecruitmentRememberMe');
     }
 
-    localStorage.setItem('awardsRecruitmentCurrentUser', JSON.stringify({
-        email: user.email,
-        fullName: user.fullName || 'User',
-        role: user.type || 'job-seeker',
-        loggedIn: true
-    }));
+    // Record the user's last login
+user.lastLoginAt = new Date().toISOString();
+user.lastActivityAt = new Date().toISOString();
 
-    window.location.href = 'jobseeker-dashboard.html';
+saveUsers(users);
+
+// Create the login session
+localStorage.setItem('awardsRecruitmentCurrentUser', JSON.stringify({
+    email: user.email,
+    fullName: user.fullName || 'User',
+    role: user.type || 'job-seeker',
+    loggedIn: true
+}));
+
+window.location.href = 'jobseeker-dashboard.html';
 }
 
 function toggleLoginPassword() {
@@ -2069,9 +2095,186 @@ function renderDashboard() {
     if (badge) badge.textContent = savedJobs.length;
 
     renderApplications(applications);
-    renderProfile(user);
-    renderSavedJobs(savedJobs);
-    renderFullProfile(user);
+renderProfile(user);
+renderSavedJobs(savedJobs);
+renderFullProfile(user);
+renderRelevantIndustries(user);
+renderRecommendedJobs(user);
+}
+function calculateCandidateMatch(candidate, employer, job = null) {
+
+    let score = 0;
+
+    const candidateIndustry =
+        normalizeText(candidate.industry);
+
+    const employerIndustry =
+        normalizeText(
+            job?.industry || employer.industry
+        );
+
+    const candidateSkills =
+        normalizeText(candidate.skills);
+
+    const jobRequirements =
+        normalizeText(
+            `${job?.title || ''} ${job?.description || ''} ${
+                (job?.requirements || []).join(' ')
+            }`
+        );
+
+    // Industry
+    if (
+        candidateIndustry &&
+        employerIndustry &&
+        (
+            candidateIndustry === employerIndustry ||
+            candidateIndustry.includes(employerIndustry) ||
+            employerIndustry.includes(candidateIndustry)
+        )
+    ) {
+        score += 35;
+    }
+
+    // Skills
+    if (candidateSkills) {
+
+        const skills = candidateSkills
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean);
+
+        let skillMatches = 0;
+
+        skills.forEach(skill => {
+
+            if (jobRequirements.includes(skill)) {
+                skillMatches++;
+            }
+
+        });
+
+        if (skills.length > 0) {
+
+            score += Math.min(
+                30,
+                Math.round(
+                    (skillMatches / skills.length) * 30
+                )
+            );
+        }
+    }
+
+    // Experience
+    if (candidate.experience) {
+
+        const experience =
+            normalizeText(candidate.experience);
+
+        const jobExperience =
+            normalizeText(job?.experience);
+
+        if (
+            !jobExperience ||
+            experience === jobExperience ||
+            experience.includes(jobExperience) ||
+            jobExperience.includes(experience)
+        ) {
+            score += 20;
+        }
+    }
+
+    // Location
+    if (
+        candidate.location &&
+        (
+            normalizeText(candidate.location)
+                .includes(normalizeText(job?.location)) ||
+            normalizeText(job?.location)
+                .includes(normalizeText(candidate.location))
+        )
+    ) {
+        score += 10;
+    }
+
+    // Complete profile
+    if (calculateProfileCompletion(candidate) >= 80) {
+        score += 5;
+    }
+
+    return Math.min(score, 100);
+}
+function getRecommendedCandidates(employerEmail) {
+
+    const users = getUsers();
+
+    const employer =
+        users.find(
+            u => u.type === 'employer' &&
+                 u.email === employerEmail
+        );
+
+    if (!employer) return [];
+
+    const jobseekers = getJobSeekers();
+
+    const employerJobs =
+        getAllJobs().filter(
+            job => job.postedBy === employerEmail
+        );
+
+    const results = [];
+
+    jobseekers.forEach(candidate => {
+
+        // Don't recommend people with almost empty profiles
+        if (calculateProfileCompletion(candidate) < 30) {
+            return;
+        }
+
+        let bestScore = 0;
+        let matchedJob = null;
+
+        employerJobs.forEach(job => {
+
+            const score =
+                calculateCandidateMatch(
+                    candidate,
+                    employer,
+                    job
+                );
+
+            if (score > bestScore) {
+                bestScore = score;
+                matchedJob = job;
+            }
+        });
+
+        // If employer has no jobs yet,
+        // match against company industry.
+        if (employerJobs.length === 0) {
+
+            bestScore =
+                calculateCandidateMatch(
+                    candidate,
+                    employer,
+                    null
+                );
+        }
+
+        if (bestScore >= 40) {
+
+            results.push({
+                candidate,
+                score: bestScore,
+                matchedJob
+            });
+        }
+    });
+
+    return results
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 10);
 }
 
 function renderApplications(applications) {
@@ -2512,6 +2715,15 @@ function handleUpdateProfile(e) {
             let cvFileName = users[userIndex].cvFileName || '';
             let coverBase64 = users[userIndex].coverFileData || '';
             let coverFileName = users[userIndex].coverFileName || '';
+            // Record profile activity
+users[userIndex].lastProfileUpdateAt =
+    new Date().toISOString();
+
+users[userIndex].lastActivityAt =
+    new Date().toISOString();
+
+users[userIndex].profileComplete =
+    calculateProfileCompletion(users[userIndex]) >= 100;
 
             if (cvInput.files && cvInput.files.length > 0) {
                 const file = cvInput.files[0];
@@ -2777,6 +2989,23 @@ function handleApply(e) {
             let applications = getApplications();
             applications.push(applicationData);
             saveApplications(applications);
+            // Record application activity for the job seeker
+const applicantUsers = getUsers();
+
+const applicantIndex = applicantUsers.findIndex(
+    u => u.email === applicationData.applicantEmail
+);
+
+if (applicantIndex !== -1) {
+
+    applicantUsers[applicantIndex].lastApplicationAt =
+        new Date().toISOString();
+
+    applicantUsers[applicantIndex].lastActivityAt =
+        new Date().toISOString();
+
+    saveUsers(applicantUsers);
+}
 
             // Update job applicants count
             let allJobs = getAllJobs();
@@ -2958,6 +3187,108 @@ function renderRelatedJobs(jobId) {
             </a>
         </div>
     `).join('');
+}
+function logAdminActivity(type, data = {}) {
+
+    const activities =
+        JSON.parse(
+            localStorage.getItem(
+                'awardsRecruitmentAdminActivity'
+            ) || '[]'
+        );
+
+    activities.unshift({
+        id: Date.now(),
+        type,
+        data,
+        createdAt: new Date().toISOString()
+    });
+
+    localStorage.setItem(
+        'awardsRecruitmentAdminActivity',
+        JSON.stringify(activities.slice(0, 100))
+    );
+}
+function monitorAccountStatus() {
+
+    const jobseekerSession =
+        getCurrentUser();
+
+    if (
+        jobseekerSession &&
+        jobseekerSession.loggedIn
+    ) {
+
+        const users = getUsers();
+
+        const account = users.find(
+            u => u.email === jobseekerSession.email
+        );
+
+        if (!account) {
+
+            localStorage.removeItem(
+                'awardsRecruitmentCurrentUser'
+            );
+
+            alert(
+                'Your Awards Recruitment account has been deleted by the administrator. You have been logged out.'
+            );
+
+            window.location.href =
+                'login.html';
+
+            return;
+        }
+    }
+
+
+    const employerSession =
+        getEmployerSession();
+
+    if (
+        employerSession &&
+        employerSession.loggedIn
+    ) {
+
+        const users = getUsers();
+
+        const account = users.find(
+            u =>
+                u.type === 'employer' &&
+                u.email === employerSession.email
+        );
+
+        if (!account) {
+
+            localStorage.removeItem(
+                'employerSession'
+            );
+
+            alert(
+                'Your employer account has been deleted by the administrator. You have been logged out.'
+            );
+
+            window.location.href =
+                'employer-login.html';
+
+            return;
+        }
+
+        if (account.status !== 'approved') {
+
+            localStorage.removeItem(
+                'employerSession'
+            );
+
+            alert(
+                'Your employer account access has been revoked by the administrator. You have been logged out.'
+            );
+
+            window.location.href =
+                'employer-login.html';
+        }
+    }
 }
 
 function shareJob() {
@@ -3332,11 +3663,27 @@ function renderJobSeekersTable() {
 }
 
 function calculateProfileCompletion(user) {
-    let completed = 0;
-    const fields = ['location', 'education', 'fieldOfStudy', 'industry', 'experience', 'skills', 'bio', 'cvFileName'];
-    fields.forEach(field => {
-        if (user[field] && user[field] !== '') completed++;
-    });
+
+    if (!user) return 0;
+
+    const fields = [
+        'phone',
+        'location',
+        'education',
+        'fieldOfStudy',
+        'industry',
+        'experience',
+        'skills',
+        'bio',
+        'cvFileName',
+        'coverFileName'
+    ];
+
+    const completed = fields.filter(field => {
+        return user[field] &&
+               String(user[field]).trim() !== '';
+    }).length;
+
     return Math.round((completed / fields.length) * 100);
 }
 
@@ -3396,15 +3743,166 @@ function downloadJobSeekerCV(email) {
 }
 
 function deleteJobSeeker(email) {
-    if (!confirm(`⚠️ Are you sure you want to delete the account for ${email}? This action cannot be undone.`)) return;
 
-    let users = getUsers();
-    users = users.filter(u => u.email !== email);
-    saveUsers(users);
+    if (
+        !confirm(
+            ` Delete the account for ${email}?\n\n` +
+            `This action cannot be undone.`
+        )
+    ) {
+        return;
+    }
 
+    const users = getUsers();
+
+    const user = users.find(
+        u => u.email === email
+    );
+
+    if (!user) {
+        alert('Job seeker account not found.');
+        return;
+    }
+
+    // Remove the account
+    const updatedUsers = users.filter(
+        u => u.email !== email
+    );
+
+    saveUsers(updatedUsers);
+
+    // Refresh admin tables
     renderJobSeekersTable();
     updateAdminStats();
-    alert('✅ Job seeker account deleted successfully.');
+
+    alert(
+        `✅ ${user.fullName || 'Job seeker'}'s account has been deleted successfully.`
+    );
+}
+function deleteEmployer(email) {
+
+    if (
+        !confirm(
+            `⚠️ Delete the employer account for ${email}?\n\n` +
+            `This action cannot be undone.`
+        )
+    ) {
+        return;
+    }
+
+    const users = getUsers();
+
+    const employer = users.find(
+        u =>
+            u.type === 'employer' &&
+            u.email === email
+    );
+
+    if (!employer) {
+        alert('Employer account not found.');
+        return;
+    }
+
+    // Remove employer account
+    const updatedUsers = users.filter(
+        u => u.email !== email
+    );
+
+    saveUsers(updatedUsers);
+
+    // Refresh admin dashboard
+    renderEmployerAdminTable();
+    renderAdminTable();
+    updateAdminStats();
+
+    alert(
+        `✅ ${employer.companyName || 'Employer'}'s account has been deleted successfully.`
+    );
+}
+function normalizeText(value) {
+    return String(value || '')
+        .toLowerCase()
+        .trim();
+}
+
+
+function getRelevantIndustries(user) {
+
+    const allJobs = getAllJobs();
+    const applications = getUserApplications(user.email);
+
+    const industries = new Set();
+
+    // 1. User's selected industry
+    if (user.industry) {
+        industries.add(user.industry);
+    }
+
+    // 2. Industries from jobs already applied for
+    applications.forEach(app => {
+
+        const job = allJobs.find(j => j.id === app.jobId);
+
+        if (job && job.industry) {
+            industries.add(job.industry);
+        }
+    });
+
+    // 3. Industries related to user's skills
+    const skills = normalizeText(user.skills);
+
+    allJobs.forEach(job => {
+
+        const jobText = normalizeText(
+            `${job.title} ${job.industry} ${job.description || ''} ${(job.requirements || []).join(' ')}`
+        );
+
+        const skillWords = skills
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean);
+
+        const skillMatch = skillWords.some(skill =>
+            jobText.includes(skill)
+        );
+
+        if (skillMatch && job.industry) {
+            industries.add(job.industry);
+        }
+    });
+
+    return [...industries].slice(0, 6);
+}
+function renderRelevantIndustries(user) {
+
+    const container =
+        document.getElementById('relevantIndustries');
+
+    if (!container || !user) return;
+
+    const industries = getRelevantIndustries(user);
+
+    if (industries.length === 0) {
+
+        container.innerHTML = `
+            <div class="no-recommendations">
+                <i class="fas fa-compass"></i>
+                <p>
+                    Complete your profile to receive
+                    industry recommendations.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = industries.map(industry => `
+        <span class="industry-chip">
+            <i class="fas fa-briefcase"></i>
+            ${industry}
+        </span>
+    `).join('');
 }
 
 // ============================================================ */
@@ -3458,6 +3956,14 @@ function renderEmployerAdminTable() {
                         <button class="btn btn-warning btn-sm" onclick="resendTempPassword('${emp.email}')" title="Resend Temp Password">
                             <i class="fas fa-key"></i>
                         </button>
+                        <button
+    class="btn btn-danger btn-sm"
+    onclick="deleteEmployer('${emp.email}')"
+    title="Delete Employer"
+>
+    <i class="fas fa-trash"></i>
+    Delete
+</button>
                     ` : ''}
                 </td>
             </tr>
@@ -3678,15 +4184,21 @@ function handleEmployerLogin(e) {
         localStorage.removeItem('awardsRecruitmentRememberMe');
     }
 
-    const isTempPassword = !!employer.tempPassword;
+   // Record employer activity
+employer.lastLoginAt = new Date().toISOString();
+employer.lastActivityAt = new Date().toISOString();
 
-    localStorage.setItem('employerSession', JSON.stringify({
-        email: employer.email,
-        companyName: employer.companyName,
-        loggedIn: true,
-        tempPassword: isTempPassword,
-        isPasswordReset: employer.isPasswordReset || false
-    }));
+saveUsers(users);
+
+const isTempPassword = !!employer.tempPassword;
+
+localStorage.setItem('employerSession', JSON.stringify({
+    email: employer.email,
+    companyName: employer.companyName,
+    loggedIn: true,
+    tempPassword: isTempPassword,
+    isPasswordReset: employer.isPasswordReset || false
+}));
 
     const successOverlay = document.getElementById('successOverlay');
     if (successOverlay) {
@@ -4004,6 +4516,7 @@ function loadEmployerApplications() {
 
     populateJobFilter(employerJobs);
     renderEmployerApplications(employerApplications, employerJobs);
+    renderRecommendedTalent();
 }
 
 function populateJobFilter(jobs) {
@@ -4250,6 +4763,16 @@ function downloadDocument(applicantEmail, docType) {
 // INIT - DOMContentLoaded
 // ============================================================ */
 function initApp() {
+
+    // Check account status
+    monitorAccountStatus();
+
+    // Check again every 5 seconds
+    setInterval(
+        monitorAccountStatus,
+        5000
+    );
+
     // Homepage
     renderCategories();
     renderFeaturedJobs();
@@ -4366,6 +4889,12 @@ function initApp() {
         });
         carousel.addEventListener('mouseleave', () => startFlyerAutoPlay());
     }
+    monitorAccountStatus();
+
+setInterval(
+    monitorAccountStatus,
+    5000
+);
 
     // AOS (if available)
     if (typeof AOS !== 'undefined') {
@@ -4376,8 +4905,246 @@ function initApp() {
             easing: 'ease-out'
         });
     }
+    // ============================================================
+// ACCOUNT STATUS MONITOR
+// Detects when Admin deletes or disables an account
+// ============================================================
+
+function monitorAccountStatus() {
+
+    // ----------------------------------------
+    // JOB SEEKER
+    // ----------------------------------------
+
+    const jobseekerSession = getCurrentUser();
+
+    if (
+        jobseekerSession &&
+        jobseekerSession.loggedIn
+    ) {
+
+        const users = getUsers();
+
+        const account = users.find(
+            u => u.email === jobseekerSession.email
+        );
+
+        // Account no longer exists
+        if (!account) {
+
+            localStorage.removeItem(
+                'awardsRecruitmentCurrentUser'
+            );
+
+            alert(
+                'Your Awards Recruitment account has been deleted by the administrator. You have been logged out.'
+            );
+
+            window.location.href = 'login.html';
+
+            return;
+        }
+
+        // Account exists but has been disabled
+        if (account.accountStatus === 'deleted') {
+
+            localStorage.removeItem(
+                'awardsRecruitmentCurrentUser'
+            );
+
+            alert(
+                'Your Awards Recruitment account has been disabled by the administrator. You have been logged out.'
+            );
+
+            window.location.href = 'login.html';
+
+            return;
+        }
+    }
+
+
+    // ----------------------------------------
+    // EMPLOYER
+    // ----------------------------------------
+
+    const employerSession =
+        getEmployerSession();
+
+    if (
+        employerSession &&
+        employerSession.loggedIn
+    ) {
+
+        const users = getUsers();
+
+        const account = users.find(
+            u =>
+                u.type === 'employer' &&
+                u.email === employerSession.email
+        );
+
+        // Account no longer exists
+        if (!account) {
+
+            localStorage.removeItem(
+                'employerSession'
+            );
+
+            alert(
+                'Your employer account has been deleted by the administrator. You have been logged out.'
+            );
+
+            window.location.href =
+                'employer-login.html';
+
+            return;
+        }
+
+        // Employer access revoked
+        if (
+            account.status === 'rejected' ||
+            account.accountStatus === 'deleted'
+        ) {
+
+            localStorage.removeItem(
+                'employerSession'
+            );
+
+            alert(
+                'Your employer account access has been revoked by the administrator. You have been logged out.'
+            );
+
+            window.location.href =
+                'employer-login.html';
+
+            return;
+        }
+    }
+}
 
     console.log('✅ Awards Recruitment App Initialized Successfully!');
+}
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+function renderRecommendedTalent() {
+
+    const container =
+        document.getElementById(
+            'recommendedTalent'
+        );
+
+    if (!container) return;
+
+    const session =
+        getEmployerSession();
+
+    if (!session) return;
+
+    const recommendations =
+        getRecommendedCandidates(
+            session.email
+        );
+
+    if (recommendations.length === 0) {
+
+        container.innerHTML = `
+            <div class="no-recommendations">
+                <i class="fas fa-search"></i>
+                <h4>No strong matches yet</h4>
+                <p>
+                    As more job seekers complete their profiles,
+                    suitable candidates will appear here.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML =
+        recommendations.map(item => {
+
+            const user = item.candidate;
+
+            return `
+                <div class="talent-card">
+
+                    <div class="talent-avatar">
+                        ${
+                            user.profilePhoto
+                            ? `<img src="${user.profilePhoto}"
+                                    alt="${user.fullName}">`
+                            : `<span>
+                                ${
+                                    (user.fullName || 'U')
+                                    .split(' ')
+                                    .map(n => n[0])
+                                    .join('')
+                                    .substring(0,2)
+                                    .toUpperCase()
+                                }
+                               </span>`
+                        }
+                    </div>
+
+                    <div class="talent-info">
+
+                        <h4>
+                            ${user.fullName || 'Candidate'}
+                        </h4>
+
+                        <p>
+                            <i class="fas fa-briefcase"></i>
+                            ${user.industry || 'Industry not specified'}
+                        </p>
+
+                        <p>
+                            <i class="fas fa-chart-line"></i>
+                            ${user.experience || 'Experience not specified'}
+                        </p>
+
+                        <div class="talent-skills">
+                            ${
+                                user.skills
+                                ? user.skills
+                                    .split(',')
+                                    .slice(0,4)
+                                    .map(skill =>
+                                        `<span>${skill.trim()}</span>`
+                                    )
+                                    .join('')
+                                : ''
+                            }
+                        </div>
+
+                    </div>
+
+                    <div class="match-score">
+
+                        <strong>
+                            ${item.score}%
+                        </strong>
+
+                        <span>Match</span>
+
+                        <button
+                            class="btn btn-outline-primary btn-sm"
+                            onclick="viewRecommendedCandidate('${user.email}')"
+                        >
+                            <i class="fas fa-eye"></i>
+                            View
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+
+        }).join('');
 }
 
 // ============================================================ */
@@ -4418,6 +5185,7 @@ window.resendTempPassword = resendTempPassword;
 window.viewJobSeeker = viewJobSeeker;
 window.downloadJobSeekerCV = downloadJobSeekerCV;
 window.deleteJobSeeker = deleteJobSeeker;
+window.deleteEmployer = deleteEmployer;
 window.viewEmployerJobs = viewEmployerJobs;
 window.handleEmployerRegistration = handleEmployerRegistration;
 window.handleEmployerLogin = handleEmployerLogin;

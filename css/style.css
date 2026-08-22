@@ -174,7 +174,7 @@ header nav ul li a.active {
 }
 
 /* ============================================================ */
-/* HAMBURGER MENU - Complete */
+/* HAMBURGER MENU */
 /* ============================================================ */
 .unique-hamburger {
     display: none;
@@ -376,7 +376,7 @@ header nav ul li a.active {
 }
 
 /* ============================================================ */
-/* HERO SECTION — UNIFIED FOR ALL PAGES */
+/* HERO SECTION */
 /* ============================================================ */
 .hero,
 .page-hero {
@@ -424,8 +424,7 @@ header nav ul li a.active {
     width: 100%;
 }
 
-.hero-content,
-.page-hero-content {
+.hero-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 50px;
@@ -433,12 +432,26 @@ header nav ul li a.active {
     margin-bottom: 40px;
 }
 
+.page-hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
 .hero-text {
     color: #fff;
-    margin-left: 15px;
+    
 }
+
 .page-hero-text {
     color: #fff;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .hero-text .hero-badge {
@@ -454,8 +467,9 @@ header nav ul li a.active {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     position: absolute;
-    top: 20px;
+    top: -50px;
 }
+
 .page-hero-badge {
     display: inline-block;
     background: rgba(244, 122, 32, 0.18);
@@ -479,12 +493,13 @@ header nav ul li a.active {
     font-size: 2.5rem;
     line-height: 1.1;
     font-weight: 900;
-    margin-bottom: 18px;
+    margin-top: -30px !important;
     letter-spacing: -1px;
 }
+
 .page-hero-text h1 {
-    font-size: 2.5rem;
-    line-height: 1.1;
+    font-size: 2.8rem;
+    line-height: 1.2;
     font-weight: 900;
     margin-bottom: 18px;
     letter-spacing: -1px;
@@ -507,19 +522,34 @@ header nav ul li a.active {
     50% { opacity: 0; }
 }
 
-.hero-text p,
-.page-hero-text p {
+.hero-text p {
     font-size: 1.0rem;
     color: #b0c0d0;
     margin-bottom: 20px;
     max-width: 480px;
+    margin-top: 100px;
 }
 
-.hero-buttons,
+.page-hero-text p {
+    font-size: 1.1rem;
+    color: #b0c0d0;
+    margin-bottom: 20px;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
 .page-hero-buttons {
     display: flex;
     gap: 15px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .hero-buttons .btn,
@@ -533,28 +563,19 @@ header nav ul li a.active {
     position: relative;
     display: flex;
     justify-content: center;
-    width: 60%;
-    margin-left: 180px;
-}
-.page-hero-image {
-    position: relative;
-    display: flex;
-    justify-content: center;
+    width: 100%;
 }
 
 .hero-image img {
-    width: 50%;
-    max-width: 500px;
-    border-radius: 20px;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
-    border: 3px solid rgba(244, 122, 32, 0.15);
-}
-.page-hero-image img {
     width: 100%;
     max-width: 500px;
     border-radius: 20px;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
     border: 3px solid rgba(244, 122, 32, 0.15);
+}
+
+.page-hero-image {
+    display: none !important;
 }
 
 .hero-floating-badge {
@@ -632,7 +653,6 @@ header nav ul li a.active {
     gap: 8px;
 }
 
-/* Scroll Indicator */
 .scroll-indicator {
     position: absolute;
     bottom: 15px;
@@ -741,7 +761,6 @@ header nav ul li a.active {
     margin-left: 10px;
 }
 
-/* Carousel Controls */
 .carousel-control {
     position: absolute;
     top: 50%;
@@ -776,7 +795,6 @@ header nav ul li a.active {
     right: 12px;
 }
 
-/* Carousel Indicators */
 .carousel-indicators {
     position: absolute;
     bottom: 12px;
@@ -7442,6 +7460,107 @@ footer {
     gap: 15px;
     align-items: flex-start;
 }
+/* ============================================================ */
+/* STORY EXPERIENCE BADGE - GLOBAL SOLUTIONS */
+/* ============================================================ */
+
+.story-experience-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(244, 122, 32, 0.12);
+    border: 1px solid rgba(244, 122, 32, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    border-radius: 50px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 5;
+}
+
+.story-experience-badge i {
+    color: #f47a20;
+    font-size: 1.3rem;
+}
+
+.story-experience-badge span {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.3px;
+}
+
+/* ============================================================ */
+/* RESPONSIVE - Tablet */
+/* ============================================================ */
+@media (max-width: 991px) {
+    .story-experience-badge {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 16px;
+        gap: 8px;
+        border-radius: 40px;
+    }
+    
+    .story-experience-badge i {
+        font-size: 1.1rem;
+    }
+    
+    .story-experience-badge span {
+        font-size: 0.85rem;
+    }
+}
+
+/* ============================================================ */
+/* RESPONSIVE - Mobile (matches your image) */
+/* ============================================================ */
+@media (max-width: 767px) {
+    .story-experience-badge {
+        bottom: 50px;
+        right: 15px;
+        padding: 8px 14px;
+        gap: 6px;
+        border-radius: 30px;
+        background: rgba(15, 26, 43, 0.92);
+        border: 1px solid rgba(244, 122, 32, 0.12);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    }
+    
+    .story-experience-badge i {
+        font-size: 0.9rem;
+        color: #f47a20;
+    }
+    
+    .story-experience-badge span {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #fff;
+    }
+}
+
+/* ============================================================ */
+/* RESPONSIVE - Very Small (480px and below) */
+/* ============================================================ */
+@media (max-width: 480px) {
+    .story-experience-badge {
+        bottom: 40px;
+        right: 10px;
+        padding: 6px 12px;
+        gap: 5px;
+        border-radius: 20px;
+    }
+    
+    .story-experience-badge i {
+        font-size: 0.75rem;
+    }
+    
+    .story-experience-badge span {
+        font-size: 0.6rem;
+    }
+}
 
 /* ============================================================ */
 /* FLYER MODAL */
@@ -8273,7 +8392,7 @@ footer {
 
 .stories-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
 }
 
@@ -10622,6 +10741,7 @@ footer {
     background: #fff;
     color: #0f1a2b;
 }
+
 /* ============================================================ */
 /* FORM PROGRESS - Additional Styles */
 /* ============================================================ */
@@ -10703,6 +10823,7 @@ footer {
         transform: translateY(0);
     }
 }
+
 /* ============================================================ */
 /* ADMIN DASHBOARD - Enhanced Styles */
 /* ============================================================ */
@@ -10966,10 +11087,10 @@ footer {
 }
 
 /* ============================================================ */
-/* RESPONSIVE — ALL MOBILE STYLES CONSOLIDATED */
+/* RESPONSIVE — CORRECTED MOBILE STYLES */
 /* ============================================================ */
 
-/* Large screens - Desktop Flyer Carousel */
+/* Large screens - Desktop */
 @media (min-width: 992px) {
     .flyer-carousel {
         max-width: 420px;
@@ -11005,156 +11126,195 @@ footer {
     }
 }
 
-/* Medium screens - Tablets and small laptops */
+/* Mobile & Tablet - Up to 991px */
 @media (max-width: 991px) {
     /* ========================================================== */
-    /* HERO - FLYER ON LEFT, TEXT ON RIGHT (MOBILE) */
+    /* HERO - HOME PAGE: Side by side on ALL screens */
     /* ========================================================== */
     
-    /* Hide flyer on all pages except homepage */
-    .page-hero .flyer-carousel {
-        display: none !important;
-    }
-
-    .home-page .flyer-carousel {
-        display: block !important;
-    }
-
-    .hero-content,
-    .page-hero-content {
+    .home-page .hero-content {
         display: grid !important;
         grid-template-columns: 1fr 1fr !important;
         gap: 15px !important;
         align-items: center !important;
-        text-align: left !important;
     }
-
-    /* Flyer on the LEFT */
-    .hero-image,
-    .page-hero-image {
+    
+    .home-page .hero-image {
         order: 0 !important;
         grid-column: 1 / 2 !important;
         display: flex !important;
         justify-content: center !important;
     }
-
-    /* Text on the RIGHT */
-    .hero-text,
-    .page-hero-text {
+    
+    .home-page .hero-image img {
+        max-width: 200px !important;
+        width: 100% !important;
+    }
+    
+    .home-page .hero-text {
         order: 1 !important;
         grid-column: 2 / 3 !important;
         text-align: left !important;
+        margin-left: 0 !important;
     }
-
-    .flyer-carousel {
-        max-width: 200px !important;
-        aspect-ratio: 3 / 4 !important;
-        margin: 0 !important;
-    }
-
-    .hero-image img,
-    .page-hero-image img {
-        max-width: 200px !important;
-    }
-
-    .hero-text h1,
-    .page-hero-text h1 {
-        font-size: 1.1rem !important;
+    
+    .home-page .hero-text h1 {
+        font-size: 0.8rem !important;
         line-height: 1.2 !important;
+        margin-top: 100px !important;
     }
-
-    .hero-text p,
-    .page-hero-text p {
-        font-size: 0.7rem !important;
-        max-width: 100% !important;
+    
+    .home-page .hero-text p {
+        font-size: 0.5rem !important;
+        max-width: 70% !important;
         margin-bottom: 10px !important;
     }
-
-    .hero-buttons .btn,
-    .page-hero-buttons .btn {
+    
+    .home-page .hero-buttons .btn {
         font-size: 0.6rem !important;
         padding: 5px 12px !important;
     }
-
-    .hero-buttons,
-    .page-hero-buttons {
+    
+    .home-page .hero-buttons {
         gap: 6px !important;
         flex-wrap: wrap !important;
     }
-
-    .hero-badge,
-    .page-hero-badge {
+    
+    .home-page .hero-badge {
         font-size: 0.55rem !important;
         padding: 3px 10px !important;
         margin-bottom: 8px !important;
-        position: relative !important;
-        top: auto !important;
+        position: absolute !important;
+        top: 20px !important;
     }
-
-    .flyer-slide-overlay {
+    
+    .home-page .flyer-carousel {
+        max-width: 160px !important;
+        aspect-ratio: 3 / 4 !important;
+        margin: 0 !important;
+    }
+    
+    .home-page .flyer-slide-overlay {
         padding: 6px 8px !important;
     }
-
-    .flyer-slide-overlay h3 {
+    
+    .home-page .flyer-slide-overlay h3 {
         font-size: 0.55rem !important;
         margin-bottom: 2px !important;
     }
-
-    .flyer-slide-overlay p {
+    
+    .home-page .flyer-slide-overlay p {
         font-size: 0.45rem !important;
         margin-bottom: 4px !important;
     }
-
-    .flyer-slide-overlay .flyer-tag {
+    
+    .home-page .flyer-slide-overlay .flyer-tag {
         font-size: 0.4rem !important;
         padding: 1px 6px !important;
     }
-
-    .flyer-slide-overlay .flyer-ref {
+    
+    .home-page .flyer-slide-overlay .flyer-ref {
         font-size: 0.4rem !important;
         margin-left: 4px !important;
     }
-
-    .carousel-control {
+    
+    .home-page .carousel-control {
         width: 18px !important;
         height: 18px !important;
         font-size: 0.45rem !important;
     }
-
-    .carousel-control.prev {
+    
+    .home-page .carousel-control.prev {
         left: 3px !important;
     }
-
-    .carousel-control.next {
+    
+    .home-page .carousel-control.next {
         right: 3px !important;
     }
-
-    .carousel-indicators {
+    
+    .home-page .carousel-indicators {
         bottom: 6px !important;
         gap: 4px !important;
     }
-
-    .carousel-indicators .indicator {
+    
+    .home-page .carousel-indicators .indicator {
         width: 4px !important;
         height: 4px !important;
     }
-
-    .carousel-indicators .indicator.active {
+    
+    .home-page .carousel-indicators .indicator.active {
         width: 10px !important;
     }
-
-    .hero-floating-badge {
+    
+    .home-page .hero-floating-badge {
         display: none !important;
     }
-
-    .scroll-indicator {
+    
+    .home-page .scroll-indicator {
         display: none !important;
     }
-
-    .search-box {
+    
+    .home-page .search-box {
         display: none !important;
     }
-
+    
+    /* ========================================================== */
+    /* HERO - OTHER PAGES: No image, centered text */
+    /* ========================================================== */
+    
+    .page-hero-content {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+    
+    .page-hero-image {
+        display: none !important;
+    }
+    
+    .page-hero-text {
+        text-align: center !important;
+        padding: 0 15px !important;
+        width: 100% !important;
+    }
+    
+    .page-hero-text h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    .page-hero-text p {
+        font-size: 0.95rem !important;
+        max-width: 100% !important;
+        margin: 0 auto 15px !important;
+    }
+    
+    .page-hero-badge {
+        font-size: 0.7rem !important;
+        padding: 4px 14px !important;
+        margin-bottom: 12px !important;
+        display: inline-block !important;
+        position: relative !important;
+        top: auto !important;
+    }
+    
+    .page-hero-buttons {
+        justify-content: center !important;
+        gap: 10px !important;
+    }
+    
+    .page-hero-buttons .btn {
+        font-size: 0.8rem !important;
+        padding: 8px 18px !important;
+    }
+    
+    .page-hero {
+        min-height: auto !important;
+        padding: 80px 0 40px !important;
+    }
+    
     /* ========================================================== */
     /* NAVBAR - Mobile */
     /* ========================================================== */
@@ -11334,8 +11494,7 @@ footer {
     .partner-testimonials-grid,
     .about-testimonials-grid,
     .service-testimonials-grid,
-    .consulting-testimonials-grid,
-    .service-testimonials-grid {
+    .consulting-testimonials-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 20px !important;
     }
@@ -12167,143 +12326,86 @@ footer {
     }
 }
 
-/* Extra small screens - Mobile phones */
+/* Extra small screens - Mobile phones (767px and below) */
 @media (max-width: 767px) {
-    /* ========================================================== */
-    /* HERO - STACK VERTICALLY (Flyer Top, Text Bottom) */
-    /* ========================================================== */
-    .page-hero .flyer-carousel {
-        display: none !important;
+    /* Home page - keep side by side */
+    .home-page .hero-content {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+        align-items: center !important;
     }
-
+    
+    .home-page .hero-image img {
+        max-width: 140px !important;
+        margin-left: 20px;
+    }
+    
+    .home-page .hero-text h1 {
+        font-size: 0.5rem !important;
+    }
+    
+    .home-page .hero-text p {
+        font-size: 0.3rem !important;
+    }
+    
+    .home-page .hero-buttons .btn {
+        font-size: 0.55rem !important;
+        padding: 4px 10px !important;
+    }
+    
     .home-page .flyer-carousel {
-        display: block !important;
+        max-width: 130px !important;
     }
-
-    .hero-content,
-    .page-hero-content {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
-        text-align: center !important;
+    
+    .home-page .flyer-slide-overlay h3 {
+        font-size: 0.45rem !important;
     }
-
-    /* Flyer on TOP */
-    .hero-image,
-    .page-hero-image {
-        grid-column: 1 / 2 !important;
-        display: flex !important;
-        justify-content: center !important;
-        order: 0 !important;
+    
+    .home-page .flyer-slide-overlay p {
+        font-size: 0.4rem !important;
     }
-
-    /* Text on BOTTOM */
-    .hero-text,
-    .page-hero-text {
-        grid-column: 1 / 2 !important;
-        text-align: center !important;
-        order: 1 !important;
+    
+    .home-page .flyer-slide-overlay .flyer-tag {
+        font-size: 0.35rem !important;
+        padding: 0 4px !important;
     }
-
-    .flyer-carousel {
-        max-width: 220px !important;
-        aspect-ratio: 3 / 4 !important;
-        margin: 0 auto !important;
+    
+    .home-page .carousel-control {
+        width: 14px !important;
+        height: 14px !important;
+        font-size: 0.35rem !important;
     }
-
-    .hero-image img,
-    .page-hero-image img {
-        max-width: 220px !important;
-    }
-
-    .hero-text h1,
+    
+    /* Other pages - centered text, no image */
     .page-hero-text h1 {
-        font-size: 1.4rem !important;
+        font-size: 1.5rem !important;
     }
-
-    .hero-text p,
+    
     .page-hero-text p {
         font-size: 0.85rem !important;
-        max-width: 100% !important;
-        margin: 0 auto 12px !important;
     }
-
-    .hero-buttons .btn,
+    
+    .page-hero {
+        padding: 70px 0 30px !important;
+    }
+    
     .page-hero-buttons .btn {
         font-size: 0.75rem !important;
-        padding: 8px 18px !important;
+        padding: 6px 14px !important;
     }
-
-    .hero-buttons,
+    
     .page-hero-buttons {
-        justify-content: center !important;
         gap: 8px !important;
-    }
-
-    .hero-badge,
-    .page-hero-badge {
-        font-size: 0.65rem !important;
-        padding: 4px 14px !important;
-        margin-bottom: 10px !important;
-        position: relative !important;
-        top: auto !important;
-    }
-
-    .flyer-slide-overlay {
-        padding: 10px 10px 8px !important;
-    }
-
-    .flyer-slide-overlay h3 {
-        font-size: 0.7rem !important;
-    }
-
-    .flyer-slide-overlay p {
-        font-size: 0.55rem !important;
-    }
-
-    .flyer-slide-overlay .flyer-tag {
-        font-size: 0.45rem !important;
-        padding: 1px 8px !important;
-    }
-
-    .flyer-slide-overlay .flyer-ref {
-        font-size: 0.45rem !important;
-    }
-
-    .carousel-control {
-        width: 24px !important;
-        height: 24px !important;
-        font-size: 0.55rem !important;
-    }
-
-    .carousel-control.prev {
-        left: 5px !important;
-    }
-
-    .carousel-control.next {
-        right: 5px !important;
-    }
-
-    .carousel-indicators {
-        bottom: 8px !important;
-        gap: 6px !important;
-    }
-
-    .carousel-indicators .indicator {
-        width: 6px !important;
-        height: 6px !important;
-    }
-
-    .carousel-indicators .indicator.active {
-        width: 14px !important;
     }
 
     /* ========================================================== */
     /* NAVBAR - Small Mobile */
     /* ========================================================== */
     header .logo .logo-icon {
-        width: 32px !important;
-        height: 32px !important;
-        font-size: 0.9rem !important;
+        width: 35px !important;
+        height: 3px !important;
+       
     }
 
     header .logo span {
@@ -12332,7 +12434,7 @@ footer {
     }
 
     /* ========================================================== */
-    /* STATS GRIDS - Single column on small */
+    /* STATS GRIDS */
     /* ========================================================== */
     .stats .container,
     .page-stats-grid,
@@ -12462,8 +12564,7 @@ footer {
     .partner-testimonials-grid,
     .about-testimonials-grid,
     .service-testimonials-grid,
-    .consulting-testimonials-grid,
-    .service-testimonials-grid {
+    .consulting-testimonials-grid {
         grid-template-columns: 1fr !important;
         gap: 15px !important;
     }
@@ -13424,84 +13525,111 @@ footer {
     }
 }
 
-/* Extra small screens - Very small mobile phones */
+/* Extra small screens - Very small mobile phones (480px and below) */
 @media (max-width: 480px) {
-    /* ========================================================== */
-    /* HERO - Stack vertical */
-    /* ========================================================== */
-    .hero,
-    .page-hero {
-        min-height: 50vh !important;
-        padding: 70px 0 30px !important;
+    /* Home page - keep side by side but smaller */
+    .home-page .hero-content {
+        gap: 10px !important;
     }
-
-    .hero-text h1,
-    .page-hero-text h1 {
-        font-size: 1.5rem !important;
+    
+    .home-page .hero-image img {
+        max-width: 110px !important;
     }
-
-    .hero-text p,
-    .page-hero-text p {
+    
+    .home-page .hero-text h1 {
         font-size: 0.85rem !important;
+        margin-bottom: 6px !important;
     }
-
-    .hero-buttons .btn,
-    .page-hero-buttons .btn {
-        font-size: 0.8rem !important;
-        padding: 8px 18px !important;
+    
+    .home-page .hero-text p {
+        font-size: 0.55rem !important;
+        margin-bottom: 6px !important;
     }
-
-    .hero-image img,
-    .page-hero-image img {
-        max-width: 220px !important;
+    
+    .home-page .hero-buttons .btn {
+        font-size: 0.45rem !important;
+        padding: 3px 8px !important;
     }
-
-    .flyer-carousel {
-        max-width: 220px !important;
-        aspect-ratio: 3 / 4 !important;
+    
+    .home-page .hero-badge {
+        font-size: 0.45rem !important;
+        padding: 2px 8px !important;
+        margin-bottom: 4px !important;
     }
-
-    .flyer-slide-overlay {
-        padding: 10px 10px 8px !important;
+    
+    .home-page .flyer-carousel {
+        max-width: 100px !important;
     }
-
-    .flyer-slide-overlay h3 {
-        font-size: 0.75rem !important;
+    
+    .home-page .flyer-slide-overlay h3 {
+        font-size: 0.4rem !important;
     }
-
-    .flyer-slide-overlay p {
-        font-size: 0.6rem !important;
+    
+    .home-page .flyer-slide-overlay p {
+        font-size: 0.35rem !important;
+        margin-bottom: 2px !important;
     }
-
-    .flyer-slide-overlay .flyer-tag {
-        font-size: 0.5rem !important;
-        padding: 1px 8px !important;
+    
+    .home-page .flyer-slide-overlay .flyer-tag {
+        font-size: 0.3rem !important;
+        padding: 0 3px !important;
     }
-
-    .carousel-control {
-        width: 26px !important;
-        height: 26px !important;
-        font-size: 0.6rem !important;
-    }
-
-    .carousel-indicators .indicator {
-        width: 6px !important;
-        height: 6px !important;
-    }
-
-    .carousel-indicators .indicator.active {
-        width: 16px !important;
-    }
-
-    .hero-floating-badge {
+    
+    .home-page .flyer-slide-overlay .flyer-ref {
         display: none !important;
     }
-
-    .hero-badge {
+    
+    .home-page .carousel-control {
+        width: 12px !important;
+        height: 12px !important;
+        font-size: 0.3rem !important;
+    }
+    
+    .home-page .carousel-indicators {
+        bottom: 4px !important;
+        gap: 3px !important;
+    }
+    
+    .home-page .carousel-indicators .indicator {
+        width: 4px !important;
+        height: 4px !important;
+    }
+    
+    .home-page .carousel-indicators .indicator.active {
+        width: 8px !important;
+    }
+    
+    /* Other pages - centered text */
+    .page-hero-text h1 {
+        font-size: 1.3rem !important;
+    }
+    
+    .page-hero-text p {
+        font-size: 0.8rem !important;
+    }
+    
+    .page-hero {
+        padding: 60px 0 25px !important;
+    }
+    
+    .page-hero-buttons {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+    
+    .page-hero-buttons .btn {
+        width: 100% !important;
+        max-width: 220px !important;
+        justify-content: center !important;
         font-size: 0.7rem !important;
-        padding: 4px 14px !important;
-        position: relative !important;
-        top: auto !important;
+        padding: 6px 14px !important;
+    }
+    
+    .page-hero-badge {
+        font-size: 0.6rem !important;
+        padding: 3px 12px !important;
+        margin-bottom: 8px !important;
     }
 
     /* ========================================================== */
@@ -14566,5 +14694,1560 @@ footer {
 
     .success-overlay-content .loading-bar {
         width: 160px !important;
+    }
+}
+
+
+/* About page hero - tablet */
+@media (max-width: 991px) {
+    .about-hero .page-hero-content {
+        min-height: 300px !important;
+        padding: 20px 0 !important;
+    }
+    
+    .about-hero .page-hero-text h1 {
+        font-size: 2rem !important;
+    }
+    
+    .about-hero .page-hero-text p {
+        font-size: 1rem !important;
+    }
+}
+
+/* About page hero - mobile */
+@media (max-width: 767px) {
+    .about-hero .page-hero-content {
+        min-height: 250px !important;
+        padding: 15px 0 !important;
+    }
+    
+    .about-hero .page-hero-text h1 {
+        font-size: 1.6rem !important;
+    }
+    
+    .about-hero .page-hero-text p {
+        font-size: 0.9rem !important;
+        padding: 0 10px !important;
+    }
+    
+    .about-hero .page-hero-badge {
+        font-size: 0.65rem !important;
+        padding: 4px 14px !important;
+    }
+    
+    .about-hero .page-hero-buttons .btn {
+        font-size: 0.75rem !important;
+        padding: 6px 14px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero .page-hero-content {
+        min-height: 200px !important;
+        padding: 10px 0 !important;
+    }
+    
+    .about-hero .page-hero-text h1 {
+        font-size: 1.3rem !important;
+    }
+    
+    .about-hero .page-hero-text p {
+        font-size: 0.8rem !important;
+    }
+    
+    .about-hero .page-hero-buttons {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+    
+    .about-hero .page-hero-buttons .btn {
+        width: 100% !important;
+        max-width: 220px !important;
+        justify-content: center !important;
+        font-size: 0.7rem !important;
+        padding: 6px 14px !important;
+    }
+}
+
+/* ============================================================ */
+/* ABOUT PAGE - ALL SECTIONS VERTICAL STACKING ON MOBILE */
+/* ============================================================ */
+
+/* 1. Our Story - stack vertically */
+@media (max-width: 767px) {
+    .our-story-content {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        gap: 20px !important;
+    }
+
+    .our-story-text {
+        order: 1 !important;
+        width: 100% !important;
+    }
+
+    .our-story-text h2 {
+        font-size: 1.6rem !important;
+    }
+
+    .our-story-text p {
+        text-align: center !important;
+        font-size: 0.9rem !important;
+    }
+
+    .our-story-image {
+        order: 0 !important;
+        width: 100% !important;
+        max-width: 320px !important;
+        margin: 0 auto !important;
+    }
+
+    .our-story-image img {
+        width: 100% !important;
+        max-height: 220px !important;
+        object-fit: cover !important;
+        border-radius: 12px !important;
+    }
+
+    .story-experience-badge {
+        position: relative !important;
+        bottom: auto !important;
+        right: auto !important;
+        margin-top: -30px !important;
+        display: inline-flex !important;
+        padding: 10px 16px !important;
+        border-radius: 10px !important;
+        gap: 8px !important;
+        align-items: center !important;
+    }
+
+    .story-experience-badge span {
+        font-size: 1.6rem !important;
+        display: inline !important;
+    }
+
+    .story-experience-badge p {
+        font-size: 0.7rem !important;
+        display: inline !important;
+        margin-top: 0 !important;
+    }
+
+    .our-story-highlights {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .highlight-item {
+        text-align: left !important;
+        padding: 10px 14px !important;
+    }
+}
+
+/* 2. Mission & Vision - stack vertically */
+@media (max-width: 767px) {
+    .mission-vision-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    .mission-card,
+    .vision-card {
+        width: 100% !important;
+        padding: 25px 20px !important;
+        text-align: center !important;
+    }
+
+    .mission-card h2,
+    .vision-card h2 {
+        font-size: 1.4rem !important;
+    }
+
+    .mission-card p,
+    .vision-card p {
+        font-size: 0.9rem !important;
+    }
+
+    .mission-list li,
+    .vision-list li {
+        justify-content: center !important;
+        font-size: 0.85rem !important;
+    }
+
+    .mission-icon,
+    .vision-icon {
+        margin: 0 auto 15px !important;
+    }
+
+    .mission-tag,
+    .vision-tag {
+        display: inline-block !important;
+        margin: 0 auto 10px !important;
+    }
+}
+
+/* 3. Core Values - stack vertically */
+@media (max-width: 767px) {
+    .values-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        align-items: center !important;
+    }
+
+    .value-card {
+        width: 100% !important;
+        max-width: 400px !important;
+        padding: 20px 18px !important;
+        text-align: center !important;
+    }
+
+    .value-card h3 {
+        font-size: 1rem !important;
+    }
+
+    .value-card p {
+        font-size: 0.85rem !important;
+    }
+
+    .value-icon {
+        margin: 0 auto 15px !important;
+    }
+
+    .value-number {
+        font-size: 2rem !important;
+        right: 10px !important;
+        top: 5px !important;
+    }
+}
+
+/* 4. Services (What We Do) - stack vertically */
+@media (max-width: 767px) {
+    .services-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        align-items: center !important;
+    }
+
+    .service-card {
+        width: 100% !important;
+        max-width: 400px !important;
+        padding: 20px 18px !important;
+        text-align: center !important;
+    }
+
+    .service-card h3 {
+        font-size: 1rem !important;
+    }
+
+    .service-card p {
+        font-size: 0.85rem !important;
+    }
+
+    .service-icon {
+        margin: 0 auto 15px !important;
+    }
+}
+
+/* 5. Testimonials - stack vertically */
+@media (max-width: 767px) {
+    .about-testimonials-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        align-items: center !important;
+    }
+
+    .about-testimonial-card {
+        width: 100% !important;
+        max-width: 400px !important;
+        padding: 20px !important;
+        text-align: center !important;
+    }
+
+    .about-testimonial-card p {
+        font-size: 0.9rem !important;
+    }
+
+    .about-testimonial-author {
+        justify-content: center !important;
+    }
+
+    .about-testimonial-stars {
+        text-align: center !important;
+    }
+}
+
+/* 6. Stats - stack vertically on small */
+@media (max-width: 480px) {
+    .about-stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .about-stat-item .about-stat-number {
+        font-size: 1.3rem !important;
+    }
+
+    .about-stat-item p {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* 7. Section Headers - center properly */
+@media (max-width: 767px) {
+    .section-header h2 {
+        font-size: 1.5rem !important;
+    }
+
+    .section-header p {
+        font-size: 0.85rem !important;
+        padding: 0 15px !important;
+    }
+
+    .section-tag {
+        font-size: 0.6rem !important;
+        padding: 3px 14px !important;
+    }
+}
+
+/* 8. CTA Section - stack buttons */
+@media (max-width: 767px) {
+    .cta-simple-buttons {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .cta-simple-buttons .btn {
+        width: 100% !important;
+        max-width: 280px !important;
+        justify-content: center !important;
+    }
+
+    .cta-simple-content h2 {
+        font-size: 1.5rem !important;
+    }
+
+    .cta-simple-content p {
+        font-size: 0.9rem !important;
+        padding: 0 15px !important;
+    }
+}
+
+/* 9. Team Section - stack */
+@media (max-width: 767px) {
+    .team-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        align-items: center !important;
+    }
+
+    .team-card {
+        width: 100% !important;
+        max-width: 320px !important;
+    }
+
+    .team-image {
+        height: 200px !important;
+    }
+
+    .team-info h4 {
+        font-size: 0.95rem !important;
+    }
+
+    .team-info span {
+        font-size: 0.8rem !important;
+    }
+
+    .team-info p {
+        font-size: 0.8rem !important;
+    }
+}
+
+
+
+
+
+
+/* Desktop / normal screens */
+@media (min-width: 992px) {
+
+    .home-page .hero {
+        min-height: 520px !important;
+        padding: 90px 0 40px !important;
+    }
+
+    .home-page .hero-content {
+        display: grid !important;
+        grid-template-columns: 1.2fr 0.8fr !important;
+        gap: 50px !important;
+        align-items: center !important;
+        margin-bottom: 40px !important;
+    }
+
+    .home-page .hero-text {
+        width: 100% !important;
+        min-height: 300px !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+
+        text-align: left !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /*
+       Keep the typing animation from changing
+       the height of the hero.
+    */
+    .home-page .hero-text h1 {
+        min-height: 80px !important;
+        margin: 0 0 10px 0 !important;
+    }
+
+    .home-page .hero-image {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .home-page .flyer-carousel {
+        width: 100% !important;
+        max-width: 330px !important;
+    }
+}
+
+
+/* ============================================================ */
+/* RESPONSIVE - Tablet */
+/* ============================================================ */
+@media (max-width: 991px) {
+    .home-page .hero {
+        padding: 60px 0 25px !important;
+    }
+    
+    .home-page .hero-content {
+        gap: 15px !important;
+    }
+    
+    .home-page .hero-text {
+        min-height: 180px !important;
+        max-height: 180px !important;
+    }
+    
+    .home-page .hero-text h1 {
+        font-size: 1.1rem !important;
+        height: 38px !important;
+        min-height: 38px !important;
+        max-height: 38px !important;
+    }
+    
+    .home-page .hero-text h1 .typing-wrapper {
+        font-size: 1.1rem !important;
+        height: 32px !important;
+        min-height: 32px !important;
+        max-height: 32px !important;
+        line-height: 32px !important;
+    }
+    
+    .home-page .hero-text h1 .typing-wrapper::after {
+        font-size: 0.9rem !important;
+        line-height: 32px !important;
+    }
+    
+    .home-page .hero-text p {
+        font-size: 0.6rem !important;
+        height: 24px !important;
+        min-height: 24px !important;
+        max-height: 24px !important;
+    }
+    
+    .home-page .hero-badge {
+        font-size: 0.45rem !important;
+        padding: 2px 10px !important;
+        height: 22px !important;
+        margin-bottom: 6px !important;
+    }
+    
+    .home-page .hero-buttons {
+        height: 32px !important;
+        min-height: 32px !important;
+        max-height: 32px !important;
+    }
+    
+    .home-page .hero-buttons .btn {
+        font-size: 0.5rem !important;
+        padding: 3px 10px !important;
+    }
+    
+    .home-page .hero-image {
+        min-height: 250px !important;
+        max-height: 250px !important;
+        height: 250px !important;
+    }
+    
+    .home-page .flyer-carousel {
+        max-width: 200px !important;
+        height: 230px !important;
+        min-height: 230px !important;
+        max-height: 230px !important;
+    }
+}
+
+/* ============================================================ */
+/* RESPONSIVE - Mobile */
+/* ============================================================ */
+@media (max-width: 767px) {
+    .home-page .hero {
+        padding: 50px 0 20px !important;
+    }
+    
+    .home-page .hero-content {
+        gap: 10px !important;
+        grid-template-columns: 1fr 1fr !important;
+    }
+    
+    .home-page .hero-text {
+        min-height: 140px !important;
+        max-height: 140px !important;
+    }
+    
+    .home-page .hero-text h1 {
+        font-size: 0.85rem !important;
+        height: 30px !important;
+        min-height: 30px !important;
+        max-height: 30px !important;
+        margin-bottom: 3px !important;
+    }
+    
+    .home-page .hero-text h1 .typing-wrapper {
+        font-size: 0.85rem !important;
+        height: 24px !important;
+        min-height: 24px !important;
+        max-height: 24px !important;
+        line-height: 24px !important;
+    }
+    
+    .home-page .hero-text h1 .typing-wrapper::after {
+        font-size: 0.7rem !important;
+        line-height: 24px !important;
+    }
+    
+    .home-page .hero-text p {
+        font-size: 0.5rem !important;
+        height: 20px !important;
+        min-height: 20px !important;
+        max-height: 20px !important;
+        margin-bottom: 4px !important;
+        line-height: 1.2 !important;
+    }
+    
+    .home-page .hero-badge {
+        font-size: 0.4rem !important;
+        padding: 2px 8px !important;
+        height: 18px !important;
+        margin-bottom: 4px !important;
+    }
+    
+    .home-page .hero-buttons {
+        height: 28px !important;
+        min-height: 28px !important;
+        max-height: 28px !important;
+        gap: 5px !important;
+    }
+    
+    .home-page .hero-buttons .btn {
+        font-size: 0.4rem !important;
+        padding: 2px 8px !important;
+    }
+    
+    .home-page .hero-image {
+        min-height: 180px !important;
+        max-height: 180px !important;
+        height: 180px !important;
+    }
+    
+    .home-page .flyer-carousel {
+        max-width: 130px !important;
+        height: 165px !important;
+        min-height: 165px !important;
+        max-height: 165px !important;
+    }
+}
+
+/* ============================================================ */
+/* RESPONSIVE - Very Small */
+/* ============================================================ */
+@media (max-width: 480px) {
+    .home-page .hero {
+        padding: 40px 0 15px !important;
+    }
+    
+    .home-page .hero-content {
+        gap: 6px !important;
+    }
+    
+    .home-page .hero-text {
+        min-height: 110px !important;
+        max-height: 110px !important;
+    }
+    
+    .home-page .hero-text h1 {
+        font-size: 0.7rem !important;
+        height: 24px !important;
+        min-height: 24px !important;
+        max-height: 24px !important;
+        margin-bottom: 2px !important;
+    }
+    
+    .home-page .hero-text h1 .typing-wrapper {
+        font-size: 0.7rem !important;
+        height: 20px !important;
+        min-height: 20px !important;
+        max-height: 20px !important;
+        line-height: 20px !important;
+    }
+    
+    .home-page .hero-text h1 .typing-wrapper::after {
+        font-size: 0.6rem !important;
+        line-height: 20px !important;
+    }
+    
+    .home-page .hero-text p {
+        font-size: 0.4rem !important;
+        height: 16px !important;
+        min-height: 16px !important;
+        max-height: 16px !important;
+        margin-bottom: 3px !important;
+        line-height: 1.2 !important;
+    }
+    
+    .home-page .hero-badge {
+        font-size: 0.35rem !important;
+        padding: 1px 6px !important;
+        height: 16px !important;
+        margin-bottom: 3px !important;
+    }
+    
+    .home-page .hero-buttons {
+        height: 22px !important;
+        min-height: 22px !important;
+        max-height: 22px !important;
+        gap: 4px !important;
+    }
+    
+    .home-page .hero-buttons .btn {
+        font-size: 0.35rem !important;
+        padding: 2px 6px !important;
+    }
+    
+    .home-page .hero-image {
+        min-height: 130px !important;
+        max-height: 130px !important;
+        height: 130px !important;
+    }
+    
+    .home-page .flyer-carousel {
+        max-width: 90px !important;
+        height: 120px !important;
+        min-height: 120px !important;
+        max-height: 120px !important;
+    }
+}
+/* ============================================================
+   HOMEPAGE HERO - CLEAN RESPONSIVE FIX
+   Paste this at the VERY BOTTOM of your CSS
+   ============================================================ */
+
+/* ---------- DESKTOP ---------- */
+.home-page .hero-content {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    align-items: center !important;
+    gap: 40px !important;
+}
+
+.home-page .hero-text {
+    width: 100% !important;
+    min-height: 300px !important;
+    max-height: none !important;
+    height: auto !important;
+    justify-content: center !important;
+}
+
+.home-page .hero-image {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 350px !important;
+    max-height: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.home-page .flyer-carousel {
+    width: 100% !important;
+    max-width: 280px !important;
+    height: 350px !important;
+    min-height: 350px !important;
+    max-height: 350px !important;
+}
+
+
+/* ============================================================
+   TABLET - 768px to 991px
+   ============================================================ */
+
+@media (max-width: 991px) {
+
+    .home-page .hero {
+        padding: 70px 20px 30px !important;
+    }
+
+    .home-page .hero-content {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr) !important;
+        gap: 25px !important;
+    }
+
+    .home-page .hero-text {
+        min-height: 280px !important;
+        height: auto !important;
+    }
+
+    .home-page .hero-text h1 {
+        font-size: 2rem !important;
+        line-height: 1.15 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+    }
+
+    .home-page .hero-text h1 .typing-wrapper {
+        font-size: 2rem !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        line-height: 1.15 !important;
+    }
+
+    .home-page .hero-text p {
+        font-size: 0.9rem !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        line-height: 1.5 !important;
+    }
+
+    .home-page .hero-buttons {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        gap: 10px !important;
+    }
+
+    .home-page .hero-buttons .btn {
+        font-size: 0.8rem !important;
+        padding: 9px 16px !important;
+    }
+
+    .home-page .hero-image {
+        min-height: 300px !important;
+        height: auto !important;
+    }
+
+    .home-page .flyer-carousel {
+        max-width: 230px !important;
+        height: 290px !important;
+        min-height: 290px !important;
+        max-height: 290px !important;
+    }
+}
+
+
+/* ============================================================
+   MOBILE - 481px to 767px
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+    .home-page .hero {
+        padding: 55px 15px 25px !important;
+    }
+
+    /*
+       Keep text + flyer SIDE BY SIDE,
+       but give the text more room.
+    */
+    .home-page .hero-content {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+        gap: 12px !important;
+        align-items: center !important;
+    }
+
+    .home-page .hero-text {
+        min-height: 260px !important;
+        height: auto !important;
+        max-height: none !important;
+        justify-content: center !important;
+    }
+
+    /* Badge */
+    .home-page .hero-badge {
+        position: static !important;
+        width: fit-content !important;
+        max-width: 100% !important;
+        height: auto !important;
+        font-size: 0.58rem !important;
+        padding: 5px 9px !important;
+        margin: 0 0 10px 0 !important;
+        white-space: nowrap !important;
+    }
+
+    /* Heading */
+    .home-page .hero-text h1 {
+        font-size: 1.65rem !important;
+        line-height: 1.15 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        margin: 0 0 10px 0 !important;
+        display: block !important;
+        overflow: visible !important;
+    }
+
+    .home-page .hero-text h1 .typing-wrapper {
+        font-size: 1.65rem !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        line-height: 1.15 !important;
+        white-space: normal !important;
+        overflow: visible !important;
+    }
+
+    .home-page .hero-text h1 .typing-wrapper::after {
+        font-size: 1.4rem !important;
+        line-height: 1 !important;
+    }
+
+    /* Description */
+    .home-page .hero-text p {
+        font-size: 0.78rem !important;
+        line-height: 1.45 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        margin: 0 0 14px 0 !important;
+    }
+
+    /* Buttons */
+    .home-page .hero-buttons {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+    }
+
+    .home-page .hero-buttons .btn {
+        font-size: 0.7rem !important;
+        padding: 8px 13px !important;
+        width: auto !important;
+        white-space: nowrap !important;
+    }
+
+    /* Flyer */
+    .home-page .hero-image {
+        min-height: 260px !important;
+        max-height: none !important;
+        height: auto !important;
+        width: 100% !important;
+    }
+
+    .home-page .flyer-carousel {
+        width: 100% !important;
+        max-width: 175px !important;
+        height: 235px !important;
+        min-height: 235px !important;
+        max-height: 235px !important;
+        border-radius: 14px !important;
+    }
+
+    /* Carousel arrows */
+    .home-page .flyer-carousel .carousel-control {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* Indicators */
+    .home-page .flyer-carousel .carousel-indicators {
+        bottom: 7px !important;
+    }
+
+    .home-page .flyer-carousel .carousel-indicators span,
+    .home-page .flyer-carousel .carousel-indicators button {
+        width: 8px !important;
+        height: 8px !important;
+    }
+}
+
+
+/* ============================================================
+   SMALL PHONES - 376px to 480px
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    .home-page .hero {
+        padding: 48px 12px 20px !important;
+    }
+
+    .home-page .hero-content {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+        gap: 8px !important;
+    }
+
+    .home-page .hero-text {
+        min-height: 240px !important;
+    }
+
+    .home-page .hero-badge {
+        font-size: 0.5rem !important;
+        padding: 4px 7px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .home-page .hero-text h1 {
+        font-size: 1.35rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .home-page .hero-text h1 .typing-wrapper {
+        font-size: 1.35rem !important;
+        line-height: 1.15 !important;
+    }
+
+    .home-page .hero-text h1 .typing-wrapper::after {
+        font-size: 1.15rem !important;
+    }
+
+    .home-page .hero-text p {
+        font-size: 0.68rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 12px !important;
+    }
+
+    .home-page .hero-buttons {
+        gap: 7px !important;
+    }
+
+    .home-page .hero-buttons .btn {
+        font-size: 0.62rem !important;
+        padding: 7px 11px !important;
+    }
+
+    .home-page .hero-image {
+        min-height: 235px !important;
+    }
+
+    .home-page .flyer-carousel {
+        max-width: 150px !important;
+        height: 205px !important;
+        min-height: 205px !important;
+        max-height: 205px !important;
+        border-radius: 12px !important;
+    }
+
+    .home-page .flyer-carousel .carousel-control {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.7rem !important;
+    }
+}
+
+
+/* ============================================================
+   VERY SMALL PHONES - 320px to 375px
+   ============================================================ */
+
+@media (max-width: 375px) {
+
+    .home-page .hero {
+        padding: 45px 10px 18px !important;
+    }
+
+    .home-page .hero-content {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+        gap: 6px !important;
+    }
+
+    .home-page .hero-text {
+        min-height: 220px !important;
+    }
+
+    .home-page .hero-badge {
+        font-size: 0.44rem !important;
+        padding: 3px 6px !important;
+    }
+
+    .home-page .hero-text h1 {
+        font-size: 1.15rem !important;
+    }
+
+    .home-page .hero-text h1 .typing-wrapper {
+        font-size: 1.15rem !important;
+    }
+
+    .home-page .hero-text h1 .typing-wrapper::after {
+        font-size: 1rem !important;
+    }
+
+    .home-page .hero-text p {
+        font-size: 0.6rem !important;
+        line-height: 1.35 !important;
+    }
+
+    .home-page .hero-buttons .btn {
+        font-size: 0.55rem !important;
+        padding: 6px 9px !important;
+    }
+
+    .home-page .hero-image {
+        min-height: 215px !important;
+    }
+
+    .home-page .flyer-carousel {
+        max-width: 130px !important;
+        height: 180px !important;
+        min-height: 180px !important;
+        max-height: 180px !important;
+    }
+
+    .home-page .flyer-carousel .carousel-control {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.6rem !important;
+    }
+}
+/* ============================================================
+   HOMEPAGE HERO - ACTUAL FIX
+   ============================================================ */
+
+.home-page .hero-content {
+    display: grid !important;
+    grid-template-columns: 1.15fr 0.85fr !important;
+    align-items: start !important;
+    gap: 15px !important;
+}
+
+/* Keep the text column fixed */
+.home-page .hero-text {
+    display: block !important;
+    width: 100% !important;
+    height: 260px !important;
+    min-height: 260px !important;
+    max-height: 260px !important;
+    margin: 0 !important;
+    padding: 15px 0 0 !important;
+}
+
+/* Keep heading in a fixed box */
+.home-page .hero-text h1 {
+    display: block !important;
+    width: 100% !important;
+    height: 55px !important;
+    min-height: 55px !important;
+    max-height: 55px !important;
+    margin: 0 0 10px !important;
+    overflow: hidden !important;
+    line-height: 1.15 !important;
+}
+
+/* FIX THE TYPING AREA */
+.home-page .typing-wrapper {
+    display: inline-block !important;
+
+    width: 150px !important;
+    height: 35px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
+
+    line-height: 35px !important;
+
+    overflow: hidden !important;
+    white-space: nowrap !important;
+
+    vertical-align: top !important;
+}
+
+/* Paragraph gets its own permanent space */
+.home-page .hero-text p {
+    display: block !important;
+
+    width: 100% !important;
+    height: 55px !important;
+    min-height: 55px !important;
+    max-height: 55px !important;
+
+    margin: 0 0 10px !important;
+
+    line-height: 1.45 !important;
+    overflow: hidden !important;
+}
+
+/* Buttons don't participate in typing layout */
+.home-page .hero-buttons {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+
+    height: auto !important;
+}
+
+/* ============================================================
+   FLYER - COMPLETELY FIXED POSITION
+   ============================================================ */
+
+.home-page .hero-image {
+    display: flex !important;
+
+    align-items: flex-start !important;
+    justify-content: center !important;
+
+    width: 100% !important;
+
+    height: 260px !important;
+    min-height: 260px !important;
+    max-height: 260px !important;
+
+    padding-top: 15px !important;
+    margin: 0 !important;
+}
+
+.home-page .flyer-carousel {
+    position: relative !important;
+
+    width: 150px !important;
+    max-width: 150px !important;
+
+    height: 205px !important;
+    min-height: 205px !important;
+    max-height: 205px !important;
+
+    margin: 0 !important;
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    .home-page .hero-content {
+        grid-template-columns: 1.15fr 0.85fr !important;
+        align-items: start !important;
+        gap: 8px !important;
+    }
+
+    .home-page .hero-text {
+        height: 240px !important;
+        min-height: 240px !important;
+        max-height: 240px !important;
+        padding-top: 10px !important;
+    }
+
+    .home-page .hero-text h1 {
+        height: 48px !important;
+        min-height: 48px !important;
+        max-height: 48px !important;
+        font-size: 1.3rem !important;
+    }
+
+    .home-page .typing-wrapper {
+        width: 135px !important;
+        min-width: 135px !important;
+        max-width: 135px !important;
+
+        height: 30px !important;
+        min-height: 30px !important;
+        max-height: 30px !important;
+
+        line-height: 30px !important;
+        font-size: 1.3rem !important;
+    }
+
+    .home-page .hero-text p {
+        height: 50px !important;
+        min-height: 50px !important;
+        max-height: 50px !important;
+
+        font-size: 0.67rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .home-page .hero-image {
+        height: 240px !important;
+        min-height: 240px !important;
+        max-height: 240px !important;
+
+        padding-top: 10px !important;
+    }
+
+    .home-page .flyer-carousel {
+        width: 145px !important;
+        max-width: 145px !important;
+
+        height: 195px !important;
+        min-height: 195px !important;
+        max-height: 195px !important;
+    }
+}
+/* ============================================================
+   AWARDS RECRUITMENT - FINAL MOBILE HERO/CAROUSEL POSITION
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   HERO LAYOUT
+   Text LEFT | Flyer RIGHT
+   ------------------------------------------------------------ */
+
+.home-page .hero-content {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+    align-items: start !important;
+    gap: 15px !important;
+}
+
+
+/* ------------------------------------------------------------
+   TEXT SIDE
+   ------------------------------------------------------------ */
+
+.home-page .hero-text {
+    order: 1 !important;
+    grid-column: 1 / 2 !important;
+
+    width: 100% !important;
+    margin: 0 !important;
+
+    align-self: start !important;
+}
+
+
+/* ------------------------------------------------------------
+   FLYER SIDE
+   ------------------------------------------------------------ */
+
+.home-page .hero-image {
+    order: 2 !important;
+    grid-column: 2 / 3 !important;
+
+    width: 100% !important;
+
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    align-self: start !important;
+}
+
+
+/* ------------------------------------------------------------
+   CAROUSEL CONTAINER
+   ------------------------------------------------------------ */
+
+.home-page .flyer-carousel {
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 165px !important;
+
+    height: 220px !important;
+    min-height: 220px !important;
+    max-height: 220px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    border-radius: 16px !important;
+
+    overflow: hidden !important;
+
+    background: #0f1a2b !important;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+
+/* ------------------------------------------------------------
+   CAROUSEL INTERNAL CONTAINER
+   ------------------------------------------------------------ */
+
+.home-page .flyer-carousel-container {
+    position: relative !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+}
+
+
+/* ------------------------------------------------------------
+   SLIDE
+   ------------------------------------------------------------ */
+
+.home-page .flyer-slide {
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+}
+
+
+/* ------------------------------------------------------------
+   FLYER IMAGE
+   FORCE IMAGE TO STAY INSIDE THE CARD
+   ------------------------------------------------------------ */
+
+.home-page .flyer-slide img {
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    object-fit: cover !important;
+
+    transform: none !important;
+}
+
+
+/* ------------------------------------------------------------
+   CAROUSEL INFORMATION
+   ------------------------------------------------------------ */
+
+.home-page .flyer-slide-overlay {
+    position: absolute !important;
+
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    padding: 28px 8px 20px !important;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(15, 26, 43, 0.2) 20%,
+            rgba(15, 26, 43, 0.92) 75%,
+            rgba(15, 26, 43, 0.98) 100%
+        ) !important;
+
+    z-index: 5 !important;
+}
+
+
+/* Job title */
+.home-page .flyer-slide-overlay h3 {
+    font-size: 0.65rem !important;
+    line-height: 1.15 !important;
+
+    margin: 0 0 3px !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+
+/* Company/location */
+.home-page .flyer-slide-overlay p {
+    font-size: 0.45rem !important;
+    line-height: 1.25 !important;
+
+    margin: 0 0 5px !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+
+/* Tag */
+.home-page .flyer-slide-overlay .flyer-tag {
+    font-size: 0.38rem !important;
+
+    padding: 2px 6px !important;
+
+    line-height: 1.2 !important;
+}
+
+
+/* Reference */
+.home-page .flyer-slide-overlay .flyer-ref {
+    font-size: 0.38rem !important;
+
+    margin-left: 4px !important;
+}
+
+
+/* ------------------------------------------------------------
+   PREVIOUS / NEXT
+   ------------------------------------------------------------ */
+
+.home-page .carousel-control {
+    width: 26px !important;
+    height: 26px !important;
+
+    padding: 0 !important;
+
+    font-size: 0.6rem !important;
+
+    z-index: 20 !important;
+}
+
+.home-page .carousel-control.prev {
+    left: 5px !important;
+}
+
+.home-page .carousel-control.next {
+    right: 5px !important;
+}
+
+
+/* ------------------------------------------------------------
+   INDICATORS
+   ------------------------------------------------------------ */
+
+.home-page .carousel-indicators {
+    bottom: 5px !important;
+
+    gap: 4px !important;
+
+    z-index: 25 !important;
+}
+
+.home-page .carousel-indicators .indicator {
+    width: 5px !important;
+    height: 5px !important;
+}
+
+.home-page .carousel-indicators .indicator.active {
+    width: 13px !important;
+    height: 5px !important;
+}
+
+
+/* ============================================================
+   SMALL PHONES
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    .home-page .hero-content {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+        gap: 8px !important;
+        align-items: start !important;
+    }
+
+    .home-page .hero-text {
+        grid-column: 1 / 2 !important;
+        order: 1 !important;
+    }
+
+    .home-page .hero-image {
+        grid-column: 2 / 3 !important;
+        order: 2 !important;
+    }
+
+    .home-page .flyer-carousel {
+        width: 100% !important;
+        max-width: 150px !important;
+
+        height: 200px !important;
+        min-height: 200px !important;
+        max-height: 200px !important;
+
+        border-radius: 14px !important;
+    }
+
+    .home-page .carousel-control {
+        width: 25px !important;
+        height: 25px !important;
+    }
+}
+
+
+/* ============================================================
+   VERY SMALL PHONES
+   ============================================================ */
+
+@media (max-width: 375px) {
+
+    .home-page .hero-content {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+        gap: 6px !important;
+    }
+
+    .home-page .flyer-carousel {
+        max-width: 140px !important;
+
+        height: 188px !important;
+        min-height: 188px !important;
+        max-height: 188px !important;
+    }
+
+    .home-page .carousel-control {
+        width: 23px !important;
+        height: 23px !important;
+
+        font-size: 0.55rem !important;
     }
 }
