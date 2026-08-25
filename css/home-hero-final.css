@@ -1,0 +1,215 @@
+/* HOME PAGE HERO ONLY. No navbar/menu or global code is modified. */
+.home-page .home-flyer-hero {
+    position: relative !important;
+    width: 100% !important;
+    height: calc(100vh - 76px) !important;
+    min-height: 560px !important;
+    margin: 76px 0 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #081827 !important;
+}
+
+.home-page .home-hero-split {
+    position: absolute !important;
+    inset: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* LEFT HALF */
+.home-page .home-hero-copy {
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    max-width: 50% !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    margin: 0 !important;
+    padding: clamp(36px, 5vw, 78px) clamp(30px, 5vw, 76px) !important;
+    overflow: hidden !important;
+    background: #081827 !important;
+    color: #fff !important;
+}
+
+.home-page .home-hero-copy .hero-badge {
+    position: static !important;
+    width: auto !important;
+    margin: 0 0 20px !important;
+    padding: 7px 14px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(244,122,32,.35) !important;
+    background: rgba(244,122,32,.10) !important;
+    color: #f47a20 !important;
+    font-size: .72rem !important;
+    font-weight: 800 !important;
+    letter-spacing: .08em !important;
+}
+
+.home-page .home-hero-copy h1 {
+    margin: 0 0 20px !important;
+    padding: 0 !important;
+    color: #fff !important;
+    font-size: clamp(2.8rem, 5vw, 5.1rem) !important;
+    line-height: .98 !important;
+    font-weight: 900 !important;
+    letter-spacing: -.045em !important;
+}
+
+.home-page .home-hero-copy h1 .typing-wrapper {
+    color: #f47a20 !important;
+    white-space: nowrap !important;
+}
+
+.home-page .home-hero-copy > p {
+    max-width: 560px !important;
+    margin: 0 0 28px !important;
+    color: #c4d1de !important;
+    font-size: clamp(.95rem, 1.15vw, 1.1rem) !important;
+    line-height: 1.7 !important;
+}
+
+.home-page .home-hero-copy .hero-buttons {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    margin: 0 !important;
+}
+
+/* RIGHT HALF */
+.home-page .home-flyer-background {
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    max-width: 50% !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #102331 !important;
+    border-left: 1px solid rgba(255,255,255,.10) !important;
+}
+
+.home-page .home-flyer-background .flyer-carousel,
+.home-page .home-flyer-background .flyer-carousel-container {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #102331 !important;
+}
+
+.home-page .home-flyer-background .flyer-slide {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #102331 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translate3d(100%,0,0) !important;
+    transition: transform .8s cubic-bezier(.65,0,.35,1), opacity .25s ease !important;
+    z-index: 1 !important;
+}
+
+.home-page .home-flyer-background .flyer-slide.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translate3d(0,0,0) !important;
+    z-index: 3 !important;
+}
+
+.home-page .home-flyer-background .flyer-slide.previous {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translate3d(-100%,0,0) !important;
+    z-index: 2 !important;
+}
+
+/* COMPLETE FLYER: preserve its real proportions. */
+.home-page .home-flyer-background .flyer-slide > img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* The artwork already contains its own copy. */
+.home-page .home-flyer-background .flyer-slide-overlay {
+    display: none !important;
+}
+
+.home-page .home-flyer-hero > .scroll-indicator {
+    position: absolute !important;
+    top: auto !important;
+    left: 50% !important;
+    bottom: 14px !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    z-index: 20 !important;
+    margin: 0 !important;
+}
+
+/* MOBILE: flyer only. Hamburger/nav is untouched. */
+@media (max-width: 767px) {
+    .home-page .home-flyer-hero {
+        height: calc(100vh - 56px) !important;
+        min-height: 0 !important;
+        margin-top: 56px !important;
+    }
+
+    .home-page .home-hero-split {
+        position: absolute !important;
+        inset: 0 !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .home-page .home-hero-copy {
+        display: none !important;
+    }
+
+    .home-page .home-flyer-background {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        border-left: 0 !important;
+    }
+
+    .home-page .home-flyer-hero > .scroll-indicator {
+        display: none !important;
+    }
+}

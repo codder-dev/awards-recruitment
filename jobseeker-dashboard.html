@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard – Awards Recruitment Ltd</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <link rel="icon" href="images/company.jpg" type="image/x-icon" />
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- HEADER -->
+    <!-- ============================================================ -->
+    <header class="glass-nav" id="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" class="brand-text-link">
+                    <span class="brand-name">Awards <span>Recruitment Limited</span></span>
+                </a>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="job-seekers.html" class="active">Job Seekers</a></li>
+                    <li><a href="careers.html">Job Posts</a></li>
+                    <li><a href="employers.html">Employers</a></li>
+                    <li><a href="partners.html">Partners</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="create-account.html" class="btn btn-outline">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </a>
+                <a href="register.html" class="btn btn-primary">
+                    <i class="fas fa-user-check"></i> Register
+                </a>
+            </div>
+
+            <div class="hamburger unique-hamburger" onclick="toggleMenu()">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- DASHBOARD -->
+    <!-- ============================================================ -->
+    <section class="dashboard-page" id="dashboardPage">
+        <div class="container">
+
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">
+                        <img id="profilePhotoDisplay" src="" alt="Profile" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:none;" />
+                        <span id="avatarInitials" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:1.5rem;font-weight:700;color:#fff;background:linear-gradient(135deg, #f47a20, #d96a18);border-radius:50%;"></span>
+                    </div>
+                    <div class="user-details">
+                        <h1 id="userName">Welcome Back!</h1>
+                        <p><i class="fas fa-circle" style="color:#22c55e;font-size:0.5rem;"></i> Active Member</p>
+                    </div>
+                </div>
+                <div class="user-actions">
+                    <a href="edit-profile.html" class="btn btn-primary btn-sm">
+                        <i class="fas fa-user-edit"></i> Edit Profile
+                    </a>
+                    <a href="careers.html" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-search"></i> Find Jobs
+                    </a>
+                    <a href="index.html" class="btn btn-outline-danger btn-sm" onclick="logoutUser()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="dashboard-stats-grid">
+                <div class="dashboard-stat-card">
+                    <div class="stat-icon purple"><i class="fas fa-paper-plane"></i></div>
+                    <div class="stat-info">
+                        <h3 id="totalApplications">0</h3>
+                        <p>Total Applications</p>
+                    </div>
+                </div>
+                <div class="dashboard-stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info">
+                        <h3 id="pendingApplications">0</h3>
+                        <p>Pending Review</p>
+                    </div>
+                </div>
+                <div class="dashboard-stat-card">
+                    <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-info">
+                        <h3 id="shortlistedApplications">0</h3>
+                        <p>Shortlisted</p>
+                    </div>
+                </div>
+                <div class="dashboard-stat-card">
+                    <div class="stat-icon orange"><i class="fas fa-bookmark"></i></div>
+                    <div class="stat-info">
+                        <h3 id="savedJobsCount">0</h3>
+                        <p>Saved Jobs</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Completion Status -->
+            <div class="profile-completion" style="background:#fff;border-radius:16px;padding:20px 25px;margin-bottom:30px;border:1px solid #eee;">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+                    <div>
+                        <h4 style="font-size:1rem;color:#0f1a2b;"><i class="fas fa-chart-line" style="color:#f47a20;"></i> Profile Completion</h4>
+                        <p style="font-size:0.85rem;color:#6b7a8a;" id="profileCompletionText">Complete your profile to increase your chances of getting hired</p>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:15px;">
+                        <div style="width:150px;height:8px;background:#e8ecf0;border-radius:4px;overflow:hidden;">
+                            <div id="profileCompletionBar" style="height:100%;width:0%;background:linear-gradient(90deg,#f47a20,#22c55e);border-radius:4px;transition:width 0.8s ease;"></div>
+                        </div>
+                        <span id="profileCompletionPercent" style="font-weight:700;color:#f47a20;font-size:1.1rem;">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Layout -->
+            <div class="dashboard-layout">
+
+                <!-- Left Column — Full Profile -->
+                <div class="dashboard-applications" style="grid-column:1/-1;">
+                    <div class="section-title">
+                        <h3><i class="fas fa-user-circle" style="color:#f47a20;margin-right:8px;"></i> My Profile</h3>
+                        <a href="edit-profile.html" class="btn btn-primary btn-sm">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </a>
+                    </div>
+                    
+                    <div class="profile-full" id="fullProfile">
+                        <!-- Rendered by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Applications -->
+                <div class="dashboard-applications">
+                    <div class="section-title">
+                        <h3><i class="fas fa-list-ul" style="color:#f47a20;margin-right:8px;"></i> Recent Applications</h3>
+                        <a href="#">View All</a>
+                    </div>
+                    <div class="application-list" id="applicationList">
+                        <!-- Rendered by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Saved Jobs -->
+                <div class="dashboard-sidebar">
+                    <div class="dashboard-card">
+                        <div class="card-title">
+                            <i class="fas fa-bookmark" style="color:#f47a20;margin-right:8px;"></i> 
+                            Saved Jobs
+                            <span id="savedJobsCountBadge" style="background:#f47a20;color:#fff;border-radius:50%;padding:0 8px;font-size:0.7rem;margin-left:8px;">0</span>
+                        </div>
+                        <div id="savedJobsList">
+                            <!-- Rendered by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <section class="dashboard-card recommendation-card">
+
+    <div class="card-title">
+        <div>
+            <i class="fas fa-compass"></i>
+            Relevant Industries
+        </div>
+    </div>
+
+    <p class="recommendation-subtitle">
+        Industries and opportunities that match your profile
+        and application history.
+    </p>
+
+    <div id="relevantIndustries"
+         class="industry-chips">
+    </div>
+
+</section>
+<section class="dashboard-card recommendation-card">
+
+    <div class="card-title">
+        <div>
+            <i class="fas fa-bullseye"></i>
+            Recommended Opportunities
+        </div>
+    </div>
+
+    <div id="recommendedJobs">
+    </div>
+
+</section>
+
+     <!-- ============================================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================================ -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                         <span>Awards <span>Recruitment</span> Limited</span>
+                        
+                    </div>
+                    <p>Premier Talent resourcing and outsourcing solutions tailored to meet the unique needs of businesses worldwide.</p>
+                    <div class="social-links">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-linkedin-in"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li><a href="job-seekers.html">Job Seekers</a></li>
+                            <li><a href="careers.html">Job Posts</a></li>
+                            <li><a href="employers.html">Employers</a></li>
+                            <li><a href="partners.html">Partners</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>For Employers</h4>
+                        <ul>
+                            <li><a href="register.html">Register</a></li>
+                            <li><a href="employer-login.html">Login</a></li>
+                            <li><a href="post-job.html">Post a Job</a></li>
+                            <li><a href="pre-screened-candidates.html">Pre-Screened Candidates</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>For Job Seekers</h4>
+                        <ul>
+                            <li><a href="create-account.html">Create Account</a></li>
+                            <li><a href="login.html">Login</a></li>
+                            <li><a href="login.html">Dashboard</a></li>
+                            <li><a href="careers.html">Browse Jobs</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i> Finance House, 8th Floor, Loita Street</li>
+                            <li><i class="fas fa-phone"></i> +254 741 979 797</li>
+                            <li><i class="fas fa-envelope"></i> careers@awardsrecruitment.com</li>
+                            <li><i class="fas fa-clock"></i> Mon – Fri: 8AM – 6PM</li>
+                            <li><i class="fas fa-clock"></i>Sartuday 8:00AM - 1PM</li>                                
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+                      <div class="footer-bottom">
+    <div class="footer-bottom-left">
+        <p>&copy; 2026 <strong>Awards Recruitment Ltd</strong>. All Rights Reserved.</p>
+    </div>
+    <div class="footer-bottom-right">
+        <a href="terms.html">Terms</a>
+        <a href="privacy-policy.html">Privacy</a>
+    </div>
+</div>
+        </div>
+        </div>
+    </footer>
+
+    <button id="backToTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
